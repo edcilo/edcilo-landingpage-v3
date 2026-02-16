@@ -1,0 +1,51 @@
+---
+import Container from './Container.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+	{ href: '/', label: 'Home' },
+	{ href: '#about', label: 'About' },
+	{ href: '#projects', label: 'Projects' },
+	{ href: '#contact', label: 'Contact' },
+];
+---
+
+<header
+	class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg"
+>
+	<Container>
+		<nav
+			class="flex h-16 items-center justify-between"
+			aria-label="Main navigation"
+		>
+			<a
+				href="/"
+				class="flex items-center hover:opacity-80 transition-opacity"
+				aria-label="edcilo — Home"
+			>
+				<img
+					src="/logo.svg"
+					alt="edcilo logo"
+					class="h-8 w-auto dark:invert"
+					width="101"
+					height="32"
+				/>
+			</a>
+			<div class="flex items-center gap-1">
+				<div class="hidden items-center gap-1 md:flex">
+					{
+						navLinks.map((link) => (
+							<a
+								href={link.href}
+								class="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+							>
+								{link.label}
+							</a>
+						))
+					}
+				</div>
+				<ThemeToggle />
+			</div>
+		</nav>
+	</Container>
+</header>
