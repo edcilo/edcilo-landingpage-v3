@@ -1,0 +1,32 @@
+---
+import { SKILL_CATEGORIES } from '../data/skills';
+import SectionHeading from './SectionHeading.astro';
+import SkillCategoryCard from './SkillCategoryCard.astro';
+---
+
+<section
+	id="skills"
+	class="border-t border-dashed border-border py-16 sm:py-24"
+	aria-labelledby="skills-heading"
+>
+	<SectionHeading
+		id="skills-heading"
+		title="Skills & Technologies"
+		subtitle="Technologies I work with daily"
+	/>
+
+	<!-- Bento grid: 1 col mobile, 2 cols desktop, Backend spans full left column -->
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+		{
+			SKILL_CATEGORIES.map((category, index) => (
+				<SkillCategoryCard
+					title={category.title}
+					icon={category.icon}
+					skills={category.skills}
+					groups={category.groups}
+					class={index === 0 ? 'md:row-span-3' : undefined}
+				/>
+			))
+		}
+	</div>
+</section>

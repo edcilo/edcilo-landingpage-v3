@@ -56,7 +56,8 @@ const { navLinks } = Astro.props;
 			navLinks.map((link) => (
 				<a
 					href={link.href}
-					class="drawer-link rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+					data-nav-link={link.href}
+					class="drawer-link nav-link rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 				>
 					{link.label}
 				</a>

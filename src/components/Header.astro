@@ -4,7 +4,8 @@ import ThemeToggle from './ThemeToggle.astro';
 import MobileDrawer from './MobileDrawer.astro';
 
 const navLinks = [
-	{ href: '/', label: 'Home' },
+	{ href: '#hero', label: 'Home' },
+	{ href: '#skills', label: 'Skills' },
 	{ href: '#about', label: 'About' },
 	{ href: '#projects', label: 'Projects' },
 	{ href: '#contact', label: 'Contact' },
@@ -38,7 +39,8 @@ const navLinks = [
 						navLinks.map((link) => (
 							<a
 								href={link.href}
-								class="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+								data-nav-link={link.href}
+								class="nav-link rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 							>
 								{link.label}
 							</a>
@@ -76,3 +78,48 @@ const navLinks = [
 </header>
 
 <MobileDrawer navLinks={navLinks} />
+
+<script>
+	function initActiveNav(): void {
+		const navLinks =
+			document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
+		const sections = new Map<string, Element>();
+
+		navLinks.forEach((link) => {
+			const href = link.getAttribute('data-nav-link');
+			if (!href || !href.startsWith('#')) return;
+			const section = document.querySelector(href);
+			if (section) sections.set(href, section);
+		});
+
+		function setActive(hash: string): void {
+			navLinks.forEach((link) => {
+				const linkHash = link.getAttribute('data-nav-link');
+				if (linkHash === hash) {
+					link.classList.remove('text-muted-foreground');
+					link.classList.add('text-foreground');
+				} else {
+					link.classList.add('text-muted-foreground');
+					link.classList.remove('text-foreground');
+				}
+			});
+		}
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						const id = entry.target.getAttribute('id');
+						if (id) setActive(`#${id}`);
+					}
+				}
+			},
+			{ rootMargin: '-50% 0px -50% 0px' },
+		);
+
+		sections.forEach((section) => observer.observe(section));
+	}
+
+	initActiveNav();
+	document.addEventListener('astro:page-load', initActiveNav);
+</script>
