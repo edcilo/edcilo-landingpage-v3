@@ -2,6 +2,11 @@
 import { PROJECTS } from '../data/projects';
 import SectionHeading from './SectionHeading.astro';
 import ProjectCard from './ProjectCard.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <section
@@ -11,8 +16,8 @@ import ProjectCard from './ProjectCard.astro';
 >
 	<SectionHeading
 		id="projects-heading"
-		title="Projects"
-		subtitle="Some things I've built"
+		title={t('projects.title')}
+		subtitle={t('projects.subtitle')}
 	/>
 
 	<!-- Grid: 1 col mobile, 3 cols desktop -->
@@ -21,7 +26,7 @@ import ProjectCard from './ProjectCard.astro';
 			PROJECTS.map((project) => (
 				<ProjectCard
 					title={project.title}
-					description={project.description}
+					description={t(project.descriptionKey)}
 					url={project.url}
 					cover={project.cover}
 					tech={project.tech}

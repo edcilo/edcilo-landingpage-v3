@@ -5,6 +5,13 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
 	site: 'https://edcilo.com',
+	i18n: {
+		defaultLocale: 'es',
+		locales: ['es', 'en'],
+		routing: {
+			prefixDefaultLocale: false,
+		},
+	},
 	integrations: [sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

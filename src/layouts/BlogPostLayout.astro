@@ -1,6 +1,12 @@
 ---
 import Layout from './Layout.astro';
 import SkillPill from '../components/SkillPill.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import {
+	useTranslations,
+	getLocalizedPath,
+	getDateLocale,
+} from '../i18n/utils';
 
 interface Props {
 	title: string;
@@ -11,13 +17,16 @@ interface Props {
 }
 
 const { title, description, date, updatedDate, tags } = Astro.props;
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+const dateLocale = getDateLocale(locale);
 ---
 
 <Layout title={`${title} — edcilo`} description={description}>
 	<article class="mx-auto max-w-3xl py-16 sm:py-24">
 		<!-- Back link -->
 		<a
-			href="/blog"
+			href={getLocalizedPath('/blog', locale)}
 			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
 		>
 			<svg
@@ -34,7 +43,7 @@ const { title, description, date, updatedDate, tags } = Astro.props;
 					stroke-linejoin="round"
 					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
 			</svg>
-			Back to blog
+			{t('blog.backToBlog')}
 		</a>
 
 		<!-- Post header -->
@@ -44,7 +53,7 @@ const { title, description, date, updatedDate, tags } = Astro.props;
 				class="font-mono text-sm text-muted-foreground"
 			>
 				{
-					date.toLocaleDateString('en-US', {
+					date.toLocaleDateString(dateLocale, {
 						year: 'numeric',
 						month: 'long',
 						day: 'numeric',
@@ -54,8 +63,8 @@ const { title, description, date, updatedDate, tags } = Astro.props;
 			{
 				updatedDate && (
 					<span class="ml-2 font-mono text-sm text-muted-foreground">
-						(Updated:{' '}
-						{updatedDate.toLocaleDateString('en-US', {
+						({t('blog.updated')}{' '}
+						{updatedDate.toLocaleDateString(dateLocale, {
 							year: 'numeric',
 							month: 'long',
 							day: 'numeric',
@@ -95,8 +104,8 @@ const { title, description, date, updatedDate, tags } = Astro.props;
 			updatedDate && (
 				<footer class="mt-12 border-t border-dashed border-border pt-4">
 					<p class="font-mono text-sm text-muted-foreground">
-						Last updated on{' '}
-						{updatedDate.toLocaleDateString('en-US', {
+						{t('blog.lastUpdated')}{' '}
+						{updatedDate.toLocaleDateString(dateLocale, {
 							year: 'numeric',
 							month: 'long',
 							day: 'numeric',

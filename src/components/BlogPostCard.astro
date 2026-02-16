@@ -1,5 +1,7 @@
 ---
 import SkillPill from './SkillPill.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { getLocalizedPath, getDateLocale } from '../i18n/utils';
 
 interface Props {
 	title: string;
@@ -10,6 +12,8 @@ interface Props {
 }
 
 const { title, description, date, tags, slug } = Astro.props;
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const dateLocale = getDateLocale(locale);
 ---
 
 <article
@@ -23,7 +27,7 @@ const { title, description, date, tags, slug } = Astro.props;
 	</div>
 
 	<a
-		href={`/blog/${slug}`}
+		href={getLocalizedPath(`/blog/${slug}`, locale)}
 		class="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 		aria-label={`Read post: ${title}`}
 	>
@@ -33,7 +37,7 @@ const { title, description, date, tags, slug } = Astro.props;
 			class="font-mono text-xs text-muted-foreground"
 		>
 			{
-				date.toLocaleDateString('en-US', {
+				date.toLocaleDateString(dateLocale, {
 					year: 'numeric',
 					month: 'short',
 					day: 'numeric',

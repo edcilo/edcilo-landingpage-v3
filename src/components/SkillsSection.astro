@@ -2,6 +2,11 @@
 import { SKILL_CATEGORIES } from '../data/skills';
 import SectionHeading from './SectionHeading.astro';
 import SkillCategoryCard from './SkillCategoryCard.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <section
@@ -18,8 +23,8 @@ import SkillCategoryCard from './SkillCategoryCard.astro';
 	</div>
 	<SectionHeading
 		id="skills-heading"
-		title="Skills & Technologies"
-		subtitle="Technologies I work with daily"
+		title={t('skills.title')}
+		subtitle={t('skills.subtitle')}
 	/>
 
 	<!-- Bento grid: 1 col mobile, 2 cols desktop, Backend spans full left column -->

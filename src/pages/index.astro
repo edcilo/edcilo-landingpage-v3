@@ -4,12 +4,14 @@ import HeroSection from '../components/HeroSection.astro';
 import SkillsSection from '../components/SkillsSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import LatestPosts from '../components/LatestPosts.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
-<Layout
-	title="edcilo — Fullstack Developer"
-	description="Eduardo Cifuentes López — Fullstack Developer con 12+ años de experiencia en Ciudad de México."
->
+<Layout title={t('meta.title')} description={t('meta.description')}>
 	<HeroSection />
 	<SkillsSection />
 	<ProjectsSection />

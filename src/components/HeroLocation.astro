@@ -1,5 +1,9 @@
 ---
-// HeroLocation.astro — Location display with map pin icon
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <p
@@ -24,5 +28,5 @@
 			d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
 		></path>
 	</svg>
-	Ciudad de México, MX
+	{t('hero.location')}
 </p>

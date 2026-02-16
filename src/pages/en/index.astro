@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import SkillsSection from '../../components/SkillsSection.astro';
+import ProjectsSection from '../../components/ProjectsSection.astro';
+import LatestPosts from '../../components/LatestPosts.astro';
+import { DEFAULT_LOCALE } from '../../i18n/config';
+import { useTranslations } from '../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout title={t('meta.title')} description={t('meta.description')}>
+	<HeroSection />
+	<SkillsSection />
+	<ProjectsSection />
+	<LatestPosts />
+</Layout>

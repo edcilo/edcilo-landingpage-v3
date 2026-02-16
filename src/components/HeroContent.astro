@@ -3,12 +3,17 @@ import HeroBadge from './HeroBadge.astro';
 import HeroLocation from './HeroLocation.astro';
 import HeroCTAs from './HeroCTAs.astro';
 import HeroStats from './HeroStats.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <div
 	class="flex w-full max-w-3xl flex-col items-center gap-6 text-center font-mono"
 >
-	<HeroBadge label="Fullstack Developer" />
+	<HeroBadge label={t('hero.badge')} />
 
 	<h1
 		class="text-4xl font-bold font-mono tracking-tight leading-[1.1] sm:text-5xl lg:text-6xl"
@@ -23,8 +28,7 @@ import HeroStats from './HeroStats.astro';
 	<p
 		class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
 	>
-		Apasionado por aprender y experimentar. Construyo experiencias web que
-		importan.
+		{t('hero.bio')}
 	</p>
 
 	<HeroCTAs />

@@ -2,6 +2,11 @@
 import { getCollection } from 'astro:content';
 import SectionHeading from './SectionHeading.astro';
 import BlogPostCard from './BlogPostCard.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 
 const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -23,8 +28,8 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 			/>
 			<SectionHeading
 				id="latest-posts-heading"
-				title="Latest Posts"
-				subtitle="From the blog"
+				title={t('latestPosts.title')}
+				subtitle={t('latestPosts.subtitle')}
 			/>
 
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
@@ -41,10 +46,10 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 
 			<div class="mt-8 text-center">
 				<a
-					href="/blog"
+					href={getLocalizedPath('/blog', locale)}
 					class="inline-flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
-					View all posts
+					{t('latestPosts.viewAll')}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"

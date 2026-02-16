@@ -1,0 +1,27 @@
+---
+import { DEFAULT_LOCALE } from '../i18n/config';
+
+const currentLocale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const currentPath = Astro.url.pathname;
+
+function getAlternatePath(path: string, targetLocale: string): string {
+	const cleanPath = path
+		.replace(/^\/(en|es)\//, '/')
+		.replace(/^\/(en|es)$/, '/');
+	if (targetLocale === DEFAULT_LOCALE) return cleanPath;
+	return `/${targetLocale}${cleanPath}`;
+}
+
+const alternateLocale = currentLocale === 'es' ? 'en' : 'es';
+const alternatePath = getAlternatePath(currentPath, alternateLocale);
+---
+
+<a
+	href={alternatePath}
+	class="rounded-md px-2 py-1 font-mono text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+	aria-label={alternateLocale === 'en'
+		? 'Switch to English'
+		: 'Cambiar a Español'}
+>
+	{alternateLocale.toUpperCase()}
+</a>

@@ -1,5 +1,9 @@
 ---
-// HeroStats.astro — Experience statistics with vertical divider
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <div
@@ -8,7 +12,7 @@
 	<div class="text-center">
 		<p class="text-2xl font-bold font-mono tracking-tight">12+</p>
 		<p class="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-			Años de exp.
+			{t('hero.stats.years')}
 		</p>
 	</div>
 
@@ -17,7 +21,7 @@
 	<div class="text-center">
 		<p class="text-2xl font-bold font-mono tracking-tight">+20</p>
 		<p class="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-			Proyectos
+			{t('hero.stats.projects')}
 		</p>
 	</div>
 </div>

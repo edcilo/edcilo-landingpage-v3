@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Container from '../components/Container.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
 
 interface Props {
 	title: string;
@@ -13,10 +14,27 @@ const {
 	title,
 	description = 'Software Engineer — Personal website of edcilo',
 } = Astro.props;
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const currentPath = Astro.url.pathname;
+
+// Compute alternate locale path
+function getAlternatePath(path: string, targetLocale: string): string {
+	// Remove current locale prefix if present
+	const cleanPath = path
+		.replace(/^\/(en|es)\//, '/')
+		.replace(/^\/(en|es)$/, '/');
+	if (targetLocale === DEFAULT_LOCALE) return cleanPath;
+	return `/${targetLocale}${cleanPath}`;
+}
+
+const siteUrl = 'https://edcilo.com';
+const esPath = getAlternatePath(currentPath, 'es');
+const enPath = getAlternatePath(currentPath, 'en');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +43,11 @@ const {
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<!-- hreflang tags -->
+		<link rel="alternate" hreflang="es" href={`${siteUrl}${esPath}`} />
+		<link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />
+		<link rel="alternate" hreflang="x-default" href={`${siteUrl}${esPath}`} />
 
 		<!-- Anti-FOUC: Sync theme before first paint -->
 		<script is:inline>

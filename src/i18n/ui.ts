@@ -1,0 +1,80 @@
+export const UI_STRINGS = {
+	es: {
+		'meta.title': 'edcilo — Desarrollador Fullstack',
+		'meta.description':
+			'Eduardo Cifuentes López — Desarrollador Fullstack con 12+ años de experiencia en Ciudad de México.',
+		'nav.home': 'Inicio',
+		'nav.skills': 'Habilidades',
+		'nav.projects': 'Proyectos',
+		'nav.blog': 'Blog',
+		'hero.badge': 'Desarrollador Fullstack',
+		'hero.bio':
+			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
+		'hero.location': 'Ciudad de México, MX',
+		'hero.cta.projects': 'Ver proyectos',
+		'hero.cta.blog': 'Blog',
+		'hero.stats.years': 'Años de exp.',
+		'hero.stats.projects': 'Proyectos',
+		'skills.title': 'Habilidades y Tecnologías',
+		'skills.subtitle': 'Tecnologías con las que trabajo a diario',
+		'projects.title': 'Proyectos',
+		'projects.subtitle': 'Algunas cosas que he construido',
+		'project.workshopManager.description':
+			'Una aplicación web completa para gestionar talleres automotrices — órdenes de reparación, inventario, punto de venta y un asistente de chat con IA.',
+		'project.epochConverter.description':
+			'Un sencillo conversor de época que traduce el tiempo epoch a tiempo legible.',
+		'project.passwordGenerator.description':
+			'Un generador de contraseñas sencillo que te permite elegir la longitud y los tipos de caracteres.',
+		'project.landing2022.description':
+			'Una landing page personal construida para el año 2022.',
+		'latestPosts.title': 'Últimos Posts',
+		'latestPosts.subtitle': 'Del blog',
+		'latestPosts.viewAll': 'Ver todos los posts',
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Pensamientos y aprendizajes',
+		'blog.empty': 'Aún no hay posts — vuelve pronto.',
+		'blog.backToBlog': 'Volver al blog',
+		'blog.lastUpdated': 'Última actualización el',
+		'blog.updated': 'Actualizado:',
+		'footer.rights': 'Todos los derechos reservados.',
+	},
+	en: {
+		'meta.title': 'edcilo — Fullstack Developer',
+		'meta.description':
+			'Eduardo Cifuentes López — Fullstack Developer with 12+ years of experience in Mexico City.',
+		'nav.home': 'Home',
+		'nav.skills': 'Skills',
+		'nav.projects': 'Projects',
+		'nav.blog': 'Blog',
+		'hero.badge': 'Fullstack Developer',
+		'hero.bio':
+			'Passionate about learning and experimenting. I build web experiences that matter.',
+		'hero.location': 'Mexico City, MX',
+		'hero.cta.projects': 'View projects',
+		'hero.cta.blog': 'Blog',
+		'hero.stats.years': 'Years of exp.',
+		'hero.stats.projects': 'Projects',
+		'skills.title': 'Skills & Technologies',
+		'skills.subtitle': 'Technologies I work with daily',
+		'projects.title': 'Projects',
+		'projects.subtitle': "Some things I've built",
+		'project.workshopManager.description':
+			'A full-featured web app to manage auto repair shops — repair orders, inventory, POS, and an AI-powered chat assistant.',
+		'project.epochConverter.description':
+			'A simple epoch converter that translates epoch time to human-readable time.',
+		'project.passwordGenerator.description':
+			'A straightforward password generator that lets you choose the length and character types.',
+		'project.landing2022.description':
+			'A personal landing page built for the year 2022.',
+		'latestPosts.title': 'Latest Posts',
+		'latestPosts.subtitle': 'From the blog',
+		'latestPosts.viewAll': 'View all posts',
+		'blog.title': 'Blog',
+		'blog.subtitle': 'Thoughts and learnings',
+		'blog.empty': 'No posts yet — check back soon.',
+		'blog.backToBlog': 'Back to blog',
+		'blog.lastUpdated': 'Last updated on',
+		'blog.updated': 'Updated:',
+		'footer.rights': 'All rights reserved.',
+	},
+} as const;

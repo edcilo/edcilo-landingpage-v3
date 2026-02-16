@@ -1,13 +1,17 @@
 ---
-// HeroCTAs.astro — Primary and secondary call-to-action buttons
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <div class="flex flex-col sm:flex-row items-center gap-3">
 	<a
-		href="#projects"
+		href={getLocalizedPath('/#projects', locale)}
 		class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium font-mono text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
 	>
-		Ver proyectos
+		{t('hero.cta.projects')}
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			fill="none"
@@ -24,9 +28,9 @@
 		</svg>
 	</a>
 	<a
-		href="/#blog"
+		href={getLocalizedPath('/#blog', locale)}
 		class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-transparent px-6 py-3 text-sm font-medium font-mono text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
 	>
-		Blog
+		{t('hero.cta.blog')}
 	</a>
 </div>

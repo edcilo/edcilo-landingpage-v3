@@ -2,12 +2,18 @@
 import Container from './Container.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import MobileDrawer from './MobileDrawer.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 
 const navLinks = [
-	{ href: '/#hero', label: 'Home' },
-	{ href: '/#skills', label: 'Skills' },
-	{ href: '/#projects', label: 'Projects' },
-	{ href: '/blog', label: 'Blog' },
+	{ href: getLocalizedPath('/#hero', locale), label: t('nav.home') },
+	{ href: getLocalizedPath('/#skills', locale), label: t('nav.skills') },
+	{ href: getLocalizedPath('/#projects', locale), label: t('nav.projects') },
+	{ href: getLocalizedPath('/blog', locale), label: t('nav.blog') },
 ];
 ---
 
@@ -20,7 +26,7 @@ const navLinks = [
 			aria-label="Main navigation"
 		>
 			<a
-				href="/"
+				href={getLocalizedPath('/', locale)}
 				class="flex items-center hover:opacity-80 transition-opacity"
 				aria-label="edcilo — Home"
 			>
@@ -47,6 +53,7 @@ const navLinks = [
 					}
 				</div>
 				<ThemeToggle />
+				<LanguageSwitcher />
 				<!-- Mobile menu button -->
 				<button
 					type="button"
@@ -87,7 +94,7 @@ const navLinks = [
 		navLinks.forEach((link) => {
 			const href = link.getAttribute('data-nav-link');
 			if (!href) return;
-			// Extract hash from href (e.g., "/#skills" → "#skills", "#hero" → "#hero")
+			// Extract hash from href (e.g., "/#skills" → "#skills", "/en/#skills" → "#skills")
 			const hashIndex = href.indexOf('#');
 			if (hashIndex === -1) return;
 			const hash = href.substring(hashIndex);

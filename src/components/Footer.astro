@@ -1,5 +1,10 @@
 ---
 import Container from './Container.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 ---
 
 <footer class="mt-auto border-t border-border">
@@ -8,7 +13,7 @@ import Container from './Container.astro';
 			class="flex flex-col items-center justify-between gap-4 py-8 font-mono sm:flex-row"
 		>
 			<p class="text-sm text-muted-foreground">
-				&copy; 2026 edcilo. All rights reserved.
+				&copy; 2026 edcilo. {t('footer.rights')}
 			</p>
 			<div class="flex items-center gap-4">
 				<a
