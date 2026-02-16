@@ -37,6 +37,9 @@ export const UI_STRINGS = {
 		'blog.lastUpdated': 'Última actualización el',
 		'blog.updated': 'Actualizado:',
 		'footer.rights': 'Todos los derechos reservados.',
+		'tooltip.theme.light': 'Cambiar a tema oscuro',
+		'tooltip.theme.dark': 'Cambiar a tema del sistema',
+		'tooltip.theme.system': 'Cambiar a tema claro',
 	},
 	en: {
 		'meta.title': 'edcilo — Fullstack Developer',
@@ -76,5 +79,8 @@ export const UI_STRINGS = {
 		'blog.lastUpdated': 'Last updated on',
 		'blog.updated': 'Updated:',
 		'footer.rights': 'All rights reserved.',
+		'tooltip.theme.light': 'Switch to dark theme',
+		'tooltip.theme.dark': 'Switch to system theme',
+		'tooltip.theme.system': 'Switch to light theme',
 	},
 } as const;

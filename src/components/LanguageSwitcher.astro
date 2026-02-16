@@ -1,4 +1,5 @@
 ---
+import Tooltip from './Tooltip.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
 
 const currentLocale = Astro.currentLocale ?? DEFAULT_LOCALE;
@@ -14,14 +15,16 @@ function getAlternatePath(path: string, targetLocale: string): string {
 
 const alternateLocale = currentLocale === 'es' ? 'en' : 'es';
 const alternatePath = getAlternatePath(currentPath, alternateLocale);
+const tooltipText =
+	alternateLocale === 'en' ? 'Switch to English' : 'Cambiar a Español';
 ---
 
-<a
-	href={alternatePath}
-	class="rounded-md px-2 py-1 font-mono text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-	aria-label={alternateLocale === 'en'
-		? 'Switch to English'
-		: 'Cambiar a Español'}
->
-	{alternateLocale.toUpperCase()}
-</a>
+<Tooltip text={tooltipText}>
+	<a
+		href={alternatePath}
+		class="rounded-md px-2 py-1 font-mono text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+		aria-label={tooltipText}
+	>
+		{alternateLocale.toUpperCase()}
+	</a>
+</Tooltip>

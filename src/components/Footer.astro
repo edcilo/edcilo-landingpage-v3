@@ -1,4 +1,5 @@
 ---
+import { version } from '../../package.json';
 import Container from './Container.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import { useTranslations } from '../i18n/utils';
@@ -14,6 +15,8 @@ const t = useTranslations(locale);
 		>
 			<p class="text-sm text-muted-foreground">
 				&copy; 2026 edcilo. {t('footer.rights')}
+				<span class="mx-1">&middot;</span>
+				<span>v{version}</span>
 			</p>
 			<div class="flex items-center gap-4">
 				<a
