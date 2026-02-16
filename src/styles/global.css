@@ -1,3 +1,7 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/700.css';
 @import 'tailwindcss';
 
 /* === Dark mode variant (class-based) === */
@@ -5,6 +9,12 @@
 
 /* === Theme Design Tokens === */
 @theme {
+	--font-sans:
+		'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol';
+	--font-mono:
+		'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		'Liberation Mono', 'Courier New', monospace;
 	--color-background: #fafafa;
 	--color-foreground: #0a0a0a;
 	--color-muted: #f5f5f5;
