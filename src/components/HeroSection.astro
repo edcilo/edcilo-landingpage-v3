@@ -4,8 +4,15 @@ import HeroScrollIndicator from './HeroScrollIndicator.astro';
 ---
 
 <section
-	class="relative flex min-h-[calc(100svh-4rem)] items-center justify-center py-16"
+	class="relative flex h-[calc(100svh-4rem)] max-h-[900px] items-center justify-center overflow-hidden py-16"
 >
+	<!-- Decorative radial glow -->
+	<div
+		class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[1200px] w-[1200px] rounded-full bg-[radial-gradient(circle,var(--color-muted-foreground)_0%,transparent_70%)] opacity-10"
+		aria-hidden="true"
+	>
+	</div>
+
 	<HeroContent />
 
 	<HeroScrollIndicator />
