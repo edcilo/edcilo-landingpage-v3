@@ -6,9 +6,16 @@ import SkillCategoryCard from './SkillCategoryCard.astro';
 
 <section
 	id="skills"
-	class="border-t border-dashed border-border py-16 sm:py-24"
+	class="relative overflow-hidden border-t border-dashed border-border py-16 sm:py-24"
 	aria-labelledby="skills-heading"
 >
+	<!-- Decorative dot pattern background -->
+	<div
+		class="pointer-events-none absolute inset-0"
+		style="background-image: radial-gradient(var(--color-foreground) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.05;"
+		aria-hidden="true"
+	>
+	</div>
 	<SectionHeading
 		id="skills-heading"
 		title="Skills & Technologies"

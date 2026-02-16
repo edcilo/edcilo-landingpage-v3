@@ -12,9 +12,15 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 	latestPosts.length > 0 && (
 		<section
 			id="blog"
-			class="border-t border-dashed border-border py-16 sm:py-24"
+			class="relative overflow-hidden border-t border-dashed border-border py-16 sm:py-24"
 			aria-labelledby="latest-posts-heading"
 		>
+			<img
+				src="/favicon.svg"
+				alt=""
+				class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[800px] w-[800px] opacity-[0.03]"
+				aria-hidden="true"
+			/>
 			<SectionHeading
 				id="latest-posts-heading"
 				title="Latest Posts"
