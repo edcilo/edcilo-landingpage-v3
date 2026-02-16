@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout
+	title="Blog — edcilo"
+	description="Thoughts, tutorials, and learnings about web development."
+>
+	<section class="py-16 sm:py-24" aria-labelledby="blog-heading">
+		<SectionHeading
+			id="blog-heading"
+			title="Blog"
+			subtitle="Thoughts and learnings"
+		/>
+
+		{
+			posts.length > 0 ? (
+				<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+					{posts.map((post) => (
+						<BlogPostCard
+							title={post.data.title}
+							description={post.data.description}
+							date={post.data.date}
+							tags={post.data.tags}
+							slug={post.id}
+						/>
+					))}
+				</div>
+			) : (
+				<p class="text-center font-mono text-muted-foreground">
+					No posts yet — check back soon.
+				</p>
+			)
+		}
+	</section>
+</Layout>

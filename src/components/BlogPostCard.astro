@@ -1,0 +1,64 @@
+---
+import SkillPill from './SkillPill.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	date: Date;
+	tags: string[];
+	slug: string;
+}
+
+const { title, description, date, tags, slug } = Astro.props;
+---
+
+<article
+	class="group relative overflow-hidden rounded-xl border border-border p-6 transition-colors hover:border-muted-foreground/60 hover:bg-accent/50"
+>
+	<!-- Decorative glow -->
+	<div
+		class="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-[radial-gradient(circle,var(--color-muted-foreground)_0%,transparent_70%)] opacity-[0.04] transition-all duration-500 ease-out group-hover:h-64 group-hover:w-64 group-hover:opacity-[0.08]"
+		aria-hidden="true"
+	>
+	</div>
+
+	<a
+		href={`/blog/${slug}`}
+		class="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+		aria-label={`Read post: ${title}`}
+	>
+		<!-- Date -->
+		<time
+			datetime={date.toISOString()}
+			class="font-mono text-xs text-muted-foreground"
+		>
+			{
+				date.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric',
+				})
+			}
+		</time>
+
+		<!-- Title -->
+		<h3
+			class="mt-2 font-mono text-lg font-semibold text-foreground group-hover:text-foreground"
+		>
+			{title}
+		</h3>
+
+		<!-- Description -->
+		<p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+			{description}
+		</p>
+
+		<!-- Separator -->
+		<hr class="my-4 border-dashed border-border" />
+
+		<!-- Tags -->
+		<div class="flex flex-wrap gap-2">
+			{tags.map((tag) => <SkillPill name={tag} />)}
+		</div>
+	</a>
+</article>

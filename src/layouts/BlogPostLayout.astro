@@ -1,0 +1,205 @@
+---
+import Layout from './Layout.astro';
+import SkillPill from '../components/SkillPill.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	date: Date;
+	updatedDate?: Date;
+	tags: string[];
+}
+
+const { title, description, date, updatedDate, tags } = Astro.props;
+---
+
+<Layout title={`${title} — edcilo`} description={description}>
+	<article class="mx-auto max-w-3xl py-16 sm:py-24">
+		<!-- Back link -->
+		<a
+			href="/blog"
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			Back to blog
+		</a>
+
+		<!-- Post header -->
+		<header class="mb-8">
+			<time
+				datetime={date.toISOString()}
+				class="font-mono text-sm text-muted-foreground"
+			>
+				{
+					date.toLocaleDateString('en-US', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					})
+				}
+			</time>
+			{
+				updatedDate && (
+					<span class="ml-2 font-mono text-sm text-muted-foreground">
+						(Updated:{' '}
+						{updatedDate.toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})}
+						)
+					</span>
+				)
+			}
+			<h1
+				class="mt-4 font-mono text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+			>
+				{title}
+			</h1>
+			<p class="mt-4 text-lg leading-relaxed text-muted-foreground">
+				{description}
+			</p>
+			{
+				tags.length > 0 && (
+					<div class="mt-4 flex flex-wrap gap-2">
+						{tags.map((tag) => (
+							<SkillPill name={tag} />
+						))}
+					</div>
+				)
+			}
+		</header>
+
+		<!-- Separator -->
+		<hr class="mb-8 border-dashed border-border" />
+
+		<!-- Prose content -->
+		<div class="prose">
+			<slot />
+		</div>
+
+		{
+			updatedDate && (
+				<footer class="mt-12 border-t border-dashed border-border pt-4">
+					<p class="font-mono text-sm text-muted-foreground">
+						Last updated on{' '}
+						{updatedDate.toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})}
+					</p>
+				</footer>
+			)
+		}
+	</article>
+</Layout>
+
+<style>
+	.prose :global(h2) {
+		font-family: var(--font-mono);
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 3rem;
+		margin-bottom: 1rem;
+		color: var(--color-foreground);
+	}
+	.prose :global(h3) {
+		font-family: var(--font-mono);
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+		color: var(--color-foreground);
+	}
+	.prose :global(p) {
+		font-size: 1rem;
+		line-height: 1.75;
+		margin-bottom: 1.5rem;
+		color: var(--color-foreground);
+	}
+	.prose :global(a) {
+		color: var(--color-foreground);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		transition: color 0.2s;
+	}
+	.prose :global(a:hover) {
+		color: var(--color-muted-foreground);
+	}
+	.prose :global(strong) {
+		font-weight: 700;
+		color: var(--color-foreground);
+	}
+	.prose :global(em) {
+		font-style: italic;
+	}
+	.prose :global(code) {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		background-color: var(--color-muted);
+		border: 1px solid var(--color-border);
+		border-radius: 0.375rem;
+		padding: 0.125rem 0.375rem;
+	}
+	.prose :global(pre) {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		background-color: var(--color-muted);
+		border: 1px solid var(--color-border);
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		overflow-x: auto;
+		margin-bottom: 1.5rem;
+	}
+	.prose :global(pre code) {
+		background: none;
+		border: none;
+		padding: 0;
+		font-size: inherit;
+	}
+	.prose :global(blockquote) {
+		border-left: 2px solid var(--color-border);
+		padding-left: 1rem;
+		font-style: italic;
+		color: var(--color-muted-foreground);
+		margin-bottom: 1.5rem;
+	}
+	.prose :global(ul) {
+		list-style-type: disc;
+		padding-left: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.prose :global(ol) {
+		list-style-type: decimal;
+		padding-left: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.prose :global(li) {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
+	}
+	.prose :global(hr) {
+		border: none;
+		border-top: 1px dashed var(--color-border);
+		margin: 2rem 0;
+	}
+	.prose :global(img) {
+		border-radius: 0.75rem;
+		margin: 2rem 0;
+		width: 100%;
+	}
+</style>

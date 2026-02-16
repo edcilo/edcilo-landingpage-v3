@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './SectionHeading.astro';
+import BlogPostCard from './BlogPostCard.astro';
+
+const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 3);
+---
+
+{
+	latestPosts.length > 0 && (
+		<section
+			id="blog"
+			class="border-t border-dashed border-border py-16 sm:py-24"
+			aria-labelledby="latest-posts-heading"
+		>
+			<SectionHeading
+				id="latest-posts-heading"
+				title="Latest Posts"
+				subtitle="From the blog"
+			/>
+
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+				{latestPosts.map((post) => (
+					<BlogPostCard
+						title={post.data.title}
+						description={post.data.description}
+						date={post.data.date}
+						tags={post.data.tags}
+						slug={post.id}
+					/>
+				))}
+			</div>
+
+			<div class="mt-8 text-center">
+				<a
+					href="/blog"
+					class="inline-flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+				>
+					View all posts
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-4"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+						/>
+					</svg>
+				</a>
+			</div>
+		</section>
+	)
+}
