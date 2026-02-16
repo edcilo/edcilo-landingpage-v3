@@ -1,0 +1,83 @@
+---
+import SkillPill from './SkillPill.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	url: string;
+	cover: string;
+	tech: string[];
+}
+
+const { title, description, url, cover, tech } = Astro.props;
+---
+
+<article
+	class="group relative overflow-hidden rounded-xl border border-border transition-colors hover:border-muted-foreground/60 hover:bg-accent/50"
+>
+	<!-- Decorative glow -->
+	<div
+		class="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-[radial-gradient(circle,var(--color-muted-foreground)_0%,transparent_70%)] opacity-[0.04] transition-all duration-500 ease-out group-hover:h-64 group-hover:w-64 group-hover:opacity-[0.08]"
+		aria-hidden="true"
+	>
+	</div>
+
+	<!-- Link wraps everything -->
+	<a
+		href={url}
+		target="_blank"
+		rel="noopener noreferrer"
+		class="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+		aria-label={`View project: ${title}`}
+	>
+		<!-- Image zone -->
+		<div class="overflow-hidden">
+			<img
+				src={cover}
+				alt={`${title} project screenshot`}
+				class="aspect-video w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none"
+				loading="lazy"
+				decoding="async"
+			/>
+		</div>
+
+		<!-- Content zone -->
+		<div class="p-6">
+			<!-- Title with external link icon -->
+			<div class="mb-2 flex items-center justify-between">
+				<h3 class="font-mono text-lg font-semibold text-foreground">
+					{title}
+				</h3>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-4 text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path>
+				</svg>
+			</div>
+
+			<!-- Description -->
+			<p
+				class="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground"
+			>
+				{description}
+			</p>
+
+			<!-- Separator -->
+			<hr class="mb-4 border-dashed border-border" />
+
+			<!-- Tech stack pills -->
+			<div class="flex flex-wrap gap-2">
+				{tech.map((t) => <SkillPill name={t} />)}
+			</div>
+		</div>
+	</a>
+</article>

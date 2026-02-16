@@ -1,0 +1,32 @@
+---
+import { PROJECTS } from '../data/projects';
+import SectionHeading from './SectionHeading.astro';
+import ProjectCard from './ProjectCard.astro';
+---
+
+<section
+	id="projects"
+	class="border-t border-dashed border-border py-16 sm:py-24"
+	aria-labelledby="projects-heading"
+>
+	<SectionHeading
+		id="projects-heading"
+		title="Projects"
+		subtitle="Some things I've built"
+	/>
+
+	<!-- Grid: 1 col mobile, 3 cols desktop -->
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+		{
+			PROJECTS.map((project) => (
+				<ProjectCard
+					title={project.title}
+					description={project.description}
+					url={project.url}
+					cover={project.cover}
+					tech={project.tech}
+				/>
+			))
+		}
+	</div>
+</section>
