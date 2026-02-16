@@ -3,9 +3,9 @@ description: Responsable de la coherencia visual, sistema de diseño (Tailwind) 
 mode: subagent
 model: anthropic/claude-opus-4-6
 tools:
-  write: false
-  edit: false
-  bash: false
+  write: true
+  edit: true
+  bash: true
 ---
 
 # Agent: Designer Architect
