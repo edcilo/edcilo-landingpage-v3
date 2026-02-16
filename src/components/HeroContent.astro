@@ -1,0 +1,33 @@
+---
+import HeroBadge from './HeroBadge.astro';
+import HeroLocation from './HeroLocation.astro';
+import HeroCTAs from './HeroCTAs.astro';
+import HeroStats from './HeroStats.astro';
+---
+
+<div
+	class="flex w-full max-w-3xl flex-col items-center gap-6 text-center font-mono"
+>
+	<HeroBadge label="Fullstack Developer" />
+
+	<h1
+		class="text-4xl font-bold font-mono tracking-tight leading-[1.1] sm:text-5xl lg:text-6xl"
+	>
+		Eduardo<br />
+		Cifuentes<br />
+		López
+	</h1>
+
+	<HeroLocation />
+
+	<p
+		class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+	>
+		Apasionado por aprender y experimentar. Construyo experiencias web que
+		importan.
+	</p>
+
+	<HeroCTAs />
+
+	<HeroStats />
+</div>

@@ -1,6 +1,7 @@
 ---
 import Container from './Container.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import MobileDrawer from './MobileDrawer.astro';
 
 const navLinks = [
 	{ href: '/', label: 'Home' },
@@ -45,7 +46,33 @@ const navLinks = [
 					}
 				</div>
 				<ThemeToggle />
+				<!-- Mobile menu button -->
+				<button
+					type="button"
+					id="menu-toggle"
+					aria-label="Open navigation menu"
+					aria-expanded="false"
+					aria-controls="drawer-panel"
+					class="cursor-pointer rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:hidden"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-5"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+					</svg>
+				</button>
 			</div>
 		</nav>
 	</Container>
 </header>
+
+<MobileDrawer navLinks={navLinks} />

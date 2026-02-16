@@ -1,0 +1,171 @@
+---
+interface Props {
+	navLinks: { href: string; label: string }[];
+}
+
+const { navLinks } = Astro.props;
+---
+
+<!-- Overlay -->
+<div
+	id="drawer-overlay"
+	class="fixed inset-0 z-50 bg-foreground/50 opacity-0 invisible transition-opacity duration-300 ease-in-out"
+	aria-hidden="true"
+>
+</div>
+
+<!-- Drawer panel -->
+<div
+	id="drawer-panel"
+	role="dialog"
+	aria-modal="true"
+	aria-label="Mobile navigation"
+	class="fixed top-0 right-0 z-50 flex h-full w-72 translate-x-full flex-col bg-background border-l border-border transition-transform duration-300 ease-in-out"
+>
+	<!-- Close button -->
+	<div class="flex h-16 items-center justify-end px-4">
+		<button
+			type="button"
+			id="drawer-close"
+			aria-label="Close navigation menu"
+			class="cursor-pointer rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M6 18 18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Navigation links -->
+	<nav
+		class="flex flex-col gap-1 px-4 font-mono"
+		aria-label="Mobile navigation"
+	>
+		{
+			navLinks.map((link) => (
+				<a
+					href={link.href}
+					class="drawer-link rounded-md px-3 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+</div>
+
+<script>
+	function initDrawer(): void {
+		const toggleBtn = document.getElementById('menu-toggle');
+		const closeBtn = document.getElementById('drawer-close');
+		const overlay = document.getElementById('drawer-overlay');
+		const panel = document.getElementById('drawer-panel');
+		const links = document.querySelectorAll('.drawer-link');
+
+		if (!toggleBtn || !closeBtn || !overlay || !panel) return;
+
+		function openDrawer(): void {
+			// Show overlay
+			overlay!.classList.remove('invisible', 'opacity-0');
+			overlay!.classList.add('opacity-100');
+
+			// Slide in panel
+			panel!.classList.remove('translate-x-full');
+			panel!.classList.add('translate-x-0');
+
+			// Update aria
+			toggleBtn!.setAttribute('aria-expanded', 'true');
+			panel!.removeAttribute('aria-hidden');
+
+			// Prevent body scroll
+			document.body.style.overflow = 'hidden';
+
+			// Focus close button
+			closeBtn!.focus();
+		}
+
+		function closeDrawer(): void {
+			// Hide overlay
+			overlay!.classList.remove('opacity-100');
+			overlay!.classList.add('opacity-0');
+
+			// Slide out panel
+			panel!.classList.remove('translate-x-0');
+			panel!.classList.add('translate-x-full');
+
+			// Update aria
+			toggleBtn!.setAttribute('aria-expanded', 'false');
+			panel!.setAttribute('aria-hidden', 'true');
+
+			// Restore body scroll
+			document.body.style.overflow = '';
+
+			// Return focus to toggle button
+			toggleBtn!.focus();
+		}
+
+		// After overlay fade-out transition ends, hide it completely
+		overlay.addEventListener('transitionend', () => {
+			if (overlay.classList.contains('opacity-0')) {
+				overlay.classList.add('invisible');
+			}
+		});
+
+		// Event listeners
+		toggleBtn.addEventListener('click', openDrawer);
+		closeBtn.addEventListener('click', closeDrawer);
+		overlay.addEventListener('click', closeDrawer);
+
+		// Close on link click
+		links.forEach((link) => {
+			link.addEventListener('click', closeDrawer);
+		});
+
+		// Close on Escape key
+		document.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && !panel.classList.contains('translate-x-full')) {
+				closeDrawer();
+			}
+		});
+
+		// Focus trap within drawer
+		panel.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (e.key !== 'Tab') return;
+
+			const focusableElements = panel.querySelectorAll<HTMLElement>(
+				'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+			);
+			const firstEl = focusableElements[0];
+			const lastEl = focusableElements[focusableElements.length - 1];
+
+			if (e.shiftKey) {
+				if (document.activeElement === firstEl) {
+					e.preventDefault();
+					lastEl.focus();
+				}
+			} else {
+				if (document.activeElement === lastEl) {
+					e.preventDefault();
+					firstEl.focus();
+				}
+			}
+		});
+	}
+
+	// Primary initialization
+	initDrawer();
+
+	// Re-initialize on View Transitions (future)
+	document.addEventListener('astro:page-load', initDrawer);
+</script>
