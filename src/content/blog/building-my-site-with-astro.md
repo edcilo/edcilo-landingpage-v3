@@ -1,7 +1,7 @@
 ---
 title: 'Building My Site with Astro 5'
 description: 'A deep dive into rebuilding my personal site using Astro 5, Tailwind CSS v4, and Content Collections — shipping less JavaScript while keeping a great developer experience.'
-date: 2026-02-16
+date: 2026-02-16T16:00:00
 tags: [astro, tailwind, typescript]
 draft: false
 ---
