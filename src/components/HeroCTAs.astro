@@ -9,7 +9,7 @@ const t = useTranslations(locale);
 <div class="flex flex-col sm:flex-row items-center gap-3">
 	<a
 		href={getLocalizedPath('/#projects', locale)}
-		class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium font-mono text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
+		class="cta-projects group/cta inline-flex w-full items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium font-mono text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
 	>
 		{t('hero.cta.projects')}
 		<svg
@@ -18,7 +18,7 @@ const t = useTranslations(locale);
 			viewBox="0 0 24 24"
 			stroke-width="2"
 			stroke="currentColor"
-			class="size-4"
+			class="size-4 transition-transform duration-300 group-hover/cta:translate-x-1"
 			aria-hidden="true"
 		>
 			<path
@@ -27,6 +27,7 @@ const t = useTranslations(locale);
 				d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
 		</svg>
 	</a>
+
 	<a
 		href={getLocalizedPath('/#blog', locale)}
 		class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-transparent px-6 py-3 text-sm font-medium font-mono text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
@@ -34,3 +35,20 @@ const t = useTranslations(locale);
 		{t('hero.cta.blog')}
 	</a>
 </div>
+
+<style>
+	.cta-projects {
+		background: linear-gradient(
+			90deg,
+			var(--color-foreground) 50%,
+			var(--color-primary) 50%
+		);
+		background-size: 200% 100%;
+		background-position: 100% 0;
+		transition: background-position 400ms ease-in-out;
+	}
+
+	.cta-projects:hover {
+		background-position: 0% 0;
+	}
+</style>

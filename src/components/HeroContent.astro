@@ -3,6 +3,7 @@ import HeroBadge from './HeroBadge.astro';
 import HeroLocation from './HeroLocation.astro';
 import HeroCTAs from './HeroCTAs.astro';
 import HeroStats from './HeroStats.astro';
+import RotatingText from './RotatingText.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import { useTranslations } from '../i18n/utils';
 
@@ -28,7 +29,13 @@ const t = useTranslations(locale);
 	<p
 		class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
 	>
-		{t('hero.bio')}
+		{t('hero.bio.prefix')}
+		<RotatingText
+			words={t('hero.bio.words')}
+			interval={3000}
+			class="font-semibold text-foreground"
+		/>
+		{t('hero.bio.suffix')}
 	</p>
 
 	<HeroCTAs />

@@ -1,0 +1,151 @@
+---
+interface Props {
+	words: string;
+	interval?: number;
+	class?: string;
+}
+
+const { words, interval = 3000, class: className } = Astro.props;
+
+const wordList = words.split('|');
+const firstWord = wordList[0] ?? '';
+---
+
+<span
+	class:list={['rotating-text', className]}
+	data-words={words}
+	data-interval={interval}
+>
+	<!-- Screen reader: announces word changes politely -->
+	<span class="sr-only" aria-live="polite">{firstWord}</span>
+	<!-- Visible animated word (hidden from screen readers to avoid double reading) -->
+	<span class="rotating-text__word" aria-hidden="true">{firstWord}</span>
+</span>
+
+<style>
+	.rotating-text {
+		display: inline-block;
+		position: relative;
+	}
+
+	.rotating-text__word {
+		display: inline-block;
+		transition:
+			opacity 400ms ease-in-out,
+			transform 400ms ease-in-out;
+	}
+
+	.rotating-text__word.--exiting {
+		opacity: 0;
+		transform: translateY(-50%);
+	}
+
+	.rotating-text__word.--entering {
+		opacity: 0;
+		transform: translateY(50%);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.rotating-text__word {
+			transition: none !important;
+		}
+	}
+</style>
+
+<script>
+	function setupRotatingText(): void {
+		const containers = document.querySelectorAll<HTMLElement>('.rotating-text');
+
+		containers.forEach((container) => {
+			const wordsAttr = container.getAttribute('data-words');
+			const intervalAttr = container.getAttribute('data-interval');
+
+			if (!wordsAttr) return;
+
+			const words = wordsAttr.split('|');
+			if (words.length <= 1) return;
+
+			const interval = parseInt(intervalAttr ?? '3000', 10);
+			const wordEl = container.querySelector<HTMLElement>(
+				'.rotating-text__word',
+			);
+			const srEl = container.querySelector<HTMLElement>('.sr-only');
+
+			if (!wordEl) return;
+
+			let currentIndex = 0;
+			let timerId: ReturnType<typeof setTimeout> | null = null;
+
+			const prefersReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)',
+			);
+
+			function rotateWord(): void {
+				if (!wordEl) return;
+
+				const nextIndex = (currentIndex + 1) % words.length;
+				const nextWord = words[nextIndex];
+
+				if (prefersReducedMotion.matches) {
+					// No animation — instant swap
+					wordEl.textContent = nextWord;
+					if (srEl) srEl.textContent = nextWord;
+					currentIndex = nextIndex;
+					scheduleNext();
+					return;
+				}
+
+				// Phase 1: Exit current word
+				wordEl.classList.add('--exiting');
+
+				setTimeout(() => {
+					// Phase 2: Swap text and prepare entry
+					wordEl.textContent = nextWord;
+					if (srEl) srEl.textContent = nextWord;
+					wordEl.classList.remove('--exiting');
+					wordEl.classList.add('--entering');
+
+					// Force reflow to ensure entering class applies
+					void wordEl.offsetHeight;
+
+					// Phase 3: Animate in
+					requestAnimationFrame(() => {
+						wordEl.classList.remove('--entering');
+					});
+
+					currentIndex = nextIndex;
+					scheduleNext();
+				}, 400);
+			}
+
+			function scheduleNext(): void {
+				timerId = setTimeout(rotateWord, interval);
+			}
+
+			// Pause when tab is not visible
+			function handleVisibilityChange(): void {
+				if (document.hidden) {
+					if (timerId !== null) {
+						clearTimeout(timerId);
+						timerId = null;
+					}
+				} else {
+					if (timerId === null) {
+						scheduleNext();
+					}
+				}
+			}
+
+			document.addEventListener('visibilitychange', handleVisibilityChange);
+
+			// Start the rotation
+			scheduleNext();
+		});
+	}
+
+	// Primary initialization
+	setupRotatingText();
+
+	// Re-initialize on View Transitions navigation
+	document.addEventListener('astro:page-load', setupRotatingText);
+</script>

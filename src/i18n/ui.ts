@@ -10,6 +10,10 @@ export const UI_STRINGS = {
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
+		'hero.bio.prefix': 'Apasionado por aprender y ',
+		'hero.bio.words':
+			'experimentar|crear|innovar|colaborar|resolver|construir|automatizar',
+		'hero.bio.suffix': '. Construyo experiencias web que importan.',
 		'hero.location': 'Ciudad de México, MX',
 		'hero.cta.projects': 'Ver proyectos',
 		'hero.cta.blog': 'Blog',
@@ -52,6 +56,10 @@ export const UI_STRINGS = {
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',
+		'hero.bio.prefix': 'Passionate about learning and ',
+		'hero.bio.words':
+			'experimenting|creating|innovating|collaborating|solving|building|automating',
+		'hero.bio.suffix': '. I build web experiences that matter.',
 		'hero.location': 'Mexico City, MX',
 		'hero.cta.projects': 'View projects',
 		'hero.cta.blog': 'Blog',
