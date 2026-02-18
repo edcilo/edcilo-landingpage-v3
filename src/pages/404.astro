@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout title={`404 — edcilo`} description={t('404.heading')}>
+	<section
+		class="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center overflow-hidden py-16 text-center sm:py-24"
+	>
+		<!-- Giant 404 background -->
+		<p
+			class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono font-bold leading-none tracking-tighter text-foreground opacity-[0.07] select-none"
+			style="font-size: clamp(20rem, 40vw, 50rem);"
+			aria-hidden="true"
+		>
+			404
+		</p>
+
+		<!-- Content -->
+		<div class="relative z-10">
+			<h1
+				class="font-mono text-xl font-medium text-foreground sm:text-2xl"
+				data-i18n="heading"
+			>
+				{t('404.heading')}
+			</h1>
+
+			<p
+				class="mx-auto mt-2 max-w-md font-mono text-sm leading-relaxed text-muted-foreground"
+				data-i18n="description"
+			>
+				{t('404.description')}
+			</p>
+
+			<a
+				href="/"
+				data-i18n-href="cta"
+				class="group mt-8 inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-4 py-2 font-mono text-sm text-foreground transition-colors duration-300 hover:bg-accent hover:text-accent-foreground"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-4 transition-transform duration-300 group-hover:-translate-x-1"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+				</svg>
+				<span data-i18n="cta">{t('404.cta')}</span>
+			</a>
+		</div>
+	</section>
+</Layout>
+
+<script is:inline>
+	(function () {
+		if (!window.location.pathname.startsWith('/en')) return;
+
+		const translations = {
+			heading: 'Page not found',
+			description:
+				"The page you're looking for doesn't exist or has been moved.",
+			cta: 'Back to home',
+		};
+
+		const elements = document.querySelectorAll('[data-i18n]');
+		for (let i = 0; i < elements.length; i++) {
+			const key = elements[i].getAttribute('data-i18n');
+			if (key && translations[key]) {
+				elements[i].textContent = translations[key];
+			}
+		}
+
+		const link = document.querySelector('[data-i18n-href="cta"]');
+		if (link) link.setAttribute('href', '/en/');
+
+		document.documentElement.setAttribute('lang', 'en');
+	})();
+</script>
