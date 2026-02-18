@@ -1,5 +1,5 @@
 ---
-import SkillPill from './SkillPill.astro';
+import TechIcon from './TechIcon.astro';
 
 interface Props {
 	title: string;
@@ -75,8 +75,12 @@ const { title, description, url, cover, tech } = Astro.props;
 			<hr class="mb-4 border-dashed border-border" />
 
 			<!-- Tech stack pills -->
-			<div class="flex flex-wrap gap-2">
-				{tech.map((t) => <SkillPill name={t} />)}
+			<div class="flex flex-wrap items-center gap-2">
+				{
+					tech.map((t, i) => (
+						<TechIcon name={t} tooltipAlign={i === 0 ? 'left' : 'center'} />
+					))
+				}
 			</div>
 		</div>
 	</a>

@@ -1,12 +1,20 @@
 ---
 interface Props {
 	text: string;
+	position?: 'top' | 'bottom';
+	align?: 'left' | 'center' | 'right';
 }
 
-const { text } = Astro.props;
+const { text, position = 'bottom', align = 'center' } = Astro.props;
+
+const positionClass = position === 'top' ? 'tooltip-top' : 'tooltip-bottom';
+const alignClass = `tooltip-align-${align}`;
 ---
 
-<div class="tooltip-wrapper" data-tooltip={text}>
+<div
+	class:list={['tooltip-wrapper', positionClass, alignClass]}
+	data-tooltip={text}
+>
 	<slot />
 </div>
 
@@ -19,10 +27,6 @@ const { text } = Astro.props;
 	.tooltip-wrapper::after {
 		content: attr(data-tooltip);
 		position: absolute;
-		top: 100%;
-		left: 50%;
-		margin-top: 0.5rem;
-		transform: translateX(-50%) translateY(4px);
 		font-family: var(--font-mono);
 		font-size: 0.75rem;
 		line-height: 1rem;
@@ -39,12 +43,78 @@ const { text } = Astro.props;
 			transform 150ms ease;
 	}
 
+	/* Horizontal alignment */
+	.tooltip-align-center::after {
+		left: 50%;
+	}
+
+	.tooltip-align-left::after {
+		left: 0;
+	}
+
+	.tooltip-align-right::after {
+		right: 0;
+	}
+
+	/* Bottom position (default) */
+	.tooltip-bottom.tooltip-align-center::after {
+		top: 100%;
+		margin-top: 0.5rem;
+		transform: translateX(-50%) translateY(4px);
+	}
+
+	.tooltip-bottom.tooltip-align-left::after {
+		top: 100%;
+		margin-top: 0.5rem;
+		transform: translateY(4px);
+	}
+
+	.tooltip-bottom.tooltip-align-right::after {
+		top: 100%;
+		margin-top: 0.5rem;
+		transform: translateY(4px);
+	}
+
+	/* Top position */
+	.tooltip-top.tooltip-align-center::after {
+		bottom: 100%;
+		margin-bottom: 0.5rem;
+		transform: translateX(-50%) translateY(-4px);
+	}
+
+	.tooltip-top.tooltip-align-left::after {
+		bottom: 100%;
+		margin-bottom: 0.5rem;
+		transform: translateY(-4px);
+	}
+
+	.tooltip-top.tooltip-align-right::after {
+		bottom: 100%;
+		margin-bottom: 0.5rem;
+		transform: translateY(-4px);
+	}
+
+	/* Hover / focus states */
 	@media (hover: hover) {
 		.tooltip-wrapper:hover::after,
 		.tooltip-wrapper:has(:focus-visible)::after {
 			opacity: 1;
-			transform: translateX(-50%) translateY(0);
 			transition-delay: 300ms;
+		}
+
+		.tooltip-align-center:hover::after,
+		.tooltip-align-center:has(:focus-visible)::after {
+			transform: translateX(-50%) translateY(0);
+		}
+
+		.tooltip-align-left:hover::after,
+		.tooltip-align-left:has(:focus-visible)::after {
+			transform: translateY(0);
+		}
+
+		.tooltip-align-right:hover::after,
+		.tooltip-align-right:has(:focus-visible)::after {
+			transform: translateY(0);
 		}
 	}
 
