@@ -4,16 +4,17 @@ import { getTechIconSvg } from '../data/techIcons';
 interface Props {
 	name: string;
 	hoverColor?: string;
+	showIcon?: boolean;
 }
 
-const { name, hoverColor } = Astro.props;
+const { name, hoverColor, showIcon = true } = Astro.props;
 
 const hasBrandHover = Boolean(hoverColor);
 const pillStyle = hasBrandHover
 	? `--pill-hover-bg: color-mix(in srgb, ${hoverColor} 15%, transparent); --pill-hover-border: color-mix(in srgb, ${hoverColor} 30%, transparent);`
 	: undefined;
 
-const iconSvg = getTechIconSvg(name, 16);
+const iconSvg = showIcon ? getTechIconSvg(name, 16) : null;
 ---
 
 <span
@@ -23,7 +24,7 @@ const iconSvg = getTechIconSvg(name, 16);
 	]}
 	style={pillStyle}
 >
-	<Fragment set:html={iconSvg} />
+	{iconSvg && <Fragment set:html={iconSvg} />}
 	{name}
 </span>
 
