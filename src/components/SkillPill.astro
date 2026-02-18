@@ -1,13 +1,35 @@
 ---
+import { getTechIconSvg } from '../data/techIcons';
+
 interface Props {
 	name: string;
+	hoverColor?: string;
 }
 
-const { name } = Astro.props;
+const { name, hoverColor } = Astro.props;
+
+const hasBrandHover = Boolean(hoverColor);
+const pillStyle = hasBrandHover
+	? `--pill-hover-bg: color-mix(in srgb, ${hoverColor} 15%, transparent); --pill-hover-border: color-mix(in srgb, ${hoverColor} 30%, transparent);`
+	: undefined;
+
+const iconSvg = getTechIconSvg(name, 16);
 ---
 
 <span
-	class="inline-flex items-center rounded-md border border-border bg-muted px-3 py-1.5 text-sm font-mono text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+	class:list={[
+		'inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-3 py-1.5 text-sm font-mono text-foreground transition-colors duration-300 hover:bg-accent hover:text-accent-foreground',
+		{ 'skill-pill-brand': hasBrandHover },
+	]}
+	style={pillStyle}
 >
+	<Fragment set:html={iconSvg} />
 	{name}
 </span>
+
+<style>
+	:global(.group:hover) .skill-pill-brand {
+		background-color: var(--pill-hover-bg);
+		border-color: var(--pill-hover-border);
+	}
+</style>

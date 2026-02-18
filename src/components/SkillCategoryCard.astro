@@ -1,6 +1,9 @@
 ---
-import type { SkillGroup } from '../data/skills';
 import SkillPill from './SkillPill.astro';
+
+import type { SkillGroup } from '../data/skills';
+import { BRAND_COLORS } from '../data/skills';
+import { getTechIconSvg } from '../data/techIcons';
 
 interface Props {
 	title: string;
@@ -68,12 +71,13 @@ const iconHoverColor = ICON_HOVER_COLORS[slug] ?? 'group-hover:text-foreground';
 			<div class="space-y-3">
 				{groups.map((group) => (
 					<div>
-						<span class="font-mono text-sm font-medium text-foreground">
+						<span class="flex items-center gap-1.5 font-mono text-sm font-medium text-foreground">
+							<Fragment set:html={getTechIconSvg(group.language, 16)} />
 							{group.language}
 						</span>
 						<div class="mt-1.5 flex flex-wrap gap-2">
 							{group.frameworks.map((fw) => (
-								<SkillPill name={fw} />
+								<SkillPill name={fw} hoverColor={BRAND_COLORS[fw]} />
 							))}
 						</div>
 					</div>
@@ -87,7 +91,7 @@ const iconHoverColor = ICON_HOVER_COLORS[slug] ?? 'group-hover:text-foreground';
 		skills && (
 			<div class="flex flex-wrap gap-2">
 				{skills.map((skill) => (
-					<SkillPill name={skill} />
+					<SkillPill name={skill} hoverColor={BRAND_COLORS[skill]} />
 				))}
 			</div>
 		)

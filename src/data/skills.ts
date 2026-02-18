@@ -11,6 +11,37 @@ export interface SkillCategory {
 	groups?: SkillGroup[];
 }
 
+export const BRAND_COLORS: Record<string, string> = {
+	Go: '#00ADD8',
+	Fiber: '#00ACD7',
+	Python: '#3776AB',
+	Flask: '#000000',
+	FastAPI: '#009688',
+	Django: '#092E20',
+	JavaScript: '#F7DF1E',
+	Node: '#5FA04E',
+	Deno: '#12124B',
+	Express: '#000000',
+	Astro: '#BC52EE',
+	PHP: '#777BB4',
+	Laravel: '#FF2D20',
+	HTML: '#E34F26',
+	CSS: '#1572B6',
+	Tailwind: '#06B6D4',
+	Sass: '#CC6699',
+	TypeScript: '#3178C6',
+	React: '#61DAFB',
+	Vue: '#4FC08D',
+	'Next.js': '#000000',
+	Postgres: '#4169E1',
+	MySQL: '#4479A1',
+	MongoDB: '#47A248',
+	Redis: '#FF4438',
+	Docker: '#2496ED',
+	Kubernetes: '#326CE5',
+	AWS: '#FF9900',
+};
+
 export const SKILL_CATEGORIES: SkillCategory[] = [
 	{
 		title: 'Backend',
