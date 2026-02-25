@@ -31,6 +31,8 @@ export const UI_STRINGS = {
 			'Un generador de contraseñas sencillo que te permite elegir la longitud y los tipos de caracteres.',
 		'project.landing2022.description':
 			'Una landing page personal construida para el año 2022.',
+		'project.md2pdf.description':
+			'Herramienta web para convertir Markdown a PDF directamente en el navegador. Todo se procesa en el cliente, sin enviar datos a servidores.',
 		'latestPosts.title': 'Últimos Posts',
 		'latestPosts.subtitle': 'Del blog',
 		'latestPosts.viewAll': 'Ver todos los posts',
@@ -83,6 +85,8 @@ export const UI_STRINGS = {
 			'A straightforward password generator that lets you choose the length and character types.',
 		'project.landing2022.description':
 			'A personal landing page built for the year 2022.',
+		'project.md2pdf.description':
+			'A web tool to convert Markdown to PDF right in the browser. Everything is processed client-side — no data is sent to any server.',
 		'latestPosts.title': 'Latest Posts',
 		'latestPosts.subtitle': 'From the blog',
 		'latestPosts.viewAll': 'View all posts',

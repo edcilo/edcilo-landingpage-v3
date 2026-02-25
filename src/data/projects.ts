@@ -11,6 +11,14 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
 	{
+		title: 'MD2PDF',
+		slug: 'md2pdf',
+		descriptionKey: 'project.md2pdf.description',
+		url: 'https://md2pdf.edcilo.com/',
+		cover: '/assets/portfolio/04_md2pdf.webp',
+		tech: ['Astro', 'TypeScript', 'Tailwind'],
+	},
+	{
 		title: 'Workshop Manager',
 		slug: 'workshop-manager',
 		descriptionKey: 'project.workshopManager.description',
