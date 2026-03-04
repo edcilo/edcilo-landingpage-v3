@@ -71,6 +71,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 			'React',
 			'Vue',
 			'Next.js',
+			'Astro',
 		],
 	},
 	{
