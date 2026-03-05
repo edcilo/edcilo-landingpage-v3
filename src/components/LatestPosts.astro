@@ -4,6 +4,7 @@ import SectionHeading from './SectionHeading.astro';
 import BlogPostCard from './BlogPostCard.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import { useTranslations, getLocalizedPath } from '../i18n/utils';
+import { getReadingTime } from '../utils/readingTime';
 
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
@@ -47,6 +48,7 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 						date={post.data.date}
 						tags={post.data.tags}
 						slug={post.id}
+						readingTime={getReadingTime(post.body ?? '')}
 					/>
 				))}
 			</div>

@@ -6,6 +6,7 @@ import BlogPostCard from '../../components/BlogPostCard.astro';
 import BlogTagFilter from '../../components/BlogTagFilter.astro';
 import { DEFAULT_LOCALE } from '../../i18n/config';
 import { useTranslations } from '../../i18n/utils';
+import { getReadingTime } from '../../utils/readingTime';
 
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
@@ -49,6 +50,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 							date={post.data.date}
 							tags={post.data.tags}
 							slug={post.id}
+							readingTime={getReadingTime(post.body ?? '')}
 						/>
 					))}
 				</div>

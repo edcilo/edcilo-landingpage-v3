@@ -46,6 +46,7 @@ export const UI_STRINGS = {
 		'blog.backToBlog': 'Volver al blog',
 		'blog.lastUpdated': 'Última actualización el',
 		'blog.updated': 'Actualizado:',
+		'blog.readingTime': '{min} min de lectura',
 		'404.heading': 'Página no encontrada',
 		'404.description': 'La página que buscas no existe o ha sido movida.',
 		'404.cta': 'Volver al inicio',
@@ -102,6 +103,7 @@ export const UI_STRINGS = {
 		'blog.backToBlog': 'Back to blog',
 		'blog.lastUpdated': 'Last updated on',
 		'blog.updated': 'Updated:',
+		'blog.readingTime': '{min} min read',
 		'404.heading': 'Page not found',
 		'404.description':
 			"The page you're looking for doesn't exist or has been moved.",

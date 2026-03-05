@@ -14,9 +14,11 @@ interface Props {
 	date: Date;
 	updatedDate?: Date;
 	tags: string[];
+	readingTime: number;
 }
 
-const { title, description, date, updatedDate, tags } = Astro.props;
+const { title, description, date, updatedDate, tags, readingTime } =
+	Astro.props;
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
 const dateLocale = getDateLocale(locale);
@@ -72,6 +74,10 @@ const dateLocale = getDateLocale(locale);
 					})
 				}
 			</time>
+			<span class="ml-2 font-mono text-sm text-muted-foreground">
+				·
+				{t('blog.readingTime').replace('{min}', String(readingTime))}
+			</span>
 			{
 				updatedDate && (
 					<span class="ml-2 font-mono text-sm text-muted-foreground">

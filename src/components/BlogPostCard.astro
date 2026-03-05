@@ -1,7 +1,11 @@
 ---
 import SkillPill from './SkillPill.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
-import { getLocalizedPath, getDateLocale } from '../i18n/utils';
+import {
+	useTranslations,
+	getLocalizedPath,
+	getDateLocale,
+} from '../i18n/utils';
 
 interface Props {
 	title: string;
@@ -9,10 +13,12 @@ interface Props {
 	date: Date;
 	tags: string[];
 	slug: string;
+	readingTime: number;
 }
 
-const { title, description, date, tags, slug } = Astro.props;
+const { title, description, date, tags, slug, readingTime } = Astro.props;
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 const dateLocale = getDateLocale(locale);
 ---
 
@@ -47,6 +53,10 @@ const dateLocale = getDateLocale(locale);
 				})
 			}
 		</time>
+		<span class="ml-2 font-mono text-xs text-muted-foreground">
+			·
+			{t('blog.readingTime').replace('{min}', String(readingTime))}
+		</span>
 
 		<!-- Title -->
 		<h3
