@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://edcilo.com/sitemap-index.xml

@@ -21,12 +21,12 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Media] Implementar paginacion en el indice del blog (`/blog/index.astro`) cuando supere 10 posts
 - [ ] [Media] Agregar navegacion entre posts (anterior / siguiente) al final de cada articulo
 - [ ] [Media] Agregar componente de compartir en redes sociales (Twitter/X, LinkedIn, copiar enlace) en cada post
-- [ ] [Baja] Agregar busqueda de posts por titulo/contenido con filtro en tiempo real
+- [x] [Baja] Agregar busqueda de posts por titulo/contenido con filtro en tiempo real
 - [ ] [Baja] Agregar vista de archivo por fecha (agrupados por mes/anio)
 
 ## SEO
 
-- [ ] [Alta] Crear archivo `public/robots.txt` con reglas para permitir rastreo y referencia al sitemap
+- [x] [Alta] Crear archivo `public/robots.txt` con reglas para permitir rastreo y referencia al sitemap
 - [ ] [Alta] Agregar datos estructurados JSON-LD: `Person` en Home y `BlogPosting` en cada articulo del blog
 - [x] [Alta] Agregar etiquetas `<link rel="canonical">` en todas las paginas, especialmente las rutas i18n
 - [ ] [Media] Crear `public/manifest.webmanifest` con nombre, iconos y colores del tema
