@@ -58,7 +58,7 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Alta] Traducir al ingles los 23 posts del blog existentes o marcar los no traducidos con aviso de idioma
 - [ ] [Media] Publicar al menos 2 articulos nuevos por mes para mantener el blog activo
 - [ ] [Media] Agregar seccion "Sobre mi" (`/about`) con biografia extendida, experiencia y stack tecnologico
-- [ ] [Baja] Actualizar `README.md` del repositorio con descripcion real del proyecto, stack, y pasos de instalacion
+- [x] [Baja] Actualizar `README.md` del repositorio con descripcion real del proyecto, stack, y pasos de instalacion
 - [x] [Baja] Agregar pagina 404 personalizada con diseno coherente y enlace al inicio
 
 ## DevEx
