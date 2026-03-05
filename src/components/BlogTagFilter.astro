@@ -59,14 +59,22 @@ const { tags, filterLabel, allLabel, noResultsMessage } = Astro.props;
 			let visibleCount = 0;
 			cards.forEach((card) => {
 				const cardTags = (card.dataset.tags ?? '').split(',');
-				const isVisible =
+				const matchesTag =
 					selectedTag === 'all' || cardTags.includes(selectedTag);
 
-				card.classList.toggle('filtered-hidden', !isVisible);
+				card.classList.toggle('filtered-hidden', !matchesTag);
+
+				const isVisible =
+					matchesTag && !card.classList.contains('search-hidden');
 				if (isVisible) visibleCount++;
 			});
 
-			empty.classList.toggle('hidden', visibleCount > 0);
+			const searchEmpty =
+				document.querySelector<HTMLElement>('.blog-search-empty');
+			if (searchEmpty) {
+				searchEmpty.classList.toggle('hidden', visibleCount > 0);
+			}
+			empty.classList.toggle('hidden', true);
 		}
 
 		buttons.forEach((btn) => {

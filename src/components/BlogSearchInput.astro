@@ -1,0 +1,110 @@
+---
+interface Props {
+	placeholder: string;
+	label: string;
+	noResultsMessage: string;
+}
+
+const { placeholder, label, noResultsMessage } = Astro.props;
+---
+
+<div class="blog-search mb-6">
+	<div class="relative mx-auto max-w-md">
+		<svg
+			class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+			aria-hidden="true"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+			></path>
+		</svg>
+		<input
+			type="search"
+			data-blog-search
+			class="blog-search-input w-full rounded-lg border border-border bg-muted py-2.5 pr-3 pl-9 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			placeholder={placeholder}
+			aria-label={label}
+		/>
+	</div>
+	<p
+		class="blog-search-empty mt-8 hidden text-center font-mono text-sm text-muted-foreground"
+		aria-live="polite"
+		data-no-results-message={noResultsMessage}
+	>
+		{noResultsMessage}
+	</p>
+</div>
+
+<script>
+	function initBlogSearch(): void {
+		const input =
+			document.querySelector<HTMLInputElement>('[data-blog-search]');
+		const grid = document.querySelector<HTMLElement>('[data-blog-grid]');
+		const searchEmpty =
+			document.querySelector<HTMLElement>('.blog-search-empty');
+		const tagFilterEmpty =
+			document.querySelector<HTMLElement>('.tag-filter-empty');
+
+		if (!input || !grid || !searchEmpty) return;
+
+		const cards = grid.querySelectorAll<HTMLElement>('article[data-tags]');
+
+		function updateVisibility(): void {
+			const query = (input as HTMLInputElement).value.toLowerCase().trim();
+			let visibleCount = 0;
+
+			cards.forEach((card) => {
+				const title = card.dataset.title ?? '';
+				const description = card.dataset.description ?? '';
+				const matchesSearch =
+					!query || title.includes(query) || description.includes(query);
+
+				card.classList.toggle('search-hidden', !matchesSearch);
+
+				const isVisible =
+					!card.classList.contains('filtered-hidden') &&
+					!card.classList.contains('search-hidden');
+				if (isVisible) visibleCount++;
+			});
+
+			const hasNoResults = visibleCount === 0;
+			(searchEmpty as HTMLElement).classList.toggle('hidden', !hasNoResults);
+			if (tagFilterEmpty) {
+				tagFilterEmpty.classList.toggle('hidden', true);
+			}
+		}
+
+		input.addEventListener('input', updateVisibility);
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const initialQuery = urlParams.get('q') ?? '';
+		if (initialQuery) {
+			input.value = initialQuery;
+			updateVisibility();
+		}
+	}
+
+	document.addEventListener('astro:page-load', initBlogSearch);
+	initBlogSearch();
+</script>
+
+<style>
+	.blog-search-input {
+		transition: all 0.2s ease-out;
+	}
+
+	:global(article[data-tags].search-hidden) {
+		opacity: 0;
+		transform: scale(0.95);
+		pointer-events: none;
+		position: absolute;
+		visibility: hidden;
+	}
+</style>

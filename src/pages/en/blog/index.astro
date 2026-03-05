@@ -4,6 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import SectionHeading from '../../../components/SectionHeading.astro';
 import BlogPostCard from '../../../components/BlogPostCard.astro';
 import BlogTagFilter from '../../../components/BlogTagFilter.astro';
+import BlogSearchInput from '../../../components/BlogSearchInput.astro';
 import { DEFAULT_LOCALE } from '../../../i18n/config';
 import { useTranslations } from '../../../i18n/utils';
 import { getReadingTime } from '../../../utils/readingTime';
@@ -24,6 +25,12 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 			id="blog-heading"
 			title={t('blog.title')}
 			subtitle={t('blog.subtitle')}
+		/>
+
+		<BlogSearchInput
+			placeholder={t('blog.search.placeholder')}
+			label={t('blog.search.label')}
+			noResultsMessage={t('blog.search.noResults')}
 		/>
 
 		{
