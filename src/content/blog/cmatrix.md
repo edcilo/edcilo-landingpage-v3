@@ -121,21 +121,21 @@ cmatrix -l
 
 ### Otras opciones
 
-| Opción          | Descripción                                  |
-| --------------- | -------------------------------------------- |
-| `-a`            | Modo asincrónico (actualización variable)    |
-| `-b`            | Caracteres en negrita                        |
-| `-B`            | Negrita con caracteres aleatorios alternados |
-| `-C <color>`    | Color de los caracteres                      |
-| `-f`            | Fuerza el modo de terminal Linux             |
-| `-l`            | Modo de caracteres de Linux (solo números)   |
-| `-o`            | Usar valores antiguos de estilo de scroll    |
-| `-r`            | Caracteres de "rainbow" (colores arcoíris)   |
-| `-s`            | Modo "screensaver" (sale con cualquier tecla)|
-| `-u <retardo>`  | Retardo de actualización (0–9)               |
-| `-x`            | Modo X Window                                |
-| `-V`            | Muestra la versión                           |
-| `-h`            | Muestra la ayuda                             |
+| Opción         | Descripción                                   |
+| -------------- | --------------------------------------------- |
+| `-a`           | Modo asincrónico (actualización variable)     |
+| `-b`           | Caracteres en negrita                         |
+| `-B`           | Negrita con caracteres aleatorios alternados  |
+| `-C <color>`   | Color de los caracteres                       |
+| `-f`           | Fuerza el modo de terminal Linux              |
+| `-l`           | Modo de caracteres de Linux (solo números)    |
+| `-o`           | Usar valores antiguos de estilo de scroll     |
+| `-r`           | Caracteres de "rainbow" (colores arcoíris)    |
+| `-s`           | Modo "screensaver" (sale con cualquier tecla) |
+| `-u <retardo>` | Retardo de actualización (0–9)                |
+| `-x`           | Modo X Window                                 |
+| `-V`           | Muestra la versión                            |
+| `-h`           | Muestra la ayuda                              |
 
 ## Combinaciones útiles
 
