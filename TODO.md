@@ -48,7 +48,7 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Alta] Verificar contraste de color del texto `muted-foreground` contra fondo en modo claro y oscuro (cumplir WCAG AA, ratio >= 4.5:1)
 - [ ] [Alta] Asegurar navegacion completa por teclado en `BlogTagFilter` (flechas, Enter, focus visible)
 - [ ] [Media] Agregar indicador visual de seccion activa en la navegacion movil (`MobileDrawer`)
-- [ ] [Media] Agregar transicion suave al cambiar entre modo claro/oscuro (transition en `background-color` y `color`)
+- [x] [Media] Agregar transicion suave al cambiar entre modo claro/oscuro (transition en `background-color` y `color`)
 - [ ] [Media] Revisar y mejorar el tamano de los targets tactiles en movil (minimo 44x44px segun WCAG 2.5.8)
 - [ ] [Baja] Agregar soporte para `prefers-reduced-motion: reduce` en todas las animaciones CSS y JS
 - [ ] [Baja] Ejecutar auditoria completa con axe-core o Lighthouse Accessibility y corregir issues reportados
@@ -59,7 +59,7 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Media] Publicar al menos 2 articulos nuevos por mes para mantener el blog activo
 - [ ] [Media] Agregar seccion "Sobre mi" (`/about`) con biografia extendida, experiencia y stack tecnologico
 - [ ] [Baja] Actualizar `README.md` del repositorio con descripcion real del proyecto, stack, y pasos de instalacion
-- [ ] [Baja] Agregar pagina 404 personalizada con diseno coherente y enlace al inicio
+- [x] [Baja] Agregar pagina 404 personalizada con diseno coherente y enlace al inicio
 
 ## DevEx
 

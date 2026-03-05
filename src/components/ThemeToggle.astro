@@ -164,7 +164,12 @@ const t = useTranslations(locale);
 			localStorage.setItem('theme', newTheme);
 		}
 
+		document.documentElement.classList.add('theme-transition');
 		applyTheme(newTheme);
+
+		setTimeout(() => {
+			document.documentElement.classList.remove('theme-transition');
+		}, 300);
 	}
 
 	function handleSystemThemeChange(): void {
