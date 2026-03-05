@@ -38,18 +38,16 @@ Lista priorizada de mejoras organizadas por area.
 
 - [x] [Alta] Usar el componente `<Image>` de Astro para todas las imagenes (portafolio y blog) con formatos optimizados (avif/webp)
 - [x] [Media] Aplicar subset a las fuentes Inter Variable e IBM Plex Mono para reducir peso (solo latin + latin-ext)
-- [ ] [Media] Agregar `<link rel="preconnect">` para origenes de fuentes y recursos externos
-- [ ] [Media] Implementar `<link rel="preload">` para la fuente principal (Inter Variable)
 - [ ] [Baja] Medir y registrar puntuacion de Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms) con Lighthouse CI
 - [x] [Baja] Agregar cabeceras de cache (`Cache-Control`) en la configuracion del servidor/CDN para assets estaticos
 
 ## UX/Accesibilidad
 
-- [ ] [Alta] Verificar contraste de color del texto `muted-foreground` contra fondo en modo claro y oscuro (cumplir WCAG AA, ratio >= 4.5:1)
-- [ ] [Alta] Asegurar navegacion completa por teclado en `BlogTagFilter` (flechas, Enter, focus visible)
-- [ ] [Media] Agregar indicador visual de seccion activa en la navegacion movil (`MobileDrawer`)
+- [x] [Alta] Verificar contraste de color del texto `muted-foreground` contra fondo en modo claro y oscuro (cumplir WCAG AA, ratio >= 4.5:1)
+- [x] [Alta] Asegurar navegacion completa por teclado en `BlogTagFilter` (flechas, Enter, focus visible)
+- [x] [Media] Agregar indicador visual de seccion activa en la navegacion movil (`MobileDrawer`)
 - [x] [Media] Agregar transicion suave al cambiar entre modo claro/oscuro (transition en `background-color` y `color`)
-- [ ] [Media] Revisar y mejorar el tamano de los targets tactiles en movil (minimo 44x44px segun WCAG 2.5.8)
+- [x] [Media] Revisar y mejorar el tamano de los targets tactiles en movil (minimo 44x44px segun WCAG 2.5.8)
 - [ ] [Baja] Agregar soporte para `prefers-reduced-motion: reduce` en todas las animaciones CSS y JS
 - [ ] [Baja] Ejecutar auditoria completa con axe-core o Lighthouse Accessibility y corregir issues reportados
 
