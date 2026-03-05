@@ -1,9 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import { useTranslations } from '../i18n/utils';
 
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
+
+const publishedPosts = await getCollection('blog', ({ data }) => !data.draft);
+const articleCount = publishedPosts.length;
 ---
 
 <div
@@ -34,6 +38,20 @@ const t = useTranslations(locale);
 		</p>
 		<p class="text-xs font-mono uppercase tracking-wider text-muted-foreground">
 			{t('hero.stats.projects')}
+		</p>
+	</div>
+
+	<div class="h-10 w-px bg-border" aria-hidden="true"></div>
+
+	<div class="text-center">
+		<p
+			class="text-2xl font-bold font-mono tracking-tight"
+			data-count-to={articleCount}
+		>
+			{articleCount}
+		</p>
+		<p class="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+			{t('hero.stats.articles')}
 		</p>
 	</div>
 </div>
