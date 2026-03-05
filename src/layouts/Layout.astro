@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Container from '../components/Container.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
 
 interface Props {
 	title: string;
@@ -27,6 +28,7 @@ const {
 } = Astro.props;
 
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
 
 // Compute alternate locale path
@@ -120,8 +122,14 @@ const ogLocaleAlternate = locale === 'en' ? 'es_MX' : 'en_US';
 		</script>
 	</head>
 	<body class="flex min-h-screen flex-col">
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+		>
+			{t('a11y.skipToMain')}
+		</a>
 		<Header />
-		<main class="flex-1">
+		<main id="main-content" class="flex-1">
 			<Container>
 				<slot />
 			</Container>

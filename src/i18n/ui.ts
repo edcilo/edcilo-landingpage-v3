@@ -48,6 +48,7 @@ export const UI_STRINGS = {
 		'404.heading': 'Página no encontrada',
 		'404.description': 'La página que buscas no existe o ha sido movida.',
 		'404.cta': 'Volver al inicio',
+		'a11y.skipToMain': 'Saltar al contenido principal',
 		'footer.rights': 'Todos los derechos reservados.',
 		'tooltip.theme.light': 'Cambiar a tema oscuro',
 		'tooltip.theme.dark': 'Cambiar a tema del sistema',
@@ -103,6 +104,7 @@ export const UI_STRINGS = {
 		'404.description':
 			"The page you're looking for doesn't exist or has been moved.",
 		'404.cta': 'Back to home',
+		'a11y.skipToMain': 'Skip to main content',
 		'footer.rights': 'All rights reserved.',
 		'tooltip.theme.light': 'Switch to dark theme',
 		'tooltip.theme.dark': 'Switch to system theme',
