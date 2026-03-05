@@ -22,7 +22,17 @@ const t = useTranslations(locale);
 const dateLocale = getDateLocale(locale);
 ---
 
-<Layout title={`${title} — edcilo`} description={description}>
+<Layout
+	title={`${title} — edcilo`}
+	description={description}
+	ogType="article"
+	article={{
+		publishedTime: date.toISOString(),
+		modifiedTime: updatedDate?.toISOString(),
+		author: 'Eduardo Cifuentes López',
+		tags,
+	}}
+>
 	<article class="mx-auto max-w-3xl py-16 sm:py-24">
 		<!-- Back link -->
 		<a
