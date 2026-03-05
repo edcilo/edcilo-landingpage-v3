@@ -30,14 +30,14 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Alta] Agregar datos estructurados JSON-LD: `Person` en Home y `BlogPosting` en cada articulo del blog
 - [x] [Alta] Agregar etiquetas `<link rel="canonical">` en todas las paginas, especialmente las rutas i18n
 - [ ] [Media] Crear `public/manifest.webmanifest` con nombre, iconos y colores del tema
-- [ ] [Media] Agregar meta tag `article:published_time` y `article:modified_time` en posts del blog
+- [x] [Media] Agregar meta tag `article:published_time` y `article:modified_time` en posts del blog
 - [ ] [Baja] Generar feed RSS (`/rss.xml`) con `@astrojs/rss` para los articulos del blog
 - [ ] [Baja] Validar todas las paginas con Lighthouse SEO score >= 95
 
 ## Performance
 
 - [x] [Alta] Usar el componente `<Image>` de Astro para todas las imagenes (portafolio y blog) con formatos optimizados (avif/webp)
-- [ ] [Media] Aplicar subset a las fuentes Inter Variable e IBM Plex Mono para reducir peso (solo latin + latin-ext)
+- [x] [Media] Aplicar subset a las fuentes Inter Variable e IBM Plex Mono para reducir peso (solo latin + latin-ext)
 - [ ] [Media] Agregar `<link rel="preconnect">` para origenes de fuentes y recursos externos
 - [ ] [Media] Implementar `<link rel="preload">` para la fuente principal (Inter Variable)
 - [ ] [Baja] Medir y registrar puntuacion de Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms) con Lighthouse CI
