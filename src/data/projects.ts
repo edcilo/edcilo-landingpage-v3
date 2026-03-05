@@ -1,11 +1,18 @@
+import type { ImageMetadata } from 'astro';
 import type { TranslationKey } from '../i18n';
+
+import coverMd2pdf from '../assets/portfolio/04_md2pdf.webp';
+import coverWorkshop from '../assets/portfolio/03_workshop.webp';
+import coverEpoch from '../assets/portfolio/01_epoch.webp';
+import coverPassword from '../assets/portfolio/00_password.webp';
+import coverLanding2022 from '../assets/portfolio/02_landing_2022.webp';
 
 export interface Project {
 	title: string;
 	slug: string;
 	descriptionKey: TranslationKey;
 	url: string;
-	cover: string;
+	cover: ImageMetadata;
 	tech: string[];
 }
 
@@ -15,7 +22,7 @@ export const PROJECTS: Project[] = [
 		slug: 'md2pdf',
 		descriptionKey: 'project.md2pdf.description',
 		url: 'https://md2pdf.edcilo.com/',
-		cover: '/assets/portfolio/04_md2pdf.webp',
+		cover: coverMd2pdf,
 		tech: ['Astro', 'TypeScript', 'Tailwind'],
 	},
 	{
@@ -23,7 +30,7 @@ export const PROJECTS: Project[] = [
 		slug: 'workshop-manager',
 		descriptionKey: 'project.workshopManager.description',
 		url: 'https://workshop.edcilo.com',
-		cover: '/assets/portfolio/03_workshop.webp',
+		cover: coverWorkshop,
 		tech: ['TypeScript', 'React', 'Next.js', 'AI', 'Tailwind'],
 	},
 	{
@@ -31,7 +38,7 @@ export const PROJECTS: Project[] = [
 		slug: 'epoch-converter',
 		descriptionKey: 'project.epochConverter.description',
 		url: 'https://epoch.edcilo.com/',
-		cover: '/assets/portfolio/01_epoch.webp',
+		cover: coverEpoch,
 		tech: ['HTML', 'CSS', 'JavaScript', 'React', 'Next.js'],
 	},
 	{
@@ -39,7 +46,7 @@ export const PROJECTS: Project[] = [
 		slug: 'password-generator',
 		descriptionKey: 'project.passwordGenerator.description',
 		url: 'https://www.passwordgenerator.cool/',
-		cover: '/assets/portfolio/00_password.webp',
+		cover: coverPassword,
 		tech: ['HTML', 'CSS', 'JavaScript', 'React', 'Next.js'],
 	},
 	{
@@ -47,7 +54,7 @@ export const PROJECTS: Project[] = [
 		slug: 'landing-2022',
 		descriptionKey: 'project.landing2022.description',
 		url: 'https://edcilo.com/landing/2022',
-		cover: '/assets/portfolio/02_landing_2022.webp',
+		cover: coverLanding2022,
 		tech: ['HTML', 'CSS', 'Sass', 'Astro'],
 	},
 ];
