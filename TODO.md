@@ -41,7 +41,7 @@ Lista priorizada de mejoras organizadas por area.
 - [ ] [Media] Agregar `<link rel="preconnect">` para origenes de fuentes y recursos externos
 - [ ] [Media] Implementar `<link rel="preload">` para la fuente principal (Inter Variable)
 - [ ] [Baja] Medir y registrar puntuacion de Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms) con Lighthouse CI
-- [ ] [Baja] Agregar cabeceras de cache (`Cache-Control`) en la configuracion del servidor/CDN para assets estaticos
+- [x] [Baja] Agregar cabeceras de cache (`Cache-Control`) en la configuracion del servidor/CDN para assets estaticos
 
 ## UX/Accesibilidad
 
