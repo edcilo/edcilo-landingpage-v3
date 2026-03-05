@@ -48,7 +48,7 @@ Lista priorizada de mejoras organizadas por area.
 - [x] [Media] Agregar indicador visual de seccion activa en la navegacion movil (`MobileDrawer`)
 - [x] [Media] Agregar transicion suave al cambiar entre modo claro/oscuro (transition en `background-color` y `color`)
 - [x] [Media] Revisar y mejorar el tamano de los targets tactiles en movil (minimo 44x44px segun WCAG 2.5.8)
-- [ ] [Baja] Agregar soporte para `prefers-reduced-motion: reduce` en todas las animaciones CSS y JS
+- [x] [Baja] Agregar soporte para `prefers-reduced-motion: reduce` en todas las animaciones CSS y JS
 - [ ] [Baja] Ejecutar auditoria completa con axe-core o Lighthouse Accessibility y corregir issues reportados
 
 ## Contenido
