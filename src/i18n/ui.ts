@@ -34,6 +34,8 @@ export const UI_STRINGS = {
 			'Una landing page personal construida para el año 2022.',
 		'project.md2pdf.description':
 			'Herramienta web para convertir Markdown a PDF directamente en el navegador. Todo se procesa en el cliente, sin enviar datos a servidores.',
+		'project.logographicMemory.description':
+			'Aplicación web interactiva para practicar y memorizar alfabetos logográficos como Hiragana y Katakana mediante ejercicios de memoria visual.',
 		'latestPosts.title': 'Últimos Posts',
 		'latestPosts.subtitle': 'Del blog',
 		'latestPosts.viewAll': 'Ver todos los posts',
@@ -94,6 +96,8 @@ export const UI_STRINGS = {
 			'A personal landing page built for the year 2022.',
 		'project.md2pdf.description':
 			'A web tool to convert Markdown to PDF right in the browser. Everything is processed client-side — no data is sent to any server.',
+		'project.logographicMemory.description':
+			'An interactive web app to practice and memorize logographic alphabets like Hiragana and Katakana through visual memory exercises.',
 		'latestPosts.title': 'Latest Posts',
 		'latestPosts.subtitle': 'From the blog',
 		'latestPosts.viewAll': 'View all posts',
