@@ -4,6 +4,42 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-06 — Nuevo artículo de blog: scp
+
+**Solicitud:** Crear un artículo para el blog sobre `scp` (secure copy) con contenido proporcionado por el usuario.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones de formato existentes en los artículos del blog.
+2. Se transformó el contenido en bruto en un artículo pulido siguiendo las convenciones del proyecto.
+3. Se creó el archivo `src/content/blog/scp.md` con secciones: sintaxis, banderas comunes, 5 ejemplos de uso y buenas prácticas.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/scp.md`
+- **Tags:** `linux`, `terminal`, `sre`
+- **Contenido:** 85 líneas, 4 secciones principales, 5 ejemplos con bloques de código, 8 buenas prácticas
+
+---
+
+## 2026-03-06 — Nuevo artículo de blog: systemctl
+
+**Solicitud:** Crear un artículo para el blog sobre `systemctl` (Systemd manager) con contenido proporcionado por el usuario.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones de formato existentes en los artículos del blog (frontmatter, estructura de secciones, tablas, bloques de código, estilo de redacción).
+2. Se transformó el contenido en bruto proporcionado por el usuario en un artículo de blog completo y pulido siguiendo las convenciones del proyecto.
+3. Se creó el archivo `src/content/blog/systemctl.md` con todas las secciones: sintaxis, acciones principales, banderas, gestión avanzada, creación de servicios personalizados (ejemplo con Next.js) y buenas prácticas.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/systemctl.md`
+- **Tags:** `linux`, `terminal`, `sre`
+- **Contenido:** 130 líneas, 8 secciones, 6 tablas, 3 bloques de código, 8 buenas prácticas
+
+---
+
 ## 2026-03-06 — Agregar proyecto Logographic Memory
 
 **Solicitud:** Agregar la aplicación [Logographic Memory](https://logographic.edcilo.com) a la sección de proyectos del sitio.
