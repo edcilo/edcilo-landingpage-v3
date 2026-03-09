@@ -1,0 +1,592 @@
+---
+import Tooltip from './Tooltip.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<!-- Trigger button -->
+<Tooltip text={t('blog.rsvp.open')}>
+	<button
+		type="button"
+		id="rsvp-trigger"
+		aria-label={t('blog.rsvp.open')}
+		class="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="size-5"
+			aria-hidden="true"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"></path>
+		</svg>
+	</button>
+</Tooltip>
+
+<!-- Overlay -->
+<div
+	id="rsvp-overlay"
+	class="fixed inset-0 z-40 bg-foreground/50 dark:bg-black/70 opacity-0 invisible transition-opacity duration-300 ease-in-out"
+	aria-hidden="true"
+>
+</div>
+
+<!-- Popover -->
+<div
+	id="rsvp-popover"
+	role="dialog"
+	aria-modal="true"
+	aria-label={t('blog.rsvp.open')}
+	class="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-xl bg-background border border-border rounded-2xl shadow-2xl invisible opacity-0 transition-opacity duration-300 ease-in-out"
+	aria-hidden="true"
+	data-i18n-play={t('blog.rsvp.play')}
+	data-i18n-pause={t('blog.rsvp.pause')}
+	data-i18n-wpm={t('blog.rsvp.wpm')}
+	data-i18n-progress={t('blog.rsvp.progress')}
+>
+	<!-- Word display with ORP -->
+	<div class="flex items-center justify-center py-10 px-4 min-h-[8rem]">
+		<div
+			class="font-mono text-4xl sm:text-5xl tracking-wide select-none whitespace-nowrap"
+			aria-live="off"
+			id="rsvp-word-container"
+		>
+			<span id="rsvp-word-before" class="text-muted-foreground"></span>
+			<span id="rsvp-word-pivot" class="text-primary font-bold"></span>
+			<span id="rsvp-word-after" class="text-muted-foreground"></span>
+		</div>
+	</div>
+
+	<!-- Progress bar -->
+	<div class="h-1 w-full bg-muted overflow-hidden">
+		<div
+			id="rsvp-progress-bar"
+			class="h-full bg-primary transition-[width] duration-100 ease-linear"
+			style="width: 0%"
+			role="progressbar"
+			aria-valuenow="0"
+			aria-valuemin="0"
+			aria-valuemax="100"
+		>
+		</div>
+	</div>
+
+	<!-- Controls bar -->
+	<div class="flex items-center justify-between gap-2 px-4 py-3">
+		<!-- Left: Play/Pause + Restart -->
+		<div class="flex items-center gap-1">
+			<!-- Play/Pause button -->
+			<button
+				id="rsvp-play-pause"
+				type="button"
+				aria-label={t('blog.rsvp.play')}
+				class="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+			>
+				<svg
+					id="rsvp-icon-play"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+					></path>
+				</svg>
+				<svg
+					id="rsvp-icon-pause"
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					style="display:none"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M15.75 5.25v13.5m-7.5-13.5v13.5"></path>
+				</svg>
+			</button>
+
+			<!-- Restart button -->
+			<button
+				id="rsvp-restart"
+				type="button"
+				aria-label={t('blog.rsvp.restart')}
+				class="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.992 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182"
+					></path>
+				</svg>
+			</button>
+		</div>
+
+		<!-- Center: Speed slider + WPM display -->
+		<div class="flex items-center gap-2">
+			<label for="rsvp-speed" class="sr-only">{t('blog.rsvp.speed')}</label>
+			<input
+				type="range"
+				id="rsvp-speed"
+				min="150"
+				max="600"
+				step="25"
+				value="300"
+				class="w-20 sm:w-32 h-1 cursor-pointer accent-primary"
+			/>
+			<span
+				id="rsvp-wpm-display"
+				class="font-mono text-xs text-muted-foreground whitespace-nowrap min-w-[5rem] text-right"
+			></span>
+		</div>
+
+		<!-- Right: Close button -->
+		<button
+			id="rsvp-close"
+			type="button"
+			aria-label={t('blog.rsvp.close')}
+			class="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M6 18 18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<style>
+	/* ORP pivot guides */
+	#rsvp-word-pivot {
+		position: relative;
+	}
+	#rsvp-word-pivot::before,
+	#rsvp-word-pivot::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 2px;
+		height: 0.5rem;
+		background-color: var(--color-primary);
+		opacity: 0.3;
+	}
+	#rsvp-word-pivot::before {
+		bottom: 100%;
+	}
+	#rsvp-word-pivot::after {
+		top: 100%;
+	}
+
+	/* Range slider custom styling */
+	#rsvp-speed {
+		-webkit-appearance: none;
+		appearance: none;
+		height: 4px;
+		border-radius: 2px;
+		background: var(--color-muted);
+		outline: none;
+	}
+	#rsvp-speed::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--color-primary);
+		cursor: pointer;
+	}
+	#rsvp-speed::-moz-range-thumb {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--color-primary);
+		cursor: pointer;
+		border: none;
+	}
+	#rsvp-speed::-moz-range-track {
+		height: 4px;
+		border-radius: 2px;
+		background: var(--color-muted);
+	}
+
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		#rsvp-overlay,
+		#rsvp-popover {
+			transition: none;
+		}
+		#rsvp-progress-bar {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	function initRSVP(): void {
+		// 1. DOM References
+		const trigger = document.getElementById('rsvp-trigger');
+		const overlay = document.getElementById('rsvp-overlay');
+		const popover = document.getElementById('rsvp-popover');
+		const playPauseBtn = document.getElementById('rsvp-play-pause');
+		const restartBtn = document.getElementById('rsvp-restart');
+		const closeBtn = document.getElementById('rsvp-close');
+		const speedSlider = document.getElementById(
+			'rsvp-speed',
+		) as HTMLInputElement | null;
+		const wpmDisplay = document.getElementById('rsvp-wpm-display');
+		const wordBefore = document.getElementById('rsvp-word-before');
+		const wordPivot = document.getElementById('rsvp-word-pivot');
+		const wordAfter = document.getElementById('rsvp-word-after');
+		const progressBar = document.getElementById(
+			'rsvp-progress-bar',
+		) as HTMLElement | null;
+		const playIcon = document.getElementById('rsvp-icon-play');
+		const pauseIcon = document.getElementById('rsvp-icon-pause');
+
+		if (
+			!trigger ||
+			!overlay ||
+			!popover ||
+			!playPauseBtn ||
+			!restartBtn ||
+			!closeBtn ||
+			!speedSlider ||
+			!wpmDisplay ||
+			!wordBefore ||
+			!wordPivot ||
+			!wordAfter ||
+			!progressBar ||
+			!playIcon ||
+			!pauseIcon
+		)
+			return;
+
+		// 2. State
+		let words: string[] = [];
+		let currentIndex = 0;
+		let wpm = 300;
+		let isPlaying = false;
+		let timerId: ReturnType<typeof setTimeout> | null = null;
+		let isOpen = false;
+
+		// i18n strings from data attributes
+		const i18nPlay = popover.dataset.i18nPlay ?? 'Play';
+		const i18nPause = popover.dataset.i18nPause ?? 'Pause';
+		const i18nWpm = popover.dataset.i18nWpm ?? '{wpm} WPM';
+		const i18nProgress = popover.dataset.i18nProgress ?? '{current} of {total}';
+
+		// 3. ORP Algorithm
+		function getORPIndex(word: string): number {
+			let len = word.length;
+			if (len === 0) return 0;
+			const lastChar = word[len - 1];
+			if (lastChar !== undefined && ',.?!:;"\')'.includes(lastChar)) len--;
+			if (len <= 1) return 0;
+			if (len <= 5) return 1;
+			if (len <= 9) return 2;
+			if (len <= 13) return 3;
+			return 4;
+		}
+
+		function splitWordByORP(word: string): {
+			before: string;
+			pivot: string;
+			after: string;
+		} {
+			if (word.length === 0) return { before: '', pivot: '', after: '' };
+			const idx = getORPIndex(word);
+			return {
+				before: word.slice(0, idx),
+				pivot: word[idx] ?? '',
+				after: word.slice(idx + 1),
+			};
+		}
+
+		function getDelayMultiplier(word: string): number {
+			if (word.length === 0) return 1;
+			const lastChar = word[word.length - 1];
+			if (lastChar !== undefined && '.!?'.includes(lastChar)) return 3;
+			if (lastChar !== undefined && ',;:'.includes(lastChar)) return 2;
+			return 1;
+		}
+
+		// 4. Content Extraction
+		function extractWords(): string[] {
+			const prose = document.querySelector('.prose');
+			if (!prose) return [];
+			const clone = prose.cloneNode(true) as HTMLElement;
+			clone
+				.querySelectorAll('pre, code, table, img, svg, figure')
+				.forEach((el) => el.remove());
+			const text = clone.textContent ?? '';
+			return text
+				.split(/\s+/)
+				.map((w) => w.trim())
+				.filter((w) => w.length > 0);
+		}
+
+		// 5. Display Functions
+		function displayWord(index: number): void {
+			if (index < 0 || index >= words.length) return;
+			const word = words[index];
+			if (word === undefined) return;
+			const { before, pivot, after } = splitWordByORP(word);
+			wordBefore!.textContent = before;
+			wordPivot!.textContent = pivot;
+			wordAfter!.textContent = after;
+
+			const progress =
+				words.length > 0 ? ((index + 1) / words.length) * 100 : 0;
+			progressBar!.style.width = `${String(progress)}%`;
+			progressBar!.setAttribute('aria-valuenow', String(Math.round(progress)));
+		}
+
+		function updateWPMDisplay(): void {
+			wpmDisplay!.textContent = i18nWpm.replace('{wpm}', String(wpm));
+		}
+
+		function updateProgressDisplay(index: number): void {
+			const progressText = i18nProgress
+				.replace('{current}', String(index + 1))
+				.replace('{total}', String(words.length));
+			progressBar!.setAttribute('aria-label', progressText);
+		}
+
+		// 6. Playback
+		function scheduleNext(): void {
+			if (!isPlaying || currentIndex >= words.length) {
+				if (currentIndex >= words.length) pause();
+				return;
+			}
+			const currentWord = words[currentIndex];
+			const baseDelay = 60_000 / wpm;
+			const multiplier =
+				currentWord !== undefined ? getDelayMultiplier(currentWord) : 1;
+			timerId = setTimeout(() => {
+				currentIndex++;
+				if (currentIndex < words.length) {
+					displayWord(currentIndex);
+					updateProgressDisplay(currentIndex);
+					scheduleNext();
+				} else {
+					pause();
+				}
+			}, baseDelay * multiplier);
+		}
+
+		function play(): void {
+			if (words.length === 0) return;
+			if (currentIndex >= words.length) currentIndex = 0;
+			isPlaying = true;
+			playIcon!.style.display = 'none';
+			pauseIcon!.style.display = 'block';
+			playPauseBtn!.setAttribute('aria-label', i18nPause);
+			scheduleNext();
+		}
+
+		function pause(): void {
+			isPlaying = false;
+			if (timerId !== null) {
+				clearTimeout(timerId);
+				timerId = null;
+			}
+			playIcon!.style.display = 'block';
+			pauseIcon!.style.display = 'none';
+			playPauseBtn!.setAttribute('aria-label', i18nPlay);
+		}
+
+		function restart(): void {
+			pause();
+			currentIndex = 0;
+			if (words.length > 0) {
+				displayWord(0);
+				updateProgressDisplay(0);
+			}
+		}
+
+		// 7. Open/Close
+		function openPopover(): void {
+			if (isOpen) return;
+			isOpen = true;
+
+			// Lazy extract words on first open
+			if (words.length === 0) words = extractWords();
+			if (words.length === 0) return;
+
+			// Show overlay
+			overlay!.classList.remove('invisible', 'opacity-0');
+			overlay!.classList.add('opacity-100');
+
+			// Show popover
+			popover!.classList.remove('invisible', 'opacity-0');
+			popover!.classList.add('opacity-100');
+			popover!.removeAttribute('aria-hidden');
+
+			// Lock body scroll
+			document.body.style.overflow = 'hidden';
+
+			// Display first word and reset
+			currentIndex = 0;
+			displayWord(0);
+			updateWPMDisplay();
+			updateProgressDisplay(0);
+
+			// Focus play button
+			playPauseBtn!.focus();
+		}
+
+		function closePopover(): void {
+			if (!isOpen) return;
+			pause();
+			isOpen = false;
+
+			// Hide overlay
+			overlay!.classList.remove('opacity-100');
+			overlay!.classList.add('opacity-0');
+
+			// Hide popover
+			popover!.classList.remove('opacity-100');
+			popover!.classList.add('opacity-0');
+			popover!.setAttribute('aria-hidden', 'true');
+
+			// Restore body scroll
+			document.body.style.overflow = '';
+
+			// Return focus to trigger
+			trigger!.focus();
+		}
+
+		// After overlay fade-out transition ends, hide completely
+		overlay.addEventListener('transitionend', () => {
+			if (overlay!.classList.contains('opacity-0')) {
+				overlay!.classList.add('invisible');
+			}
+		});
+		popover.addEventListener('transitionend', () => {
+			if (popover!.classList.contains('opacity-0')) {
+				popover!.classList.add('invisible');
+			}
+		});
+
+		// 8. Event Listeners
+		trigger.addEventListener('click', openPopover);
+		closeBtn.addEventListener('click', closePopover);
+		overlay.addEventListener('click', closePopover);
+		playPauseBtn.addEventListener('click', () => {
+			if (isPlaying) {
+				pause();
+			} else {
+				play();
+			}
+		});
+		restartBtn.addEventListener('click', restart);
+
+		speedSlider.addEventListener('input', () => {
+			wpm = Number(speedSlider!.value);
+			updateWPMDisplay();
+			if (isPlaying) {
+				if (timerId !== null) {
+					clearTimeout(timerId);
+					timerId = null;
+				}
+				scheduleNext();
+			}
+		});
+
+		// Keyboard shortcuts (global, only when popover is open)
+		document.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (!isOpen) return;
+
+			// Don't intercept if user is in a form element
+			const target = e.target as HTMLElement;
+			if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+
+			switch (e.key) {
+				case 'Escape':
+					closePopover();
+					break;
+				case ' ':
+					e.preventDefault();
+					if (isPlaying) {
+						pause();
+					} else {
+						play();
+					}
+					break;
+				case 'r':
+				case 'R':
+					restart();
+					break;
+			}
+		});
+
+		// Focus trap (same pattern as MobileDrawer.astro)
+		popover.addEventListener('keydown', (e: KeyboardEvent) => {
+			if (e.key !== 'Tab') return;
+
+			const focusableElements = popover!.querySelectorAll<HTMLElement>(
+				'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+			);
+			const firstEl = focusableElements[0];
+			const lastEl = focusableElements[focusableElements.length - 1];
+
+			if (!firstEl || !lastEl) return;
+
+			if (e.shiftKey) {
+				if (document.activeElement === firstEl) {
+					e.preventDefault();
+					lastEl.focus();
+				}
+			} else {
+				if (document.activeElement === lastEl) {
+					e.preventDefault();
+					firstEl.focus();
+				}
+			}
+		});
+	}
+
+	// Primary initialization
+	initRSVP();
+
+	// Re-initialize on View Transitions navigation
+	document.addEventListener('astro:page-load', initRSVP);
+</script>

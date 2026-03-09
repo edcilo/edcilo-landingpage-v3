@@ -4,6 +4,38 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-09 — Lector RSVP (Rapid Serial Visual Presentation) para artículos del blog
+
+**Solicitud:** Implementar una herramienta RSVP como lector de lectura rápida para los artículos del blog, activada desde un botón en el header del post que abre un popover superpuesto al artículo.
+
+**Plan ejecutado:**
+
+1. Se investigó el algoritmo ORP (Optimal Recognition Point) analizando implementaciones open-source (OpenSpritz, Squirt, speedread). Se adoptó la tabla discreta validada contra OpenSpritz/speedread con refinamiento de descuento de puntuación de Squirt.
+2. Se agregaron 8 claves de traducción `blog.rsvp.*` en español e inglés en `src/i18n/ui.ts`.
+3. Se creó el componente `src/components/RSVPReader.astro` con:
+   - Botón trigger (ícono bolt) en el header del post
+   - Popover fijo top-center con overlay semitransparente
+   - Display de palabra con ORP highlight (3 spans: before, pivot, after) y guías verticales
+   - Controles: Play/Pausa, Reiniciar, slider de velocidad (150–600 WPM, default 300), Cerrar
+   - Barra de progreso visual
+   - Extracción lazy de texto del `.prose` (ignorando `<pre>`, `<code>`, `<table>`, `<img>`, `<svg>`, `<figure>`)
+   - Delay por puntuación (3x para `.!?`, 2x para `,;:`)
+   - Keyboard shortcuts: Space (play/pausa), Escape (cerrar), R (reiniciar)
+   - Focus trap, body scroll lock, focus management
+   - Dark mode compatible via design tokens
+   - `prefers-reduced-motion: reduce` respetado
+4. Se modificó `src/layouts/BlogPostLayout.astro` para integrar el componente en el header del post (a la derecha de la fecha y reading time).
+5. QA validó build, estructura, a11y (18 checks), dark mode (13 tokens), i18n y `prefers-reduced-motion` con 0 defectos.
+
+**Resultado:**
+
+- **1 componente creado:** `src/components/RSVPReader.astro` (~590 líneas, 4.11 kB / 1.58 kB gzip)
+- **2 archivos modificados:** `src/layouts/BlogPostLayout.astro`, `src/i18n/ui.ts` (16 claves i18n)
+- **Build:** 61 páginas, sin errores
+- **QA:** Aprobado — build, lint, format, a11y, dark mode, i18n verificados
+
+---
+
 ## 2026-03-09 — Nuevo artículo de blog: unaccent en PostgreSQL
 
 **Solicitud:** Crear un artículo para el blog sobre la extensión `unaccent` de PostgreSQL a partir de un borrador con las consultas de verificación e instalación.

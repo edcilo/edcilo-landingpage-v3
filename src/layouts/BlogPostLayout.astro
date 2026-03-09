@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import SkillPill from '../components/SkillPill.astro';
+import RSVPReader from '../components/RSVPReader.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
 import {
 	useTranslations,
@@ -60,39 +61,44 @@ const dateLocale = getDateLocale(locale);
 
 		<!-- Post header -->
 		<header class="mb-8">
-			<time
-				datetime={date.toISOString()}
-				class="font-mono text-sm text-muted-foreground"
-			>
-				{
-					date.toLocaleDateString(dateLocale, {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-						hour: '2-digit',
-						minute: '2-digit',
-					})
-				}
-			</time>
-			<span class="ml-2 font-mono text-sm text-muted-foreground">
-				·
-				{t('blog.readingTime').replace('{min}', String(readingTime))}
-			</span>
-			{
-				updatedDate && (
+			<div class="flex items-center justify-between gap-4">
+				<div class="flex flex-wrap items-center">
+					<time
+						datetime={date.toISOString()}
+						class="font-mono text-sm text-muted-foreground"
+					>
+						{
+							date.toLocaleDateString(dateLocale, {
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric',
+								hour: '2-digit',
+								minute: '2-digit',
+							})
+						}
+					</time>
 					<span class="ml-2 font-mono text-sm text-muted-foreground">
-						({t('blog.updated')}{' '}
-						{updatedDate.toLocaleDateString(dateLocale, {
-							year: 'numeric',
-							month: 'long',
-							day: 'numeric',
-							hour: '2-digit',
-							minute: '2-digit',
-						})}
-						)
+						·
+						{t('blog.readingTime').replace('{min}', String(readingTime))}
 					</span>
-				)
-			}
+					{
+						updatedDate && (
+							<span class="ml-2 font-mono text-sm text-muted-foreground">
+								({t('blog.updated')}{' '}
+								{updatedDate.toLocaleDateString(dateLocale, {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+									hour: '2-digit',
+									minute: '2-digit',
+								})}
+								)
+							</span>
+						)
+					}
+				</div>
+				<RSVPReader />
+			</div>
 			<h1
 				class="mt-4 font-mono text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
 			>
