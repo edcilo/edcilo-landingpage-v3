@@ -4,6 +4,26 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-09 — Nuevo artículo de blog: unaccent en PostgreSQL
+
+**Solicitud:** Crear un artículo para el blog sobre la extensión `unaccent` de PostgreSQL a partir de un borrador con las consultas de verificación e instalación.
+
+**Plan ejecutado:**
+
+1. Se investigó la documentación oficial de PostgreSQL sobre `unaccent`, `pg_trgm`, volatilidad de funciones y requisitos de índices funcionales.
+2. Se redactó el artículo completo en español con 8 secciones: introducción, instalación, uso básico, búsquedas ignorando acentos, índices funcionales (wrapper IMMUTABLE), integración con `pg_trgm` (índice GIN), caso de uso completo con `EXPLAIN ANALYZE`, y buenas prácticas.
+3. Se creó el archivo `src/content/blog/unaccent-postgresql.md` siguiendo las convenciones editoriales del blog.
+4. QA validó frontmatter, estructura Markdown, patrones editoriales, build y contenido técnico con 0 defectos.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/unaccent-postgresql.md`
+- **Tags:** `postgresql`, `sql`
+- **Contenido:** 185 líneas, 8 secciones, 2 tablas, 12 bloques de código SQL, 7 buenas prácticas
+- **Build:** 61 páginas generadas exitosamente, sin errores
+
+---
+
 ## 2026-03-09 — Filtro de tags global con índice JSON (mismo enfoque que el buscador)
 
 **Solicitud:** El filtro de tags del blog solo mostraba/ocultaba los artículos de la página actual (DOM). Con la paginación de 15 artículos por página, los posts de otras páginas con el tag seleccionado no aparecían.
