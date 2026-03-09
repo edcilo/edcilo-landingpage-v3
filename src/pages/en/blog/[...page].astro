@@ -1,22 +1,32 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import SectionHeading from '../../../components/SectionHeading.astro';
 import BlogPostCard from '../../../components/BlogPostCard.astro';
-import BlogTagFilter from '../../../components/BlogTagFilter.astro';
 import BlogSearchInput from '../../../components/BlogSearchInput.astro';
+import BlogPagination from '../../../components/BlogPagination.astro';
 import { DEFAULT_LOCALE } from '../../../i18n/config';
 import { useTranslations } from '../../../i18n/utils';
 import { getReadingTime } from '../../../utils/readingTime';
 
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+		(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+	);
+
+	const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+
+	return paginate(posts, {
+		pageSize: 15,
+		props: { allTags },
+	});
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { allTags } = Astro.props;
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
-
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
-
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 
 <Layout title={`${t('blog.title')} — edcilo`} description={t('blog.subtitle')}>
@@ -31,26 +41,20 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 			placeholder={t('blog.search.placeholder')}
 			label={t('blog.search.label')}
 			noResultsMessage={t('blog.search.noResults')}
+			readingTimeLabel={t('blog.readingTime')}
+			tags={allTags}
+			filterLabel={t('blog.filter.label')}
+			allLabel={t('blog.filter.all')}
+			filterNoResultsMessage={t('blog.filter.noResults')}
 		/>
 
 		{
-			allTags.length > 1 && (
-				<BlogTagFilter
-					tags={allTags}
-					filterLabel={t('blog.filter.label')}
-					allLabel={t('blog.filter.all')}
-					noResultsMessage={t('blog.filter.noResults')}
-				/>
-			)
-		}
-
-		{
-			posts.length > 0 ? (
+			page.data.length > 0 ? (
 				<div
 					data-blog-grid
 					class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6"
 				>
-					{posts.map((post) => (
+					{page.data.map((post) => (
 						<BlogPostCard
 							title={post.data.title}
 							description={post.data.description}
@@ -67,5 +71,11 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 				</p>
 			)
 		}
+
+		<BlogPagination
+			currentPage={page.currentPage}
+			lastPage={page.lastPage}
+			url={page.url}
+		/>
 	</section>
 </Layout>

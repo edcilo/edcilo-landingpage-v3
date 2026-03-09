@@ -1,0 +1,383 @@
+---
+import Tooltip from './Tooltip.astro';
+import { DEFAULT_LOCALE } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+	currentPage: number;
+	lastPage: number;
+	url: {
+		current: string;
+		prev: string | undefined;
+		next: string | undefined;
+		first: string | undefined;
+		last: string | undefined;
+	};
+}
+
+const { currentPage, lastPage, url } = Astro.props;
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+
+/**
+ * Builds an array of page numbers and ellipsis markers to display.
+ * Always shows first page, last page, and a window of ±1 around the current page.
+ * Gaps between visible ranges are filled with `null` (rendered as "…").
+ */
+function getPageRange(current: number, total: number): (number | null)[] {
+	if (total <= 5) {
+		return Array.from({ length: total }, (_, i) => i + 1);
+	}
+
+	const pages = new Set<number>();
+
+	// Always include first and last page
+	pages.add(1);
+	pages.add(total);
+
+	// Window around current page (current ± 1)
+	for (let i = current - 1; i <= current + 1; i++) {
+		if (i >= 1 && i <= total) {
+			pages.add(i);
+		}
+	}
+
+	const sorted = [...pages].sort((a, b) => a - b);
+	const result: (number | null)[] = [];
+
+	for (let i = 0; i < sorted.length; i++) {
+		if (i > 0 && sorted[i] - sorted[i - 1] > 1) {
+			result.push(null);
+		}
+		result.push(sorted[i]);
+	}
+
+	return result;
+}
+
+/**
+ * Derives the URL for a specific page number from the current page URL.
+ * Page 1 uses the base path (no /2, /3, etc.).
+ */
+function getPageUrl(page: number): string {
+	const current = url.current;
+
+	if (page === 1) {
+		return current.replace(/\/\d+\/?$/, '/');
+	}
+
+	if (/\/\d+\/?$/.test(current)) {
+		return current.replace(/\/\d+(\/?$)/, `/${page}$1`);
+	}
+
+	const base = current.endsWith('/') ? current : `${current}/`;
+	return `${base}${page}`;
+}
+
+const pageRange = getPageRange(currentPage, lastPage);
+---
+
+{
+	lastPage > 1 && (
+		<nav
+			class="mt-12"
+			aria-label={`${t('blog.pagination.page')} ${currentPage} ${t('blog.pagination.of')} ${lastPage}`}
+			data-blog-pagination
+		>
+			<div class="flex flex-wrap items-center justify-center gap-2">
+				{/* First page button */}
+				<Tooltip text={t('blog.pagination.first')} position="top">
+					{url.first ? (
+						<a
+							href={url.first}
+							class="pagination-btn"
+							aria-label={t('blog.pagination.first')}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+								/>
+							</svg>
+						</a>
+					) : (
+						<span
+							class="pagination-btn pagination-disabled"
+							aria-disabled="true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+								/>
+							</svg>
+						</span>
+					)}
+				</Tooltip>
+
+				{/* Previous page button */}
+				<Tooltip text={t('blog.pagination.prev')} position="top">
+					{url.prev ? (
+						<a
+							href={url.prev}
+							class="pagination-btn"
+							rel="prev"
+							aria-label={t('blog.pagination.prev')}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M15.75 19.5 8.25 12l7.5-7.5"
+								/>
+							</svg>
+						</a>
+					) : (
+						<span
+							class="pagination-btn pagination-disabled"
+							aria-disabled="true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M15.75 19.5 8.25 12l7.5-7.5"
+								/>
+							</svg>
+						</span>
+					)}
+				</Tooltip>
+
+				{/* Page number buttons */}
+				{pageRange.map((page) =>
+					page === null ? (
+						<span class="pagination-ellipsis" aria-hidden="true">
+							&hellip;
+						</span>
+					) : page === currentPage ? (
+						<span
+							class="pagination-btn pagination-active"
+							aria-current="page"
+							aria-label={`${t('blog.pagination.page')} ${page}`}
+						>
+							{page}
+						</span>
+					) : (
+						<a
+							href={getPageUrl(page)}
+							class="pagination-btn"
+							aria-label={`${t('blog.pagination.page')} ${page}`}
+						>
+							{page}
+						</a>
+					),
+				)}
+
+				{/* Next page button */}
+				<Tooltip text={t('blog.pagination.next')} position="top">
+					{url.next ? (
+						<a
+							href={url.next}
+							class="pagination-btn"
+							rel="next"
+							aria-label={t('blog.pagination.next')}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m8.25 4.5 7.5 7.5-7.5 7.5"
+								/>
+							</svg>
+						</a>
+					) : (
+						<span
+							class="pagination-btn pagination-disabled"
+							aria-disabled="true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m8.25 4.5 7.5 7.5-7.5 7.5"
+								/>
+							</svg>
+						</span>
+					)}
+				</Tooltip>
+
+				{/* Last page button */}
+				<Tooltip text={t('blog.pagination.last')} position="top">
+					{url.last ? (
+						<a
+							href={url.last}
+							class="pagination-btn"
+							aria-label={t('blog.pagination.last')}
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+								/>
+							</svg>
+						</a>
+					) : (
+						<span
+							class="pagination-btn pagination-disabled"
+							aria-disabled="true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="size-4"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+								/>
+							</svg>
+						</span>
+					)}
+				</Tooltip>
+			</div>
+
+			{/* Page indicator text */}
+			<p class="mt-4 text-center font-mono text-sm text-muted-foreground">
+				{`${t('blog.pagination.page')} ${currentPage} ${t('blog.pagination.of')} ${lastPage}`}
+			</p>
+		</nav>
+	)
+}
+
+<style>
+	.pagination-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
+		padding: 0.625rem 0.75rem;
+		border-radius: 0.375rem;
+		border: 1px solid var(--color-border);
+		background-color: var(--color-muted);
+		font-family: var(--font-mono), ui-monospace, monospace;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		color: var(--color-muted-foreground);
+		text-decoration: none;
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+	}
+
+	.pagination-btn:hover {
+		background-color: var(--color-accent);
+		color: var(--color-accent-foreground);
+	}
+
+	.pagination-btn:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	.pagination-active {
+		background-color: var(--color-foreground);
+		color: var(--color-background);
+		border-color: var(--color-foreground);
+		cursor: default;
+	}
+
+	.pagination-active:hover {
+		opacity: 0.9;
+		background-color: var(--color-foreground);
+		color: var(--color-background);
+	}
+
+	.pagination-disabled {
+		opacity: 0.5;
+		pointer-events: none;
+		cursor: default;
+	}
+
+	.pagination-ellipsis {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 2.75rem;
+		min-height: 2.75rem;
+		font-family: var(--font-mono), ui-monospace, monospace;
+		font-size: 0.875rem;
+		color: var(--color-muted-foreground);
+		user-select: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.pagination-btn {
+			transition: none;
+		}
+	}
+</style>

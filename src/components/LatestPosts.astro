@@ -49,6 +49,7 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
 						tags={post.data.tags}
 						slug={post.id}
 						readingTime={getReadingTime(post.body ?? '')}
+						blur
 					/>
 				))}
 			</div>

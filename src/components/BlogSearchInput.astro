@@ -3,91 +3,571 @@ interface Props {
 	placeholder: string;
 	label: string;
 	noResultsMessage: string;
+	readingTimeLabel: string;
+	tags: string[];
+	filterLabel: string;
+	allLabel: string;
+	filterNoResultsMessage: string;
 }
 
-const { placeholder, label, noResultsMessage } = Astro.props;
+const {
+	placeholder,
+	label,
+	noResultsMessage,
+	readingTimeLabel,
+	tags,
+	filterLabel,
+	allLabel,
+	filterNoResultsMessage,
+} = Astro.props;
+
+const listboxId = 'blog-search-listbox';
+const statusId = 'blog-search-status';
+const tagPanelId = 'blog-search-tag-panel';
 ---
 
-<div class="blog-search mb-6">
-	<div class="relative mx-auto max-w-md">
-		<svg
-			class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="2"
-			stroke="currentColor"
-			aria-hidden="true"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-			></path>
-		</svg>
-		<input
-			type="search"
-			data-blog-search
-			class="blog-search-input w-full rounded-lg border border-border bg-muted py-3 pr-3 pl-9 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-			placeholder={placeholder}
-			aria-label={label}
-		/>
+<div
+	class="blog-search relative mb-6"
+	data-blog-search-root
+	data-filter-no-results-message={filterNoResultsMessage}
+>
+	<div class="mx-auto max-w-md">
+		<div class="relative">
+			<svg
+				class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+				></path>
+			</svg>
+
+			<input
+				type="search"
+				data-blog-search
+				role="combobox"
+				aria-expanded="false"
+				aria-controls={listboxId}
+				aria-activedescendant=""
+				aria-autocomplete="list"
+				autocomplete="off"
+				class="blog-search-input w-full rounded-lg border border-border bg-muted py-3 pr-10 pl-9 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+				placeholder={placeholder}
+				aria-label={label}
+				data-no-results-message={noResultsMessage}
+				data-reading-time-label={readingTimeLabel}
+			/>
+
+			<button
+				type="button"
+				class="blog-filter-toggle absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors duration-200 hover:text-foreground"
+				aria-expanded="false"
+				aria-controls={tagPanelId}
+				aria-label={filterLabel}
+				title={filterLabel}
+				data-blog-filter-toggle
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-4"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+					></path>
+				</svg>
+			</button>
+
+			<div
+				id={listboxId}
+				role="listbox"
+				aria-label={label}
+				class="blog-search-dropdown absolute top-full right-0 left-0 z-50 mt-1 hidden max-h-96 overflow-y-auto rounded-lg border border-border bg-background shadow-lg"
+			>
+			</div>
+
+			<div
+				id={tagPanelId}
+				class="absolute top-full right-0 left-0 z-50 mt-1 hidden rounded-lg border border-border bg-background shadow-lg"
+				role="group"
+				aria-label={filterLabel}
+				data-blog-tag-panel
+			>
+				<div class="flex flex-wrap gap-2 p-3">
+					<button
+						class="tag-filter-btn active"
+						data-tag="all"
+						aria-pressed="true"
+					>
+						{allLabel}
+					</button>
+					{
+						tags.map((tag) => (
+							<button
+								class="tag-filter-btn"
+								data-tag={tag}
+								aria-pressed="false"
+							>
+								{tag}
+							</button>
+						))
+					}
+				</div>
+			</div>
+		</div>
 	</div>
-	<p
-		class="blog-search-empty mt-8 hidden text-center font-mono text-sm text-muted-foreground"
-		aria-live="polite"
-		data-no-results-message={noResultsMessage}
-	>
-		{noResultsMessage}
-	</p>
+
+	<div id={statusId} class="sr-only" aria-live="polite"></div>
 </div>
 
 <script>
+	interface SearchPost {
+		title: string;
+		description: string;
+		date: string;
+		tags: string[];
+		slug: string;
+		readingTime: number;
+	}
+
+	let cachedIndex: SearchPost[] | null = null;
+
+	async function fetchSearchIndex(): Promise<SearchPost[]> {
+		if (cachedIndex !== null) return cachedIndex;
+
+		const response = await fetch('/api/search-index.json');
+		const data: unknown = await response.json();
+
+		if (!Array.isArray(data)) {
+			throw new Error('Search index is not an array');
+		}
+
+		cachedIndex = data as SearchPost[];
+		return cachedIndex;
+	}
+
+	function filterPosts(posts: SearchPost[], query: string): SearchPost[] {
+		const lowerQuery = query.toLowerCase();
+		return posts.filter(
+			(post) =>
+				post.title.toLowerCase().includes(lowerQuery) ||
+				post.description.toLowerCase().includes(lowerQuery),
+		);
+	}
+
+	function getLocalePrefix(): string {
+		return window.location.pathname.startsWith('/en/') ? '/en' : '';
+	}
+
+	function buildPostUrl(slug: string): string {
+		const prefix = getLocalePrefix();
+		return `${prefix}/blog/${slug}/`;
+	}
+
+	function escapeHtml(text: string): string {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
+	}
+
+	function renderResults(
+		posts: SearchPost[],
+		noResultsMessage: string,
+		readingTimeLabel: string,
+	): string {
+		if (posts.length === 0) {
+			return `<div class="px-4 py-3 font-mono text-sm text-muted-foreground" role="option" aria-selected="false" id="search-result-empty">${escapeHtml(noResultsMessage)}</div>`;
+		}
+
+		return posts
+			.map((post, index) => {
+				const url = buildPostUrl(post.slug);
+				const tagsText = post.tags.join(', ');
+				const readingTime = readingTimeLabel.replace(
+					'{min}',
+					String(post.readingTime),
+				);
+				const optionId = `search-result-${String(index)}`;
+
+				return `<a
+					href="${url}"
+					id="${optionId}"
+					role="option"
+					aria-selected="false"
+					class="blog-search-result block border-b border-border px-4 py-3 last:border-b-0 hover:bg-accent focus:bg-accent focus:outline-none"
+				>
+					<span class="block font-mono text-sm font-semibold text-foreground">${escapeHtml(post.title)}</span>
+					<span class="block text-xs text-muted-foreground line-clamp-1">${escapeHtml(post.description)}</span>
+					<span class="mt-1 block text-xs text-muted-foreground">${escapeHtml(tagsText)} · ${escapeHtml(readingTime)}</span>
+				</a>`;
+			})
+			.join('');
+	}
+
 	function initBlogSearch(): void {
-		const input =
-			document.querySelector<HTMLInputElement>('[data-blog-search]');
-		const grid = document.querySelector<HTMLElement>('[data-blog-grid]');
-		const searchEmpty =
-			document.querySelector<HTMLElement>('.blog-search-empty');
-		const tagFilterEmpty =
-			document.querySelector<HTMLElement>('.tag-filter-empty');
+		const root = document.querySelector<HTMLElement>('[data-blog-search-root]');
+		if (!root) return;
 
-		if (!input || !grid || !searchEmpty) return;
+		const inputEl = root.querySelector<HTMLInputElement>('[data-blog-search]');
+		const dropdownEl = root.querySelector<HTMLElement>('[role="listbox"]');
+		const statusEl = root.querySelector<HTMLElement>('[aria-live="polite"]');
+		const filterToggleEl = root.querySelector<HTMLButtonElement>(
+			'[data-blog-filter-toggle]',
+		);
+		const tagPanelEl = root.querySelector<HTMLElement>('[data-blog-tag-panel]');
 
-		const cards = grid.querySelectorAll<HTMLElement>('article[data-tags]');
+		if (!inputEl || !dropdownEl || !statusEl || !filterToggleEl || !tagPanelEl)
+			return;
 
-		function updateVisibility(): void {
-			const query = (input as HTMLInputElement).value.toLowerCase().trim();
-			let visibleCount = 0;
+		const input: HTMLInputElement = inputEl;
+		const dropdown: HTMLElement = dropdownEl;
+		const status: HTMLElement = statusEl;
+		const filterToggle: HTMLButtonElement = filterToggleEl;
+		const tagPanel: HTMLElement = tagPanelEl;
 
-			cards.forEach((card) => {
-				const title = card.dataset.title ?? '';
-				const description = card.dataset.description ?? '';
-				const matchesSearch =
-					!query || title.includes(query) || description.includes(query);
+		const noResultsMessage = input.dataset.noResultsMessage ?? '';
+		const readingTimeLabel = input.dataset.readingTimeLabel ?? '';
 
-				card.classList.toggle('search-hidden', !matchesSearch);
+		let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+		let activeIndex = -1;
+		let currentResults: SearchPost[] = [];
+		let currentActiveTag = 'all';
 
-				const isVisible =
-					!card.classList.contains('filtered-hidden') &&
-					!card.classList.contains('search-hidden');
-				if (isVisible) visibleCount++;
+		// --- Search dropdown logic ---
+
+		function showDropdown(): void {
+			hideTagPanel();
+			dropdown.classList.remove('hidden');
+			input.setAttribute('aria-expanded', 'true');
+		}
+
+		function hideDropdown(): void {
+			dropdown.classList.add('hidden');
+			input.setAttribute('aria-expanded', 'false');
+			input.setAttribute('aria-activedescendant', '');
+			activeIndex = -1;
+			currentResults = [];
+		}
+
+		function updateActiveDescendant(): void {
+			const options = dropdown.querySelectorAll<HTMLElement>('[role="option"]');
+
+			options.forEach((option, i) => {
+				const isActive = i === activeIndex;
+				option.setAttribute('aria-selected', String(isActive));
+
+				if (isActive) {
+					option.classList.add('bg-accent');
+				} else {
+					option.classList.remove('bg-accent');
+				}
 			});
 
-			const hasNoResults = visibleCount === 0;
-			(searchEmpty as HTMLElement).classList.toggle('hidden', !hasNoResults);
-			if (tagFilterEmpty) {
-				tagFilterEmpty.classList.toggle('hidden', true);
+			if (activeIndex >= 0 && activeIndex < options.length) {
+				const activeOption = options[activeIndex];
+				const activeId = activeOption.id;
+				input.setAttribute('aria-activedescendant', activeId);
+				activeOption.scrollIntoView({ block: 'nearest' });
+			} else {
+				input.setAttribute('aria-activedescendant', '');
 			}
 		}
 
-		input.addEventListener('input', updateVisibility);
+		async function performSearch(query: string): Promise<void> {
+			if (query.length < 2) {
+				hideDropdown();
+				status.textContent = '';
+				return;
+			}
+
+			try {
+				const posts = await fetchSearchIndex();
+				const results = filterPosts(posts, query);
+				currentResults = results;
+				activeIndex = -1;
+
+				dropdown.innerHTML = renderResults(
+					results,
+					noResultsMessage,
+					readingTimeLabel,
+				);
+				showDropdown();
+
+				if (results.length === 0) {
+					status.textContent = noResultsMessage;
+				} else {
+					const count = String(results.length);
+					status.textContent =
+						results.length === 1
+							? `${count} result found`
+							: `${count} results found`;
+				}
+			} catch {
+				hideDropdown();
+				status.textContent = '';
+			}
+		}
+
+		input.addEventListener('input', () => {
+			if (debounceTimer !== null) {
+				clearTimeout(debounceTimer);
+			}
+
+			const query = input.value.trim();
+
+			if (query.length < 2) {
+				hideDropdown();
+				status.textContent = '';
+				return;
+			}
+
+			debounceTimer = setTimeout(() => {
+				void performSearch(query);
+			}, 300);
+		});
+
+		input.addEventListener('keydown', (event: KeyboardEvent) => {
+			const isDropdownOpen = input.getAttribute('aria-expanded') === 'true';
+
+			if (event.key === 'Escape') {
+				if (isDropdownOpen) {
+					hideDropdown();
+					event.preventDefault();
+					return;
+				}
+				if (!tagPanel.classList.contains('hidden')) {
+					hideTagPanel();
+					event.preventDefault();
+				}
+				return;
+			}
+
+			if (!isDropdownOpen || currentResults.length === 0) return;
+
+			const options = dropdown.querySelectorAll<HTMLElement>('[role="option"]');
+			const optionCount = options.length;
+
+			if (event.key === 'ArrowDown') {
+				event.preventDefault();
+				activeIndex = activeIndex < optionCount - 1 ? activeIndex + 1 : 0;
+				updateActiveDescendant();
+				return;
+			}
+
+			if (event.key === 'ArrowUp') {
+				event.preventDefault();
+				activeIndex = activeIndex > 0 ? activeIndex - 1 : optionCount - 1;
+				updateActiveDescendant();
+				return;
+			}
+
+			if (event.key === 'Enter') {
+				if (activeIndex >= 0 && activeIndex < currentResults.length) {
+					event.preventDefault();
+					const selectedPost = currentResults[activeIndex];
+					window.location.href = buildPostUrl(selectedPost.slug);
+				}
+			}
+		});
+
+		// --- Tag filter panel logic ---
+
+		function updateFilterToggleIcon(): void {
+			if (!tagPanel.classList.contains('hidden')) {
+				// Panel expanded
+				filterToggle.classList.remove('text-muted-foreground', 'text-primary');
+				filterToggle.classList.add('text-foreground');
+			} else if (currentActiveTag !== 'all') {
+				// Panel collapsed but filter active
+				filterToggle.classList.remove(
+					'text-muted-foreground',
+					'text-foreground',
+				);
+				filterToggle.classList.add('text-primary');
+			} else {
+				// Panel collapsed, no filter
+				filterToggle.classList.remove('text-foreground', 'text-primary');
+				filterToggle.classList.add('text-muted-foreground');
+			}
+		}
+
+		function showTagPanel(): void {
+			hideDropdown();
+			tagPanel.classList.remove('hidden');
+			filterToggle.setAttribute('aria-expanded', 'true');
+			updateFilterToggleIcon();
+		}
+
+		function hideTagPanel(): void {
+			tagPanel.classList.add('hidden');
+			filterToggle.setAttribute('aria-expanded', 'false');
+			updateFilterToggleIcon();
+		}
+
+		function toggleTagPanel(): void {
+			if (tagPanel.classList.contains('hidden')) {
+				showTagPanel();
+			} else {
+				hideTagPanel();
+			}
+		}
+
+		filterToggle.addEventListener('click', () => {
+			toggleTagPanel();
+		});
+
+		// Tag filtering
+		const tagButtons =
+			tagPanel.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
+		const grid = document.querySelector<HTMLElement>('[data-blog-grid]');
+		const paginationEl = document.querySelector<HTMLElement>(
+			'[data-blog-pagination]',
+		);
+		const filterNoResultsMsg = root.dataset.filterNoResultsMessage ?? '';
+
+		const originalGridHtml = grid ? grid.innerHTML : '';
+		const originalPaginationDisplay = paginationEl
+			? paginationEl.style.display
+			: '';
+
+		function getTagFilterLocale(): string {
+			return window.location.pathname.startsWith('/en/') ? 'en-US' : 'es-MX';
+		}
+
+		function renderTagResults(posts: SearchPost[]): string {
+			const locale = getTagFilterLocale();
+
+			return posts
+				.map((post) => {
+					const url = buildPostUrl(post.slug);
+					const dateStr = new Date(post.date).toLocaleDateString(locale, {
+						year: 'numeric',
+						month: 'short',
+						day: 'numeric',
+						hour: '2-digit',
+						minute: '2-digit',
+					});
+					const readingTime = readingTimeLabel.replace(
+						'{min}',
+						String(post.readingTime),
+					);
+					const tagsHtml = post.tags
+						.map(
+							(tag) =>
+								`<span class="inline-flex items-center rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-xs text-muted-foreground">${escapeHtml(tag)}</span>`,
+						)
+						.join('');
+
+					return `<article class="group relative overflow-hidden rounded-xl border border-border p-6 transition-[background-color,border-color] duration-300 ease-out hover:border-muted-foreground/60 bg-background hover:bg-muted/50">
+						<div class="pointer-events-none absolute -top-24 -right-24 h-48 w-48 origin-center rounded-full bg-[radial-gradient(circle,var(--color-muted-foreground)_0%,transparent_70%)] opacity-[0.04] transition-[transform,opacity] duration-500 ease-out group-hover:scale-[1.33] group-hover:opacity-[0.08]" aria-hidden="true"></div>
+						<a href="${url}" class="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+							<time datetime="${new Date(post.date).toISOString()}" class="font-mono text-xs text-muted-foreground">${escapeHtml(dateStr)}</time>
+							<span class="ml-2 font-mono text-xs text-muted-foreground">&middot; ${escapeHtml(readingTime)}</span>
+							<h3 class="mt-2 font-mono text-lg font-semibold text-foreground group-hover:text-foreground">${escapeHtml(post.title)}</h3>
+							<p class="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">${escapeHtml(post.description)}</p>
+							<hr class="my-4 border-dashed border-border" />
+							<div class="flex flex-wrap gap-2">${tagsHtml}</div>
+						</a>
+					</article>`;
+				})
+				.join('');
+		}
+
+		function setActiveTag(selectedTag: string): void {
+			currentActiveTag = selectedTag;
+
+			const newUrl =
+				selectedTag === 'all'
+					? window.location.pathname
+					: `${window.location.pathname}?tag=${encodeURIComponent(selectedTag)}`;
+			window.history.replaceState(null, '', newUrl);
+
+			tagButtons.forEach((btn) => {
+				const isActive = btn.dataset.tag === selectedTag;
+				btn.classList.toggle('active', isActive);
+				btn.setAttribute('aria-pressed', String(isActive));
+			});
+
+			if (grid) {
+				if (selectedTag === 'all') {
+					grid.innerHTML = originalGridHtml;
+					if (paginationEl) {
+						paginationEl.style.display = originalPaginationDisplay;
+					}
+				} else {
+					void (async () => {
+						try {
+							const posts = await fetchSearchIndex();
+							const filtered = posts.filter((post) =>
+								post.tags.includes(selectedTag),
+							);
+
+							if (filtered.length === 0) {
+								grid.innerHTML = `<p class="col-span-full text-center font-mono text-muted-foreground py-8">${escapeHtml(filterNoResultsMsg)}</p>`;
+							} else {
+								grid.innerHTML = renderTagResults(filtered);
+							}
+
+							if (paginationEl) {
+								paginationEl.style.display = 'none';
+							}
+						} catch {
+							grid.innerHTML = originalGridHtml;
+							if (paginationEl) {
+								paginationEl.style.display = originalPaginationDisplay;
+							}
+						}
+					})();
+				}
+			}
+
+			updateFilterToggleIcon();
+		}
+
+		tagButtons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const tag = btn.dataset.tag ?? 'all';
+				setActiveTag(tag);
+			});
+		});
+
+		// --- Click outside: close panel and dropdown ---
+
+		document.addEventListener('click', (event: MouseEvent) => {
+			const target = event.target as Node;
+			if (!root.contains(target)) {
+				hideDropdown();
+				hideTagPanel();
+			}
+		});
+
+		// --- Initialize from URL params ---
 
 		const urlParams = new URLSearchParams(window.location.search);
+
 		const initialQuery = urlParams.get('q') ?? '';
-		if (initialQuery) {
+		if (initialQuery.length >= 2) {
 			input.value = initialQuery;
-			updateVisibility();
+			void performSearch(initialQuery);
+		}
+
+		const initialTag = urlParams.get('tag') ?? 'all';
+		if (initialTag !== 'all') {
+			setActiveTag(initialTag);
+			showTagPanel();
 		}
 	}
 
@@ -100,11 +580,45 @@ const { placeholder, label, noResultsMessage } = Astro.props;
 		transition: all 0.2s ease-out;
 	}
 
-	:global(article[data-tags].search-hidden) {
-		opacity: 0;
-		transform: scale(0.95);
-		pointer-events: none;
-		position: absolute;
-		visibility: hidden;
+	.blog-search-dropdown {
+		transition: opacity 150ms ease;
+	}
+
+	.blog-filter-toggle {
+		cursor: pointer;
+	}
+
+	.tag-filter-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.625rem 0.75rem;
+		border-radius: 0.375rem;
+		border: 1px solid var(--color-border);
+		background-color: var(--color-muted);
+		font-family: var(--font-mono), ui-monospace, monospace;
+		font-size: 0.875rem;
+		color: var(--color-muted-foreground);
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+	}
+
+	.tag-filter-btn:hover {
+		background-color: var(--color-accent);
+		color: var(--color-accent-foreground);
+	}
+
+	.tag-filter-btn:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	.tag-filter-btn.active {
+		background-color: var(--color-foreground);
+		color: var(--color-background);
+		border-color: var(--color-foreground);
+	}
+
+	.tag-filter-btn.active:hover {
+		opacity: 0.9;
 	}
 </style>

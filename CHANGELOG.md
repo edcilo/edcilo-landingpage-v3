@@ -4,6 +4,94 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-09 — Filtro de tags global con índice JSON (mismo enfoque que el buscador)
+
+**Solicitud:** El filtro de tags del blog solo mostraba/ocultaba los artículos de la página actual (DOM). Con la paginación de 15 artículos por página, los posts de otras páginas con el tag seleccionado no aparecían.
+
+**Plan ejecutado:**
+
+1. Se reescribió la función `setActiveTag()` en `BlogSearchInput.astro` para usar el índice JSON estático (`/api/search-index.json`) en vez de manipular el DOM. Ahora al seleccionar un tag, se hace fetch del índice global, se filtran los posts por tag, y se renderizan como cards HTML en el grid.
+2. Se creó la función `renderTagResults()` que genera cards HTML idénticas visualmente a `BlogPostCard.astro` (glow decorativo, fecha localizada, reading time, título, descripción con line-clamp-2, separador dashed, tag pills estilo `SkillPill`).
+3. Al seleccionar "Todos", se restaura el contenido original del grid (server-rendered) y se muestra la paginación.
+4. Al seleccionar un tag específico, se oculta la paginación y se muestran todos los posts globales con ese tag.
+5. Se agregó `data-blog-pagination` al `<nav>` raíz de `BlogPagination.astro` para poder ocultar/mostrar la paginación desde el script.
+6. Se movió el mensaje "sin resultados" del panel de tags al área del grid (con `col-span-full`).
+7. Se eliminó la regla CSS `:global(article[data-tags].filtered-hidden)` ya que el filtrado por DOM ya no se usa.
+
+**Resultado:**
+
+- **2 componentes modificados:** `BlogSearchInput.astro` (filtrado global), `BlogPagination.astro` (data attribute)
+- **Comportamiento:** Seleccionar un tag muestra TODOS los posts con ese tag de todo el blog, no solo los de la página actual
+- **Build:** 59 páginas, sin errores
+- **QA:** Build, lint y format pasaron sin errores
+
+---
+
+## 2026-03-09 — Filtro de tags integrado al buscador (ícono funnel + dropdown)
+
+**Solicitud:** Explorar formas alternativas de mostrar los filtros de tags del blog. Se eligió integrar un ícono de filtro (funnel) dentro del input de búsqueda que despliega un panel dropdown con los tag pills.
+
+**Plan ejecutado:**
+
+1. Se reescribió `src/components/BlogSearchInput.astro` para integrar el filtro de tags. Se agregó un botón con ícono funnel (Heroicons) a la derecha del input. Al hacer click despliega/colapsa un panel dropdown (posicionado `absolute top-full`) con los botones pill de tags.
+2. Se actualizaron `src/pages/blog/[...page].astro` y `src/pages/en/blog/[...page].astro` para quitar el uso de `BlogTagFilter` como componente separado y pasar los props de tags directamente a `BlogSearchInput`.
+3. El ícono funnel cambia de color según el estado: `muted-foreground` (default), `foreground` (panel abierto), `primary` (filtro activo).
+4. Se implementó exclusividad mutua entre el dropdown de búsqueda y el panel de tags: `showDropdown()` llama a `hideTagPanel()` y `showTagPanel()` llama a `hideDropdown()`, garantizando que solo uno esté visible a la vez.
+
+**Resultado:**
+
+- **1 componente reescrito:** `src/components/BlogSearchInput.astro` (ahora incluye búsqueda + filtro de tags en dropdowns mutuamente excluyentes)
+- **2 páginas actualizadas:** `blog/[...page].astro` (es y en) — quitado import y uso de `BlogTagFilter`
+- **`BlogTagFilter.astro` queda sin uso** en las páginas del blog (puede eliminarse en el futuro)
+- **Build:** 59 páginas, client JS < 2 kB gzip
+- **QA:** Build, lint y format pasaron sin errores
+
+---
+
+## 2026-03-09 — Buscador global del blog con índice JSON estático
+
+**Solicitud:** El buscador del blog estaba limitado a los artículos de la página actual debido a la paginación. Se pidió buscar en todos los artículos del blog.
+
+**Plan ejecutado:**
+
+1. Se creó el endpoint estático `src/pages/api/search-index.json.ts` que genera un JSON con todos los posts (título, descripción, fecha, tags, slug, reading time) al momento del build. El archivo pesa ~8.7 KB para 26 posts.
+2. Se reescribió `src/components/BlogSearchInput.astro` para buscar contra el JSON global en vez del DOM local. El nuevo comportamiento: fetch lazy del JSON (cacheado en memoria), debounce de 300ms, resultados en dropdown overlay con navegación por teclado (↑↓ + Enter), accesibilidad completa (combobox, listbox, aria-activedescendant), cierre con Escape/click fuera, y detección automática del locale para URLs correctas.
+3. Se limpió `src/components/BlogTagFilter.astro` eliminando referencias a `search-hidden` y `.blog-search-empty` que ya no existen.
+4. Se actualizaron las páginas paginadas (es y en) con el nuevo prop `readingTimeLabel`.
+
+**Resultado:**
+
+- **1 endpoint creado:** `src/pages/api/search-index.json.ts` → genera `/api/search-index.json`
+- **1 componente reescrito:** `src/components/BlogSearchInput.astro`
+- **1 componente limpiado:** `src/components/BlogTagFilter.astro`
+- **2 páginas actualizadas:** `blog/[...page].astro` (es y en)
+- **Build:** 59 páginas + 1 endpoint JSON generados exitosamente
+- **QA:** Lint, format y build pasaron sin errores
+
+---
+
+## 2026-03-09 — Paginación en el blog (15 artículos por página)
+
+**Solicitud:** Implementar paginación en la sección del blog, mostrando 15 artículos por página.
+
+**Plan ejecutado:**
+
+1. Se agregaron 6 claves de traducción i18n para paginación (`blog.pagination.*`) en ambos idiomas (es/en) en `src/i18n/ui.ts`.
+2. Se creó el componente `src/components/BlogPagination.astro` con navegación completa: botones Primera, Anterior, números de página con ellipsis inteligente, Siguiente y Última. Estilo consistente con los `tag-filter-btn` existentes, accesible (WCAG AA, aria-labels, rel=prev/next, target size 44px), responsive (iconos en mobile, texto en desktop), y sin JavaScript del lado del cliente.
+3. Se reemplazó `src/pages/blog/index.astro` por `src/pages/blog/[...page].astro` usando `getStaticPaths({ paginate })` con `pageSize: 15`.
+4. Se reemplazó `src/pages/en/blog/index.astro` por `src/pages/en/blog/[...page].astro` con la misma lógica.
+
+**Resultado:**
+
+- **1 componente creado:** `src/components/BlogPagination.astro`
+- **1 archivo modificado:** `src/i18n/ui.ts` (12 claves de traducción añadidas)
+- **2 archivos reemplazados:** `blog/index.astro` → `blog/[...page].astro` (es y en)
+- **Rutas generadas:** `/blog/` (pág. 1), `/blog/2/` (pág. 2), `/en/blog/`, `/en/blog/2/`
+- **Build:** 59 páginas generadas exitosamente
+- **QA:** Lint, format y build pasaron sin errores
+
+---
+
 ## 2026-03-06 — Nuevo artículo de blog: scp
 
 **Solicitud:** Crear un artículo para el blog sobre `scp` (secure copy) con contenido proporcionado por el usuario.
