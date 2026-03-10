@@ -4,6 +4,31 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-10 — Nuevo artículo de blog: Anatomía de una URL
+
+**ID:** TASK-2026-03-10-002
+
+**Solicitud:** Crear un artículo completo para el blog sobre la estructura de una URL, orientado a desarrollo web / frontend, a partir de un borrador breve con los componentes básicos de una URL. El artículo debía cubrir: desglose de cada componente, diferencia URL/URI/URN, encoding de caracteres, URLs absolutas vs. relativas, subdominios, TLDs, protocolos comunes, query strings, fragments en SPAs y buenas prácticas para URLs limpias.
+
+**Plan ejecutado:**
+
+1. Se analizaron los artículos existentes del blog para identificar el patrón de estructura y convenciones de estilo.
+2. Se realizó brainstorming con el usuario para definir: alcance (guía completa), orientación (desarrollo web / frontend), tags (`web, frontend, networking`), contenido conceptual sin código de programación.
+3. Se generó un plan detallado con el master-planner: 12 secciones, 9 tablas de referencia, 2 diagramas de texto, ~357 líneas estimadas.
+4. Se redactó el artículo completo en español siguiendo las convenciones editoriales del blog.
+5. Se creó el archivo `src/content/blog/url-anatomy.md`.
+6. QA validó frontmatter, formato Markdown, estructura, consistencia con otros artículos, build, lint y format — 6/6 checks passed.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/url-anatomy.md`
+- **Tags:** `web`, `frontend`, `networking`
+- **Contenido:** ~232 líneas, 12 secciones, 11 tablas de referencia, 2 diagramas de texto, 5 blockquotes, 10 buenas prácticas
+- **Build:** 65 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint y format pasaron sin errores
+
+---
+
 ## 2026-03-10 — Nuevo artículo de blog: Docker Networking (network_mode host)
 
 **ID:** TASK-2026-03-10-001
