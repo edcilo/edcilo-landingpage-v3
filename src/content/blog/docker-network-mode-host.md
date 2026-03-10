@@ -412,3 +412,52 @@ curl http://192.168.1.10:5432
 ```
 
 Si necesitas resolución DNS por nombre entre servicios, el modo host no es adecuado. Usa una red bridge personalizada en su lugar.
+
+### Acceder a servicios del host desde un contenedor
+
+Un escenario frecuente es necesitar que un contenedor en modo bridge se comunique con un servicio que se ejecuta directamente en la máquina host: una base de datos en desarrollo, una API local o cualquier otro proceso. El problema es que `localhost` dentro del contenedor se refiere al propio contenedor, no al host. Usar `127.0.0.1` tampoco funciona porque apunta al loopback del contenedor.
+
+Docker provee el hostname especial `host.docker.internal` que resuelve a la IP interna del host. Esto permite que los contenedores accedan a servicios del host sin hardcodear direcciones IP que pueden cambiar.
+
+Verificar la conectividad con el host desde un contenedor:
+
+```bash
+docker run --rm alpine ping host.docker.internal
+```
+
+En Docker Compose, se puede usar `host.docker.internal` directamente en las variables de entorno para apuntar a servicios del host:
+
+```yaml
+services:
+  app:
+    image: node:22-alpine
+    environment:
+      API_URL: http://host.docker.internal:3000
+```
+
+En este ejemplo, el contenedor `app` hace peticiones a una API que se ejecuta en el puerto 3000 del host.
+
+> **Nota:** la compatibilidad de `host.docker.internal` varía según la plataforma:
+>
+> - **Docker Desktop (macOS/Windows):** funciona nativamente sin configuración adicional.
+> - **Linux:** `host.docker.internal` no se resuelve por defecto. Es necesario agregarlo explícitamente.
+
+En Linux, hay que usar la flag `--add-host` en `docker run`:
+
+```bash
+docker run --rm --add-host host.docker.internal:host-gateway alpine ping host.docker.internal
+```
+
+O la directiva `extra_hosts` en Docker Compose:
+
+```yaml
+services:
+  app:
+    image: node:22-alpine
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      API_URL: http://host.docker.internal:3000
+```
+
+> **Nota:** `host-gateway` es un valor especial que Docker reemplaza automáticamente por la IP real del host en el momento de crear el contenedor. No es necesario conocer ni hardcodear la dirección IP del host.
