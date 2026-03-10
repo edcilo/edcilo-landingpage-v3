@@ -4,6 +4,37 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-10 — Animación typewriter en encabezado del blog
+
+**ID:** TASK-2026-03-10-003
+
+**Solicitud:** Agregar una animación tipo "máquina de escribir" (typewriter) en la página principal del blog, donde el título "Blog" se escribe letra por letra, seguido del subtítulo "Pensamientos y aprendizajes" (es) / "Thoughts and learnings" (en), con un cursor `|` parpadeante que acompaña la escritura. Velocidad moderada (~100ms por letra). La animación se ejecuta cada vez que se carga la página.
+
+**Plan ejecutado:**
+
+1. Se realizó brainstorming con el usuario para definir: alcance (solo páginas `/blog` y `/en/blog`), velocidad (moderada, ~100ms por letra), comportamiento (cada recarga).
+2. Se evaluaron 3 enfoques: A) componente dedicado, B) prop en `SectionHeading`, C) CSS puro. Se eligió el enfoque A.
+3. Se creó el componente `src/components/TypewriterHeading.astro` con:
+   - Misma interfaz Props que `SectionHeading` (title, subtitle?, id?) para ser un drop-in replacement.
+   - HTML con texto completo en `<span class="sr-only">` para SEO y screen readers.
+   - Spans vacíos `aria-hidden="true"` que JS llena letra por letra.
+   - Cursor `|` con animación CSS `blink` (step-end, 1s infinite).
+   - Script vanilla JS: función `typeText()` con `setTimeout` recursivo, secuencia título → subtítulo, clonado del cursor entre secciones.
+   - Respeta `prefers-reduced-motion: reduce` (muestra texto completo sin animación, cursor oculto).
+   - Patrón del proyecto: `setup()` + `astro:page-load` + guarda `data-typewriter-initialized`.
+4. Se reemplazó `SectionHeading` por `TypewriterHeading` en ambas páginas del blog (es y en).
+5. QA validó: build (65 páginas, 0 errores), lint (0 errores), format (pass), revisión de código (6/6 criterios), no-regresión (`SectionHeading.astro` intacto).
+
+**Resultado:**
+
+- **1 componente creado:** `src/components/TypewriterHeading.astro` (152 líneas)
+- **2 archivos modificados:** `src/pages/blog/[...page].astro`, `src/pages/en/blog/[...page].astro` (import + uso de `TypewriterHeading`)
+- **Archivos NO modificados:** `SectionHeading.astro`, `global.css`, `ui.ts`
+- **Build:** 65 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, revisión de código y no-regresión — todos PASS
+
+---
+
 ## 2026-03-10 — Nuevo artículo de blog: Anatomía de una URL
 
 **ID:** TASK-2026-03-10-002

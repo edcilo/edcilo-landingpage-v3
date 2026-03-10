@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
-import SectionHeading from '../../../components/SectionHeading.astro';
+import TypewriterHeading from '../../../components/TypewriterHeading.astro';
 import BlogPostCard from '../../../components/BlogPostCard.astro';
 import BlogSearchInput from '../../../components/BlogSearchInput.astro';
 import BlogPagination from '../../../components/BlogPagination.astro';
@@ -31,7 +31,7 @@ const t = useTranslations(locale);
 
 <Layout title={`${t('blog.title')} — edcilo`} description={t('blog.subtitle')}>
 	<section class="py-16 sm:py-24" aria-labelledby="blog-heading">
-		<SectionHeading
+		<TypewriterHeading
 			id="blog-heading"
 			title={t('blog.title')}
 			subtitle={t('blog.subtitle')}

@@ -1,0 +1,149 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	id?: string;
+}
+
+const { title, subtitle, id } = Astro.props;
+---
+
+<div class="mb-12 text-left" data-typewriter>
+	<h2
+		id={id}
+		class="font-mono text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+	>
+		<span class="sr-only">{title}</span>
+		<span aria-hidden="true" data-typewriter-title-text></span>
+		<span aria-hidden="true" class="typewriter-cursor" data-typewriter-cursor
+			>|</span
+		>
+	</h2>
+	{
+		subtitle && (
+			<p class="mt-4 min-h-[1lh] font-mono text-lg text-muted-foreground">
+				<span class="sr-only">{subtitle}</span>
+				<span aria-hidden="true" data-typewriter-subtitle-text />
+			</p>
+		)
+	}
+</div>
+
+<style>
+	.typewriter-cursor {
+		display: inline-block;
+		margin-left: -0.75em;
+		animation: blink 1s step-end infinite;
+	}
+
+	.typewriter-cursor.--hidden {
+		display: none;
+	}
+
+	@keyframes blink {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.typewriter-cursor {
+			animation: none;
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	function setupTypewriter(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-typewriter]');
+
+		containers.forEach((container) => {
+			const titleTextEl = container.querySelector<HTMLElement>(
+				'[data-typewriter-title-text]',
+			);
+			const subtitleTextEl = container.querySelector<HTMLElement>(
+				'[data-typewriter-subtitle-text]',
+			);
+			const cursorEl = container.querySelector<HTMLElement>(
+				'[data-typewriter-cursor]',
+			);
+
+			if (!titleTextEl) return;
+
+			// Read full text from sr-only spans
+			const h2El = titleTextEl.closest('h2');
+			const fullTitle =
+				h2El?.querySelector<HTMLElement>('.sr-only')?.textContent ?? '';
+
+			const pEl = subtitleTextEl?.closest('p');
+			const fullSubtitle =
+				pEl?.querySelector<HTMLElement>('.sr-only')?.textContent ?? '';
+
+			// Respect reduced motion preference
+			const prefersReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)',
+			);
+
+			if (prefersReducedMotion.matches) {
+				titleTextEl.textContent = fullTitle;
+				if (subtitleTextEl) {
+					subtitleTextEl.textContent = fullSubtitle;
+				}
+				return;
+			}
+
+			// Prevent double initialization
+			if (container.hasAttribute('data-typewriter-initialized')) return;
+			container.setAttribute('data-typewriter-initialized', '');
+
+			function typeText(
+				element: HTMLElement,
+				text: string,
+				delay: number,
+				callback?: () => void,
+			): void {
+				let index = 0;
+
+				function tick(): void {
+					if (index < text.length) {
+						element.textContent += text[index];
+						index++;
+						setTimeout(tick, delay);
+					} else if (callback) {
+						callback();
+					}
+				}
+
+				tick();
+			}
+
+			// Type the title first
+			typeText(titleTextEl, fullTitle, 100, () => {
+				// Type the subtitle if it exists
+				if (subtitleTextEl && fullSubtitle) {
+					// Hide the title cursor, clone it to the subtitle
+					if (cursorEl) {
+						cursorEl.classList.add('--hidden');
+						const subtitleCursor = cursorEl.cloneNode(true) as HTMLElement;
+						subtitleCursor.classList.remove('--hidden');
+						subtitleTextEl.parentElement?.appendChild(subtitleCursor);
+					}
+
+					typeText(subtitleTextEl, fullSubtitle, 100);
+				}
+			});
+		});
+	}
+
+	// Primary initialization
+	setupTypewriter();
+
+	// Re-initialize on View Transitions navigation
+	document.addEventListener('astro:page-load', setupTypewriter);
+</script>
