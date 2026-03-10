@@ -4,6 +4,31 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-10 — Nuevo artículo de blog: Docker Networking (network_mode host)
+
+**ID:** TASK-2026-03-10-001
+
+**Solicitud:** Crear un artículo completo para el blog sobre networking en Docker, con `network_mode: host` como tema central, a partir de un borrador breve con un snippet de Docker Compose. El artículo debía cubrir los cinco modos de red de Docker (bridge, host, none, overlay, macvlan), incluir ejemplos con `docker run` y Docker Compose, y contener secciones de troubleshooting.
+
+**Plan ejecutado:**
+
+1. Se analizaron los artículos existentes del blog (netstat, grep, fail2ban, scp, systemctl) para identificar el patrón de estructura y convenciones de estilo.
+2. Se realizó brainstorming con el usuario para definir alcance (guía completa), formato de ejemplos (docker run + Compose), tags (`docker, networking, sre`) e inclusión de troubleshooting.
+3. Se generó un plan detallado con el master-planner: 11 secciones, 5 tablas de referencia, ~16-18 bloques de código.
+4. Se redactó el artículo completo en español siguiendo las convenciones editoriales del blog.
+5. Se creó el archivo `src/content/blog/docker-network-mode-host.md`.
+6. QA validó frontmatter, formato Markdown, estructura, consistencia con otros artículos, build, lint y format — 6/6 checks passed.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/docker-network-mode-host.md`
+- **Tags:** `docker`, `networking`, `sre`
+- **Contenido:** ~414 líneas, 11 secciones, 6 tablas de referencia, 16 bloques de código (bash + yaml), 10 buenas prácticas, 5 problemas en troubleshooting
+- **Build:** 63 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint y format pasaron sin errores
+
+---
+
 ## 2026-03-09 — Lector RSVP (Rapid Serial Visual Presentation) para artículos del blog
 
 **Solicitud:** Implementar una herramienta RSVP como lector de lectura rápida para los artículos del blog, activada desde un botón en el header del post que abre un popover superpuesto al artículo.
