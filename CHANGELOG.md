@@ -4,6 +4,28 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Agregar proyecto planTimer al portfolio
+
+**ID:** TASK-2026-03-12-002
+
+**Solicitud:** Agregar el proyecto https://timer.edcilo.com al portfolio como primer elemento del array de proyectos, con las mismas tecnologías que MD2PDF (Astro, TypeScript, Tailwind).
+
+**Plan ejecutado:**
+
+1. Se tomó una captura de pantalla de la app con Playwright (viewport 1280x720) y se convirtió a WebP con sharp (`src/assets/portfolio/06_timer.webp`).
+2. Se agregaron las traducciones de la descripción en español e inglés en `src/i18n/ui.ts` (`project.planTimer.description`).
+3. Se agregó el proyecto como primer elemento del array `PROJECTS` en `src/data/projects.ts` con tecnologías: Astro, TypeScript, Tailwind.
+4. QA validó: build (73 páginas, 28 imágenes optimizadas, 0 errores), lint (0 errores), format (pass), revisión de código (11/11 criterios cumplidos).
+
+**Resultado:**
+
+- **1 archivo creado:** `src/assets/portfolio/06_timer.webp`
+- **2 archivos modificados:** `src/data/projects.ts`, `src/i18n/ui.ts`
+- **Build:** 73 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format y revisión de código — todos PASS
+
+---
+
 ## 2026-03-12 — Página dedicada de proyectos y limitación a 6 en home
 
 **ID:** TASK-2026-03-12-001
