@@ -4,6 +4,32 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Página dedicada de proyectos y limitación a 6 en home
+
+**ID:** TASK-2026-03-12-001
+
+**Solicitud:** Modificar la sección de proyectos del home para mostrar solo los 6 proyectos más recientes y agregar un link que redireccione a una página dedicada donde se muestren todos los proyectos.
+
+**Plan ejecutado:**
+
+1. Se realizó brainstorming con el usuario para definir: estilo de la página (grid simple, consistente con el sitio), y convención de rutas (`/projects/` para ambos idiomas, igual que `/blog/`).
+2. Se agregaron 2 claves de traducción i18n (`projects.viewAll`) en español e inglés en `src/i18n/ui.ts`.
+3. Se modificó `src/components/ProjectsSection.astro` para limitar los proyectos a `.slice(0, 6)` y agregar un link "Ver todos los proyectos" siguiendo el mismo patrón visual de `LatestPosts.astro` (flecha SVG + clases de estilo).
+4. Se creó `src/pages/projects/index.astro` (ruta `/projects/`) para el locale español.
+5. Se creó `src/pages/en/projects/index.astro` (ruta `/en/projects/`) para el locale inglés.
+6. Ambas páginas muestran todos los proyectos en un grid responsive (1 col móvil, 2 cols tablet, 3 cols desktop) con `SectionHeading` y `ProjectCard`.
+7. QA validó: build (73 páginas, 0 errores), lint (0 errores), format (corregido automáticamente), type check (1 error preexistente no relacionado). Revisión de código: i18n completo, paths correctos, indentación con tabs, estilo consistente.
+
+**Resultado:**
+
+- **2 archivos creados:** `src/pages/projects/index.astro`, `src/pages/en/projects/index.astro`
+- **2 archivos modificados:** `src/components/ProjectsSection.astro`, `src/i18n/ui.ts`
+- **Rutas nuevas:** `/projects/` (es), `/en/projects/` (en)
+- **Build:** 73 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format y revisión de código — todos PASS
+
+---
+
 ## 2026-03-10 — Animación typewriter en encabezado del blog
 
 **ID:** TASK-2026-03-10-003

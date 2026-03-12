@@ -24,6 +24,7 @@ export const UI_STRINGS = {
 		'skills.subtitle': 'Tecnologías con las que trabajo a diario',
 		'projects.title': 'Proyectos',
 		'projects.subtitle': 'Algunas cosas que he construido',
+		'projects.viewAll': 'Ver todos los proyectos',
 		'project.workshopManager.description':
 			'Una aplicación web completa para gestionar talleres automotrices — órdenes de reparación, inventario, punto de venta y un asistente de chat con IA.',
 		'project.epochConverter.description':
@@ -100,6 +101,7 @@ export const UI_STRINGS = {
 		'skills.subtitle': 'Technologies I work with daily',
 		'projects.title': 'Projects',
 		'projects.subtitle': "Some things I've built",
+		'projects.viewAll': 'View all projects',
 		'project.workshopManager.description':
 			'A full-featured web app to manage auto repair shops — repair orders, inventory, POS, and an AI-powered chat assistant.',
 		'project.epochConverter.description':

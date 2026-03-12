@@ -3,7 +3,7 @@ import { PROJECTS } from '../data/projects';
 import SectionHeading from './SectionHeading.astro';
 import ProjectCard from './ProjectCard.astro';
 import { DEFAULT_LOCALE } from '../i18n/config';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations, getLocalizedPath } from '../i18n/utils';
 
 const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
 const t = useTranslations(locale);
@@ -21,10 +21,9 @@ const t = useTranslations(locale);
 		subtitle={t('projects.subtitle')}
 	/>
 
-	<!-- Grid: 1 col mobile, 3 cols desktop -->
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
 		{
-			PROJECTS.map((project) => (
+			PROJECTS.slice(0, 6).map((project) => (
 				<ProjectCard
 					title={project.title}
 					description={t(project.descriptionKey)}
@@ -34,5 +33,28 @@ const t = useTranslations(locale);
 				/>
 			))
 		}
+	</div>
+
+	<div class="mt-8 text-center">
+		<a
+			href={getLocalizedPath('/projects', locale)}
+			class="inline-flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-foreground transition-colors"
+		>
+			{t('projects.viewAll')}
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+			</svg>
+		</a>
 	</div>
 </section>

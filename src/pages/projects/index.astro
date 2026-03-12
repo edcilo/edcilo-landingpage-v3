@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { PROJECTS } from '../../data/projects';
+import { DEFAULT_LOCALE } from '../../i18n/config';
+import { useTranslations } from '../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('projects.title')} — edcilo`}
+	description={t('projects.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="projects-heading">
+		<SectionHeading
+			id="projects-heading"
+			title={t('projects.title')}
+			subtitle={t('projects.subtitle')}
+		/>
+
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+			{
+				PROJECTS.map((project) => (
+					<ProjectCard
+						title={project.title}
+						description={t(project.descriptionKey)}
+						url={project.url}
+						cover={project.cover}
+						tech={project.tech}
+					/>
+				))
+			}
+		</div>
+	</section>
+</Layout>
