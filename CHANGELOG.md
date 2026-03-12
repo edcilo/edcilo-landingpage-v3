@@ -4,6 +4,32 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Nueva página Dev Tools (catálogo de herramientas)
+
+**ID:** TASK-2026-03-12-003
+
+**Solicitud:** Crear una nueva página `/dev-tools` como catálogo de herramientas de desarrollo. La página muestra tarjetas por categoría (Encoders/Decoders, Converters, Formatters, Generators, Text Utils), cada tarjeta con icono, nombre y pills con los nombres de las herramientas. Solo la página índice (sin herramientas funcionales). Bilingüe (es/en). Con enlace en la navegación principal.
+
+**Plan ejecutado:**
+
+1. Se realizó brainstorming con el usuario para definir: alcance (solo índice, tarjetas no clicables), contenido de tarjetas (icono + nombre + pills sin descripción), 5 categorías con sus herramientas, i18n completo y enlace en navegación.
+2. Se agregaron 8 claves de traducción i18n (`nav.devtools`, `devtools.title`, `devtools.subtitle`, 5 `devtools.category.*`) en español e inglés en `src/i18n/ui.ts`.
+3. Se creó `src/data/toolCategories.ts` con la interface `ToolCategory` y el array `TOOL_CATEGORIES` (5 categorías con Heroicons SVG paths).
+4. Se creó `src/components/ToolCategoryCard.astro` siguiendo el patrón visual de `SkillCategoryCard.astro` (decorative glow, icono con color hover por categoría, título mono, separator dashed, pills con `SkillPill`).
+5. Se crearon las páginas `src/pages/dev-tools/index.astro` (es) y `src/pages/en/dev-tools/index.astro` (en) con grid responsivo (1/2/3 columnas).
+6. Se agregó el enlace "Dev Tools" al array `navLinks` en `src/components/Header.astro` (el MobileDrawer lo hereda automáticamente).
+7. QA validó: integridad de código, i18n simétrico, navegación, componente, páginas, datos, build (75 páginas, 0 errores), lint (0 errores), format (pass), no regresiones — 8/8 checks PASS.
+
+**Resultado:**
+
+- **4 archivos creados:** `src/data/toolCategories.ts`, `src/components/ToolCategoryCard.astro`, `src/pages/dev-tools/index.astro`, `src/pages/en/dev-tools/index.astro`
+- **2 archivos modificados:** `src/i18n/ui.ts`, `src/components/Header.astro`
+- **Rutas nuevas:** `/dev-tools/` (es), `/en/dev-tools/` (en)
+- **Build:** 75 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, accesibilidad, navegación y no-regresión — todos PASS
+
+---
+
 ## 2026-03-12 — Agregar proyecto planTimer al portfolio
 
 **ID:** TASK-2026-03-12-002
