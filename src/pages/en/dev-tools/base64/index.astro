@@ -1,0 +1,65 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import Base64Tool from '../../../../components/Base64Tool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.base64.title')} — edcilo`}
+	description={t('devtools.base64.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="base64-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="base64-heading"
+			title={t('devtools.base64.title')}
+			subtitle={t('devtools.base64.subtitle')}
+		/>
+
+		<Base64Tool
+			plainTextLabel={t('devtools.base64.plaintext.label')}
+			plainTextPlaceholder={t('devtools.base64.plaintext.placeholder')}
+			base64Label={t('devtools.base64.base64.label')}
+			base64Placeholder={t('devtools.base64.base64.placeholder')}
+			convertLabel={t('devtools.base64.convert')}
+			errorMessage={t('devtools.base64.error.invalid')}
+		/>
+
+		<p
+			class="mx-auto mt-10 max-w-3xl text-center font-mono text-sm text-muted-foreground"
+		>
+			{t('devtools.base64.learnMore')}{' '}
+			<a
+				href={getLocalizedPath('/blog/base64/', locale)}
+				class="text-foreground underline underline-offset-4 transition-colors hover:text-primary"
+			>
+				{t('devtools.base64.learnMore.link')}
+			</a>.
+		</p>
+	</section>
+</Layout>

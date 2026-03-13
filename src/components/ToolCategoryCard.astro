@@ -1,15 +1,17 @@
 ---
-import SkillPill from './SkillPill.astro';
+import type { Tool } from '../data/toolCategories';
+import { getLocalizedPath } from '../i18n/utils';
 
 interface Props {
 	title: string;
 	icon: string;
 	slug: string;
-	tools: string[];
+	tools: Tool[];
+	locale: string;
 	class?: string;
 }
 
-const { title, icon, slug, tools, class: className } = Astro.props;
+const { title, icon, slug, tools, locale, class: className } = Astro.props;
 
 const ICON_HOVER_COLORS: Record<string, string> = {
 	encoders: 'group-hover:text-amber-500',
@@ -63,6 +65,36 @@ const iconHoverColor = ICON_HOVER_COLORS[slug] ?? 'group-hover:text-foreground';
 
 	<!-- Tools list -->
 	<div class="flex flex-wrap gap-2">
-		{tools.map((tool) => <SkillPill name={tool} showIcon={false} />)}
+		{
+			tools.map((tool) =>
+				tool.href ? (
+					<a
+						href={getLocalizedPath(tool.href, locale)}
+						class="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-3 py-1.5 font-mono text-sm text-foreground transition-colors duration-300 hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+					>
+						{tool.name}
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							class="size-3"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+							/>
+						</svg>
+					</a>
+				) : (
+					<span class="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted px-3 py-1.5 font-mono text-sm text-foreground transition-colors duration-300 hover:bg-accent hover:text-accent-foreground">
+						{tool.name}
+					</span>
+				),
+			)
+		}
 	</div>
 </article>

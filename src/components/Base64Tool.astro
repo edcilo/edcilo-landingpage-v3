@@ -1,0 +1,167 @@
+---
+interface Props {
+	plainTextLabel: string;
+	plainTextPlaceholder: string;
+	base64Label: string;
+	base64Placeholder: string;
+	convertLabel: string;
+	errorMessage: string;
+}
+
+const {
+	plainTextLabel,
+	plainTextPlaceholder,
+	base64Label,
+	base64Placeholder,
+	convertLabel,
+	errorMessage,
+} = Astro.props;
+---
+
+<div data-base64-tool class="mx-auto max-w-3xl space-y-6">
+	<!-- Plain text textarea -->
+	<div>
+		<label
+			for="base64-plaintext"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{plainTextLabel}
+		</label>
+		<textarea
+			id="base64-plaintext"
+			data-base64-input
+			rows="8"
+			placeholder={plainTextPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Convert button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-base64-convert
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+				></path>
+			</svg>
+			{convertLabel}
+		</button>
+	</div>
+
+	<!-- Base64 textarea -->
+	<div>
+		<label
+			for="base64-output"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{base64Label}
+		</label>
+		<textarea
+			id="base64-output"
+			data-base64-output
+			rows="8"
+			placeholder={base64Placeholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-base64-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	function setupBase64Tool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-base64-tool]');
+		containers.forEach((container) => {
+			const inputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-base64-input]',
+			);
+			const outputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-base64-output]',
+			);
+			const convertBtn = container.querySelector<HTMLButtonElement>(
+				'[data-base64-convert]',
+			);
+			const errorEl = container.querySelector<HTMLElement>(
+				'[data-base64-error]',
+			);
+
+			if (!inputEl || !outputEl || !convertBtn || !errorEl) return;
+			if (container.hasAttribute('data-base64-initialized')) return;
+			container.setAttribute('data-base64-initialized', '');
+
+			function encodeBase64(text: string): string {
+				const encoder = new TextEncoder();
+				const bytes = encoder.encode(text);
+				let binary = '';
+				for (const byte of bytes) {
+					binary += String.fromCharCode(byte);
+				}
+				return btoa(binary);
+			}
+
+			function decodeBase64(base64: string): string {
+				const binary = atob(base64);
+				const bytes = new Uint8Array(binary.length);
+				for (let i = 0; i < binary.length; i++) {
+					bytes[i] = binary.charCodeAt(i);
+				}
+				return new TextDecoder().decode(bytes);
+			}
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			convertBtn.addEventListener('click', () => {
+				hideError();
+				const plainText = inputEl!.value;
+				const base64Text = outputEl!.value;
+
+				if (plainText.trim()) {
+					outputEl!.value = encodeBase64(plainText);
+					return;
+				}
+				if (base64Text.trim()) {
+					try {
+						inputEl!.value = decodeBase64(base64Text);
+					} catch {
+						showError();
+					}
+					return;
+				}
+			});
+
+			outputEl.addEventListener('input', () => {
+				hideError();
+			});
+		});
+	}
+
+	setupBase64Tool();
+	document.addEventListener('astro:page-load', setupBase64Tool);
+</script>

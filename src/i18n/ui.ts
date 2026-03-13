@@ -15,6 +15,20 @@ export const UI_STRINGS = {
 		'devtools.category.formatters': 'Formatters',
 		'devtools.category.generators': 'Generators',
 		'devtools.category.textutils': 'Text Utils',
+		'devtools.backToDevTools': 'Volver a Dev Tools',
+		'devtools.base64.title': 'Base64 Encoder / Decoder',
+		'devtools.base64.subtitle':
+			'Codifica y decodifica texto en Base64 directamente en tu navegador',
+		'devtools.base64.plaintext.label': 'Texto plano',
+		'devtools.base64.plaintext.placeholder': 'Escribe o pega tu texto aquí...',
+		'devtools.base64.base64.label': 'Base64',
+		'devtools.base64.base64.placeholder':
+			'El resultado en Base64 aparecerá aquí...',
+		'devtools.base64.convert': 'Convertir',
+		'devtools.base64.error.invalid': 'El texto Base64 ingresado no es válido.',
+		'devtools.base64.learnMore':
+			'Para saber más sobre Base64 y cómo usarlo desde la terminal, revisa el artículo',
+		'devtools.base64.learnMore.link': 'Base64 en la terminal',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -102,6 +116,19 @@ export const UI_STRINGS = {
 		'devtools.category.formatters': 'Formatters',
 		'devtools.category.generators': 'Generators',
 		'devtools.category.textutils': 'Text Utils',
+		'devtools.backToDevTools': 'Back to Dev Tools',
+		'devtools.base64.title': 'Base64 Encoder / Decoder',
+		'devtools.base64.subtitle':
+			'Encode and decode text to Base64 directly in your browser',
+		'devtools.base64.plaintext.label': 'Plain text',
+		'devtools.base64.plaintext.placeholder': 'Type or paste your text here...',
+		'devtools.base64.base64.label': 'Base64',
+		'devtools.base64.base64.placeholder': 'Base64 result will appear here...',
+		'devtools.base64.convert': 'Convert',
+		'devtools.base64.error.invalid': 'The Base64 text entered is not valid.',
+		'devtools.base64.learnMore':
+			'To learn more about Base64 and how to use it from the terminal, check out the article',
+		'devtools.base64.learnMore.link': 'Base64 in the terminal',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

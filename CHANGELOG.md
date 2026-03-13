@@ -4,6 +4,76 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Link al artículo del blog en la herramienta Base64
+
+**ID:** TASK-2026-03-12-006
+
+**Solicitud:** Agregar un link en la página de la herramienta Base64 que redirija al artículo del blog sobre Base64 en terminal, con un copy informativo estilo "para saber más...".
+
+**Plan ejecutado:**
+
+1. Se agregaron 2 claves de traducción i18n (`devtools.base64.learnMore`, `devtools.base64.learnMore.link`) en español e inglés en `src/i18n/ui.ts`.
+2. Se agregó un párrafo con link localizado debajo del componente `Base64Tool` en ambas páginas (es/en).
+3. QA validó: i18n simétrico, link correcto con `getLocalizedPath`, build (79 páginas, 0 errores), lint (0 errores), format (pass) — 18/18 checks PASS.
+
+**Resultado:**
+
+- **3 archivos modificados:** `src/i18n/ui.ts`, `src/pages/dev-tools/base64/index.astro`, `src/pages/en/dev-tools/base64/index.astro`
+- **Build:** 79 páginas generadas exitosamente, sin errores
+- **QA:** Todos los checks PASS
+
+---
+
+## 2026-03-12 — Nuevo artículo de blog: base64 en terminal
+
+**ID:** TASK-2026-03-12-005
+
+**Solicitud:** Crear un artículo para el blog sobre cómo codificar y decodificar texto y archivos en Base64 desde la terminal (comando `base64`), con un link al artículo existente de portapapeles en terminal. Artículo corto y enfocado, estilo `scp.md`.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de los artículos existentes del blog (scp, grep, clipboard-terminal).
+2. Se redactó el artículo completo en español con 7 secciones: introducción, sintaxis, banderas comunes, ejemplos de uso (6 subsecciones), diferencias Linux/macOS, combinaciones útiles (con link a `/blog/clipboard-terminal/`), y buenas prácticas.
+3. Se creó el archivo `src/content/blog/base64.md`.
+4. QA validó: frontmatter, valores Base64 verificados contra terminal real, contenido editorial, link interno, build (79 páginas, 0 errores), lint (0 errores), format (pass), no-regresión — todos PASS.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/base64.md`
+- **Tags:** `linux`, `terminal`
+- **Contenido:** 138 líneas, 7 secciones, 2 tablas, 10 bloques de código, 7 buenas prácticas, 1 link interno a `/blog/clipboard-terminal/`
+- **Build:** 79 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, contenido y no-regresión — todos PASS
+
+---
+
+## 2026-03-12 — Herramienta Base64 Encoder/Decoder
+
+**ID:** TASK-2026-03-12-004
+
+**Solicitud:** Crear una herramienta funcional "Base64 Text Encoder/Decoder" en su propia página bajo Dev Tools. La página tiene dos textareas grandes (texto plano arriba, Base64 abajo) con un botón "Convertir" en medio que detecta automáticamente la dirección de la conversión: si el textarea superior tiene contenido lo codifica a Base64, si solo el inferior tiene contenido lo decodifica a texto plano, y si ambos tienen contenido da prioridad al texto plano. Bilingüe (es/en). La pill "Base64" en el índice de Dev Tools se convierte en link navegable a la herramienta.
+
+**Plan ejecutado:**
+
+1. Se realizó brainstorming con el usuario para definir: ruta (`/dev-tools/base64/`), pill clickeable (solo Base64 como link), link de retorno "← Volver a Dev Tools".
+2. Se agregaron 9 claves de traducción i18n (`devtools.backToDevTools`, `devtools.base64.*`) en español e inglés en `src/i18n/ui.ts`.
+3. Se extendió `src/data/toolCategories.ts` con la interfaz `Tool` (`name` + `href?`) para soportar pills clickeables. Solo Base64 tiene `href`.
+4. Se modificó `src/components/ToolCategoryCard.astro` para renderizar pills con `href` como `<a>` con estilo diferenciado (hover primario + icono flecha) y pills sin `href` como `<span>`.
+5. Se creó `src/components/Base64Tool.astro` con: 2 textareas (`rows="8"`), botón de conversión con icono SVG, mensaje de error con `role="alert"`, lógica vanilla JS con soporte Unicode (TextEncoder/TextDecoder), patrón `data-*-initialized`, listener `astro:page-load`.
+6. Se crearon las páginas `src/pages/dev-tools/base64/index.astro` (es) y `src/pages/en/dev-tools/base64/index.astro` (en) con back link, SectionHeading y Base64Tool.
+7. Se agregó prop `locale` a las páginas index de dev-tools (es/en) para la localización de links en pills.
+8. QA validó: build (77 páginas, 0 errores), lint (0 errores), format (corregido automáticamente), i18n simétrico (9 claves × 2 idiomas), accesibilidad (labels, role="alert", focus styles, aria-hidden), no-regresión — todos PASS.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/Base64Tool.astro`, `src/pages/dev-tools/base64/index.astro`, `src/pages/en/dev-tools/base64/index.astro`
+- **4 archivos modificados:** `src/i18n/ui.ts`, `src/data/toolCategories.ts`, `src/components/ToolCategoryCard.astro`, `src/pages/dev-tools/index.astro`, `src/pages/en/dev-tools/index.astro`
+- **Rutas nuevas:** `/dev-tools/base64/` (es), `/en/dev-tools/base64/` (en)
+- **Build:** 77 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, accesibilidad, navegación y no-regresión — todos PASS
+
+---
+
 ## 2026-03-12 — Nueva página Dev Tools (catálogo de herramientas)
 
 **ID:** TASK-2026-03-12-003
