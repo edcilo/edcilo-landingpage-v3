@@ -41,6 +41,15 @@ const t = useTranslations(locale);
 			subtitle={t('devtools.base64.subtitle')}
 		/>
 
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.base64.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.base64.example')}
+			</p>
+		</div>
+
 		<Base64Tool
 			plainTextLabel={t('devtools.base64.plaintext.label')}
 			plainTextPlaceholder={t('devtools.base64.plaintext.placeholder')}
@@ -50,9 +59,7 @@ const t = useTranslations(locale);
 			errorMessage={t('devtools.base64.error.invalid')}
 		/>
 
-		<p
-			class="mx-auto mt-10 max-w-3xl text-center font-mono text-sm text-muted-foreground"
-		>
+		<p class="mx-auto mt-10 max-w-3xl font-mono text-sm text-muted-foreground">
 			{t('devtools.base64.learnMore')}{' '}
 			<a
 				href={getLocalizedPath('/blog/base64/', locale)}

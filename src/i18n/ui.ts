@@ -19,6 +19,10 @@ export const UI_STRINGS = {
 		'devtools.base64.title': 'Base64 Encoder / Decoder',
 		'devtools.base64.subtitle':
 			'Codifica y decodifica texto en Base64 directamente en tu navegador',
+		'devtools.base64.description':
+			'Base64 es un esquema de codificación que convierte datos binarios en una cadena de texto ASCII usando un alfabeto de 64 caracteres (A-Z, a-z, 0-9, +, /). Se usa comúnmente para transmitir datos binarios en contextos que solo admiten texto, como correos electrónicos, URLs o JSON. Esta herramienta codifica texto a Base64 y decodifica Base64 a texto plano.',
+		'devtools.base64.example':
+			'Ejemplo: el texto "Hola mundo" se codifica como SG9sYSBtdW5kbw==.',
 		'devtools.base64.plaintext.label': 'Texto plano',
 		'devtools.base64.plaintext.placeholder': 'Escribe o pega tu texto aquí...',
 		'devtools.base64.base64.label': 'Base64',
@@ -32,6 +36,10 @@ export const UI_STRINGS = {
 		'devtools.url.title': 'URL Encoder / Decoder',
 		'devtools.url.subtitle':
 			'Codifica y decodifica URLs directamente en tu navegador',
+		'devtools.url.description':
+			'Las URLs solo admiten un subconjunto de caracteres ASCII. Los caracteres especiales como espacios, acentos o símbolos reservados (?, &, =, #) se codifican usando percent-encoding: se reemplazan por % seguido de su valor hexadecimal en UTF-8. Esta herramienta usa encodeURIComponent para codificar y decodeURIComponent para decodificar.',
+		'devtools.url.example':
+			'Ejemplo: el texto "café con leche" se codifica como caf%C3%A9%20con%20leche.',
 		'devtools.url.plaintext.label': 'Texto sin codificar',
 		'devtools.url.plaintext.placeholder': 'Escribe o pega tu texto aquí...',
 		'devtools.url.encoded.label': 'URL codificada',
@@ -133,6 +141,10 @@ export const UI_STRINGS = {
 		'devtools.base64.title': 'Base64 Encoder / Decoder',
 		'devtools.base64.subtitle':
 			'Encode and decode text to Base64 directly in your browser',
+		'devtools.base64.description':
+			'Base64 is an encoding scheme that converts binary data into an ASCII text string using a 64-character alphabet (A-Z, a-z, 0-9, +, /). It is commonly used to transmit binary data in text-only contexts such as emails, URLs, or JSON. This tool encodes text to Base64 and decodes Base64 back to plain text.',
+		'devtools.base64.example':
+			'Example: the text "Hola mundo" is encoded as SG9sYSBtdW5kbw==.',
 		'devtools.base64.plaintext.label': 'Plain text',
 		'devtools.base64.plaintext.placeholder': 'Type or paste your text here...',
 		'devtools.base64.base64.label': 'Base64',
@@ -144,6 +156,10 @@ export const UI_STRINGS = {
 		'devtools.base64.learnMore.link': 'Base64 in the terminal',
 		'devtools.url.title': 'URL Encoder / Decoder',
 		'devtools.url.subtitle': 'Encode and decode URLs directly in your browser',
+		'devtools.url.description':
+			'URLs only support a subset of ASCII characters. Special characters such as spaces, accented letters, or reserved symbols (?, &, =, #) are encoded using percent-encoding: they are replaced by % followed by their hexadecimal UTF-8 value. This tool uses encodeURIComponent to encode and decodeURIComponent to decode.',
+		'devtools.url.example':
+			'Example: the text "café con leche" is encoded as caf%C3%A9%20con%20leche.',
 		'devtools.url.plaintext.label': 'Decoded text',
 		'devtools.url.plaintext.placeholder': 'Type or paste your text here...',
 		'devtools.url.encoded.label': 'URL encoded',

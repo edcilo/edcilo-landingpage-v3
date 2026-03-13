@@ -41,6 +41,15 @@ const t = useTranslations(locale);
 			subtitle={t('devtools.url.subtitle')}
 		/>
 
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.url.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.url.example')}
+			</p>
+		</div>
+
 		<UrlEncoderTool
 			plainTextLabel={t('devtools.url.plaintext.label')}
 			plainTextPlaceholder={t('devtools.url.plaintext.placeholder')}
@@ -50,9 +59,7 @@ const t = useTranslations(locale);
 			errorMessage={t('devtools.url.error.invalid')}
 		/>
 
-		<p
-			class="mx-auto mt-10 max-w-3xl text-center font-mono text-sm text-muted-foreground"
-		>
+		<p class="mx-auto mt-10 max-w-3xl font-mono text-sm text-muted-foreground">
 			{t('devtools.url.learnMore')}{' '}
 			<a
 				href={getLocalizedPath('/blog/url-anatomy/', locale)}

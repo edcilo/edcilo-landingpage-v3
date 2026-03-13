@@ -4,6 +4,66 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Alinear texto a la izquierda en herramientas dev-tools
+
+**ID:** TASK-2026-03-12-010
+
+**Solicitud:** Alinear a la izquierda el texto de los párrafos descriptivos y el párrafo "learnMore" en ambas herramientas (Base64 y URL Encoder), en las 4 páginas (es/en).
+
+**Plan ejecutado:**
+
+1. Se removió la clase `text-center` de los párrafos descriptivos (description + example) y del párrafo learnMore en las 4 páginas de dev-tools.
+2. Se corrigió el formato con Prettier.
+3. QA validó: build (81 páginas, 0 errores), lint (0 errores), format (pass), ausencia de `text-center`, consistencia entre las 4 páginas — todos PASS.
+
+**Resultado:**
+
+- **4 archivos modificados:** `src/pages/dev-tools/base64/index.astro`, `src/pages/en/dev-tools/base64/index.astro`, `src/pages/dev-tools/url-encoder/index.astro`, `src/pages/en/dev-tools/url-encoder/index.astro`
+- **Build:** 81 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, consistencia — todos PASS
+
+---
+
+## 2026-03-12 — Párrafo descriptivo en herramienta Base64
+
+**ID:** TASK-2026-03-12-009
+
+**Solicitud:** Agregar un párrafo introductorio arriba del componente Base64Tool (mismo patrón que URL Encoder) que explique qué es Base64, para qué se usa, y un ejemplo concreto ("Hola mundo" → "SG9sYSBtdW5kbw==").
+
+**Plan ejecutado:**
+
+1. Se agregaron 2 claves de traducción i18n (`devtools.base64.description`, `devtools.base64.example`) en español e inglés en `src/i18n/ui.ts`.
+2. Se insertó un bloque HTML descriptivo entre el SectionHeading y el Base64Tool en ambas páginas (es/en), con la misma estructura y clases Tailwind que URL Encoder.
+3. QA validó: build (81 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico, corrección técnica del ejemplo (verificado con btoa), consistencia con URL Encoder, no-regresión — todos PASS.
+
+**Resultado:**
+
+- **3 archivos modificados:** `src/i18n/ui.ts`, `src/pages/dev-tools/base64/index.astro`, `src/pages/en/dev-tools/base64/index.astro`
+- **Build:** 81 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, consistencia y no-regresión — todos PASS
+
+---
+
+## 2026-03-12 — Párrafo descriptivo en herramienta URL Encoder/Decoder
+
+**ID:** TASK-2026-03-12-008
+
+**Solicitud:** Agregar un párrafo introductorio arriba del componente UrlEncoderTool que explique cómo funciona el URL encoding (percent-encoding) y un ejemplo concreto ("café con leche" → "caf%C3%A9%20con%20leche").
+
+**Plan ejecutado:**
+
+1. Se agregaron 2 claves de traducción i18n (`devtools.url.description`, `devtools.url.example`) en español e inglés en `src/i18n/ui.ts`.
+2. Se insertó un bloque HTML descriptivo entre el SectionHeading y el UrlEncoderTool en ambas páginas (es/en).
+3. QA validó: build (81 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico, corrección técnica del ejemplo (verificado con encodeURIComponent), paridad HTML entre páginas, no-regresión — 6/6 checks PASS.
+
+**Resultado:**
+
+- **3 archivos modificados:** `src/i18n/ui.ts`, `src/pages/dev-tools/url-encoder/index.astro`, `src/pages/en/dev-tools/url-encoder/index.astro`
+- **Build:** 81 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, páginas y no-regresión — todos PASS
+
+---
+
 ## 2026-03-12 — Herramienta URL Encoder/Decoder
 
 **ID:** TASK-2026-03-12-007
