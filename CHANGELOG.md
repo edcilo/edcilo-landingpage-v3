@@ -4,6 +4,30 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Herramienta URL Encoder/Decoder
+
+**ID:** TASK-2026-03-12-007
+
+**Solicitud:** Crear una herramienta funcional "URL Encoder / Decoder" en su propia página bajo Dev Tools. La página tiene dos textareas (texto sin codificar arriba, URL codificada abajo) con un botón "Convertir" en medio que detecta automáticamente la dirección de la conversión. Bilingüe (es/en). La pill "URL" en el índice de Dev Tools se convierte en link navegable a la herramienta. Incluye link al artículo del blog sobre anatomía de URLs.
+
+**Plan ejecutado:**
+
+1. Se agregaron 10 claves de traducción i18n (`devtools.url.*`) en español e inglés en `src/i18n/ui.ts`.
+2. Se actualizó `src/data/toolCategories.ts` para agregar `href: '/dev-tools/url-encoder/'` a la pill "URL" en la categoría Encoders.
+3. Se creó `src/components/UrlEncoderTool.astro` con: 2 textareas (`rows="8"`), botón de conversión con icono SVG, mensaje de error con `role="alert"`, lógica vanilla JS con `encodeURIComponent()`/`decodeURIComponent()`, patrón `data-*-initialized`, listener `astro:page-load`.
+4. Se crearon las páginas `src/pages/dev-tools/url-encoder/index.astro` (es) y `src/pages/en/dev-tools/url-encoder/index.astro` (en) con back link, SectionHeading, UrlEncoderTool y link al artículo `url-anatomy`.
+5. QA validó: build (81 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico (10 claves × 2 idiomas), consistencia con Base64Tool, accesibilidad (labels, role="alert", focus styles, aria-hidden), no-regresión — 9/9 checks PASS.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/UrlEncoderTool.astro`, `src/pages/dev-tools/url-encoder/index.astro`, `src/pages/en/dev-tools/url-encoder/index.astro`
+- **2 archivos modificados:** `src/i18n/ui.ts`, `src/data/toolCategories.ts`
+- **Rutas nuevas:** `/dev-tools/url-encoder/` (es), `/en/dev-tools/url-encoder/` (en)
+- **Build:** 81 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, consistencia, accesibilidad y no-regresión — todos PASS
+
+---
+
 ## 2026-03-12 — Link al artículo del blog en la herramienta Base64
 
 **ID:** TASK-2026-03-12-006

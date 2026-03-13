@@ -1,0 +1,65 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import UrlEncoderTool from '../../../../components/UrlEncoderTool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.url.title')} — edcilo`}
+	description={t('devtools.url.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="url-encoder-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="url-encoder-heading"
+			title={t('devtools.url.title')}
+			subtitle={t('devtools.url.subtitle')}
+		/>
+
+		<UrlEncoderTool
+			plainTextLabel={t('devtools.url.plaintext.label')}
+			plainTextPlaceholder={t('devtools.url.plaintext.placeholder')}
+			encodedLabel={t('devtools.url.encoded.label')}
+			encodedPlaceholder={t('devtools.url.encoded.placeholder')}
+			convertLabel={t('devtools.url.convert')}
+			errorMessage={t('devtools.url.error.invalid')}
+		/>
+
+		<p
+			class="mx-auto mt-10 max-w-3xl text-center font-mono text-sm text-muted-foreground"
+		>
+			{t('devtools.url.learnMore')}{' '}
+			<a
+				href={getLocalizedPath('/blog/url-anatomy/', locale)}
+				class="text-foreground underline underline-offset-4 transition-colors hover:text-primary"
+			>
+				{t('devtools.url.learnMore.link')}
+			</a>.
+		</p>
+	</section>
+</Layout>

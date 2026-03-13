@@ -1,0 +1,144 @@
+---
+interface Props {
+	plainTextLabel: string;
+	plainTextPlaceholder: string;
+	encodedLabel: string;
+	encodedPlaceholder: string;
+	convertLabel: string;
+	errorMessage: string;
+}
+
+const {
+	plainTextLabel,
+	plainTextPlaceholder,
+	encodedLabel,
+	encodedPlaceholder,
+	convertLabel,
+	errorMessage,
+} = Astro.props;
+---
+
+<div data-url-encoder-tool class="mx-auto max-w-3xl space-y-6">
+	<!-- Plain text textarea -->
+	<div>
+		<label
+			for="url-plaintext"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{plainTextLabel}
+		</label>
+		<textarea
+			id="url-plaintext"
+			data-url-input
+			rows="8"
+			placeholder={plainTextPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Convert button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-url-convert
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+				></path>
+			</svg>
+			{convertLabel}
+		</button>
+	</div>
+
+	<!-- Encoded textarea -->
+	<div>
+		<label
+			for="url-output"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{encodedLabel}
+		</label>
+		<textarea
+			id="url-output"
+			data-url-output
+			rows="8"
+			placeholder={encodedPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-url-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	function setupUrlEncoderTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-url-encoder-tool]',
+		);
+		containers.forEach((container) => {
+			const inputEl =
+				container.querySelector<HTMLTextAreaElement>('[data-url-input]');
+			const outputEl =
+				container.querySelector<HTMLTextAreaElement>('[data-url-output]');
+			const convertBtn =
+				container.querySelector<HTMLButtonElement>('[data-url-convert]');
+			const errorEl = container.querySelector<HTMLElement>('[data-url-error]');
+
+			if (!inputEl || !outputEl || !convertBtn || !errorEl) return;
+			if (container.hasAttribute('data-url-encoder-initialized')) return;
+			container.setAttribute('data-url-encoder-initialized', '');
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			convertBtn.addEventListener('click', () => {
+				hideError();
+				const plainText = inputEl!.value;
+				const encodedText = outputEl!.value;
+
+				if (plainText.trim()) {
+					outputEl!.value = encodeURIComponent(plainText);
+					return;
+				}
+				if (encodedText.trim()) {
+					try {
+						inputEl!.value = decodeURIComponent(encodedText);
+					} catch {
+						showError();
+					}
+					return;
+				}
+			});
+
+			outputEl.addEventListener('input', () => {
+				hideError();
+			});
+		});
+	}
+
+	setupUrlEncoderTool();
+	document.addEventListener('astro:page-load', setupUrlEncoderTool);
+</script>

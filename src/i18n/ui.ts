@@ -29,6 +29,19 @@ export const UI_STRINGS = {
 		'devtools.base64.learnMore':
 			'Para saber más sobre Base64 y cómo usarlo desde la terminal, revisa el artículo',
 		'devtools.base64.learnMore.link': 'Base64 en la terminal',
+		'devtools.url.title': 'URL Encoder / Decoder',
+		'devtools.url.subtitle':
+			'Codifica y decodifica URLs directamente en tu navegador',
+		'devtools.url.plaintext.label': 'Texto sin codificar',
+		'devtools.url.plaintext.placeholder': 'Escribe o pega tu texto aquí...',
+		'devtools.url.encoded.label': 'URL codificada',
+		'devtools.url.encoded.placeholder':
+			'El resultado codificado aparecerá aquí...',
+		'devtools.url.convert': 'Convertir',
+		'devtools.url.error.invalid': 'El texto codificado ingresado no es válido.',
+		'devtools.url.learnMore':
+			'Para saber más sobre la estructura de las URLs, revisa el artículo',
+		'devtools.url.learnMore.link': 'Anatomía de una URL',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -129,6 +142,17 @@ export const UI_STRINGS = {
 		'devtools.base64.learnMore':
 			'To learn more about Base64 and how to use it from the terminal, check out the article',
 		'devtools.base64.learnMore.link': 'Base64 in the terminal',
+		'devtools.url.title': 'URL Encoder / Decoder',
+		'devtools.url.subtitle': 'Encode and decode URLs directly in your browser',
+		'devtools.url.plaintext.label': 'Decoded text',
+		'devtools.url.plaintext.placeholder': 'Type or paste your text here...',
+		'devtools.url.encoded.label': 'URL encoded',
+		'devtools.url.encoded.placeholder': 'Encoded result will appear here...',
+		'devtools.url.convert': 'Convert',
+		'devtools.url.error.invalid': 'The encoded text entered is not valid.',
+		'devtools.url.learnMore':
+			'To learn more about URL structure, check out the article',
+		'devtools.url.learnMore.link': 'Anatomy of a URL',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',
