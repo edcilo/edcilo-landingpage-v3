@@ -21,7 +21,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 			{ name: 'Base64', href: '/dev-tools/base64/' },
 			{ name: 'URL', href: '/dev-tools/url-encoder/' },
 			{ name: 'HTML Entity' },
-			{ name: 'JWT' },
+			{ name: 'JWT', href: '/dev-tools/jwt/' },
 		],
 	},
 	{

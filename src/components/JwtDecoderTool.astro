@@ -1,0 +1,217 @@
+---
+interface Props {
+	inputLabel: string;
+	inputPlaceholder: string;
+	decodeLabel: string;
+	headerLabel: string;
+	payloadLabel: string;
+	signatureLabel: string;
+	errorMessage: string;
+}
+
+const {
+	inputLabel,
+	inputPlaceholder,
+	decodeLabel,
+	headerLabel,
+	payloadLabel,
+	signatureLabel,
+	errorMessage,
+} = Astro.props;
+---
+
+<div data-jwt-tool class="mx-auto max-w-3xl space-y-6">
+	<!-- JWT input textarea -->
+	<div>
+		<label
+			for="jwt-input"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{inputLabel}
+		</label>
+		<textarea
+			id="jwt-input"
+			data-jwt-input
+			rows="4"
+			placeholder={inputPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Decode button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-jwt-decode
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+				></path>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
+			</svg>
+			{decodeLabel}
+		</button>
+	</div>
+
+	<!-- Header output -->
+	<div>
+		<label
+			for="jwt-header"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{headerLabel}
+		</label>
+		<textarea
+			id="jwt-header"
+			data-jwt-header
+			rows="6"
+			readonly
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Payload output -->
+	<div>
+		<label
+			for="jwt-payload"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{payloadLabel}
+		</label>
+		<textarea
+			id="jwt-payload"
+			data-jwt-payload
+			rows="8"
+			readonly
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Signature output -->
+	<div>
+		<label
+			for="jwt-signature"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{signatureLabel}
+		</label>
+		<textarea
+			id="jwt-signature"
+			data-jwt-signature
+			rows="3"
+			readonly
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-jwt-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	function setupJwtDecoderTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-jwt-tool]');
+		containers.forEach((container) => {
+			const inputEl =
+				container.querySelector<HTMLTextAreaElement>('[data-jwt-input]');
+			const headerEl =
+				container.querySelector<HTMLTextAreaElement>('[data-jwt-header]');
+			const payloadEl =
+				container.querySelector<HTMLTextAreaElement>('[data-jwt-payload]');
+			const signatureEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-jwt-signature]',
+			);
+			const decodeBtn =
+				container.querySelector<HTMLButtonElement>('[data-jwt-decode]');
+			const errorEl = container.querySelector<HTMLElement>('[data-jwt-error]');
+
+			if (
+				!inputEl ||
+				!headerEl ||
+				!payloadEl ||
+				!signatureEl ||
+				!decodeBtn ||
+				!errorEl
+			)
+				return;
+			if (container.hasAttribute('data-jwt-initialized')) return;
+			container.setAttribute('data-jwt-initialized', '');
+
+			function base64UrlDecode(str: string): string {
+				let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+				const pad = base64.length % 4;
+				if (pad === 2) base64 += '==';
+				else if (pad === 3) base64 += '=';
+				const binary = atob(base64);
+				const bytes = new Uint8Array(binary.length);
+				for (let i = 0; i < binary.length; i++) {
+					bytes[i] = binary.charCodeAt(i);
+				}
+				return new TextDecoder().decode(bytes);
+			}
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			decodeBtn.addEventListener('click', () => {
+				hideError();
+				headerEl!.value = '';
+				payloadEl!.value = '';
+				signatureEl!.value = '';
+
+				const token = inputEl!.value.trim();
+				if (!token) return;
+
+				const parts = token.split('.');
+				if (parts.length !== 3) {
+					showError();
+					return;
+				}
+
+				try {
+					const headerJson: unknown = JSON.parse(base64UrlDecode(parts[0]));
+					const payloadJson: unknown = JSON.parse(base64UrlDecode(parts[1]));
+
+					headerEl!.value = JSON.stringify(headerJson, null, 2);
+					payloadEl!.value = JSON.stringify(payloadJson, null, 2);
+					signatureEl!.value = parts[2];
+				} catch {
+					showError();
+				}
+			});
+
+			inputEl.addEventListener('input', () => {
+				hideError();
+			});
+		});
+	}
+
+	setupJwtDecoderTool();
+	document.addEventListener('astro:page-load', setupJwtDecoderTool);
+</script>

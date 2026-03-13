@@ -50,6 +50,21 @@ export const UI_STRINGS = {
 		'devtools.url.learnMore':
 			'Para saber más sobre la estructura de las URLs, revisa el artículo',
 		'devtools.url.learnMore.link': 'Anatomía de una URL',
+		'devtools.jwt.title': 'JWT Decoder',
+		'devtools.jwt.subtitle':
+			'Decodifica JSON Web Tokens directamente en tu navegador',
+		'devtools.jwt.description':
+			'Un JSON Web Token (JWT) es un estándar abierto (RFC 7519) para transmitir información de forma compacta y segura entre partes como un objeto JSON firmado. Un JWT consta de tres partes separadas por puntos: header (algoritmo y tipo de token), payload (los datos o claims) y signature (la firma que verifica la integridad). Esta herramienta decodifica las dos primeras partes para inspeccionar su contenido.',
+		'devtools.jwt.example':
+			'Pega un token JWT para ver su header, payload y signature decodificados.',
+		'devtools.jwt.input.label': 'Token JWT',
+		'devtools.jwt.input.placeholder':
+			'Pega tu token JWT aquí (eyJhbGciOi...)...',
+		'devtools.jwt.decode': 'Decodificar',
+		'devtools.jwt.header.label': 'Header',
+		'devtools.jwt.payload.label': 'Payload',
+		'devtools.jwt.signature.label': 'Signature',
+		'devtools.jwt.error.invalid': 'El token JWT ingresado no es válido.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -169,6 +184,20 @@ export const UI_STRINGS = {
 		'devtools.url.learnMore':
 			'To learn more about URL structure, check out the article',
 		'devtools.url.learnMore.link': 'Anatomy of a URL',
+		'devtools.jwt.title': 'JWT Decoder',
+		'devtools.jwt.subtitle': 'Decode JSON Web Tokens directly in your browser',
+		'devtools.jwt.description':
+			'A JSON Web Token (JWT) is an open standard (RFC 7519) for transmitting information compactly and securely between parties as a signed JSON object. A JWT consists of three parts separated by dots: header (algorithm and token type), payload (the data or claims), and signature (the signature that verifies integrity). This tool decodes the first two parts to inspect their contents.',
+		'devtools.jwt.example':
+			'Paste a JWT token to see its decoded header, payload, and signature.',
+		'devtools.jwt.input.label': 'JWT Token',
+		'devtools.jwt.input.placeholder':
+			'Paste your JWT token here (eyJhbGciOi...)...',
+		'devtools.jwt.decode': 'Decode',
+		'devtools.jwt.header.label': 'Header',
+		'devtools.jwt.payload.label': 'Payload',
+		'devtools.jwt.signature.label': 'Signature',
+		'devtools.jwt.error.invalid': 'The JWT token entered is not valid.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

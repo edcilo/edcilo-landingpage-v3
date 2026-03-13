@@ -4,6 +4,30 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-12 — Herramienta JWT Decoder
+
+**ID:** TASK-2026-03-12-011
+
+**Solicitud:** Crear una herramienta funcional "JWT Decoder" en su propia página bajo Dev Tools. La herramienta solo decodifica (no codifica): un textarea de entrada para pegar el JWT, botón "Decodificar", y 3 bloques de salida readonly (Header JSON, Payload JSON, Signature raw). Bilingüe (es/en). La pill "JWT" en el índice de Dev Tools se convierte en link navegable.
+
+**Plan ejecutado:**
+
+1. Se agregaron 11 claves de traducción i18n (`devtools.jwt.*`) en español e inglés en `src/i18n/ui.ts`.
+2. Se actualizó `src/data/toolCategories.ts` para agregar `href: '/dev-tools/jwt/'` a la pill "JWT" en la categoría Encoders.
+3. Se creó `src/components/JwtDecoderTool.astro` con: 1 textarea de entrada (rows="4"), botón de decodificación con icono SVG (ojo), 3 textareas readonly (Header rows="6", Payload rows="8", Signature rows="3"), mensaje de error con `role="alert"`, lógica vanilla JS con base64url decode, split por `.`, JSON.parse con try/catch, JSON.stringify indentado, patrón `data-*-initialized`, listener `astro:page-load`.
+4. Se crearon las páginas `src/pages/dev-tools/jwt/index.astro` (es) y `src/pages/en/dev-tools/jwt/index.astro` (en) con back link, SectionHeading, párrafo descriptivo, JwtDecoderTool. Sin link a artículo de blog.
+5. QA validó: build (83 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico (11 claves × 2 idiomas), componente (7 props, 4 textareas, base64url decode, initialized guard), páginas (es/en consistentes), accesibilidad (labels, role="alert", focus styles, aria-hidden, readonly focusable), no-regresión — 9/9 checks PASS.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/JwtDecoderTool.astro`, `src/pages/dev-tools/jwt/index.astro`, `src/pages/en/dev-tools/jwt/index.astro`
+- **2 archivos modificados:** `src/i18n/ui.ts`, `src/data/toolCategories.ts`
+- **Rutas nuevas:** `/dev-tools/jwt/` (es), `/en/dev-tools/jwt/` (en)
+- **Build:** 83 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n, componente, páginas, toolCategories, accesibilidad y no-regresión — todos PASS
+
+---
+
 ## 2026-03-12 — Alinear texto a la izquierda en herramientas dev-tools
 
 **ID:** TASK-2026-03-12-010
