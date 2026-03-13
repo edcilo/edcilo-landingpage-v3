@@ -1,0 +1,507 @@
+---
+interface Props {
+	tabQrLabel: string;
+	tabBarcodeLabel: string;
+	inputLabel: string;
+	inputPlaceholder: string;
+	formatLabel: string;
+	generateLabel: string;
+	downloadLabel: string;
+	resultLabel: string;
+	errorEmptyMessage: string;
+	errorGenerateMessage: string;
+	errorEan13Message: string;
+	errorUpcaMessage: string;
+}
+
+const {
+	tabQrLabel,
+	tabBarcodeLabel,
+	inputLabel,
+	inputPlaceholder,
+	formatLabel,
+	generateLabel,
+	downloadLabel,
+	resultLabel,
+	errorEmptyMessage,
+	errorGenerateMessage,
+	errorEan13Message,
+	errorUpcaMessage,
+} = Astro.props;
+---
+
+<div
+	data-qrbarcode-tool
+	data-error-empty={errorEmptyMessage}
+	data-error-generate={errorGenerateMessage}
+	data-error-ean13={errorEan13Message}
+	data-error-upca={errorUpcaMessage}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Tabs -->
+	<div
+		role="tablist"
+		aria-label="QR / Barcode"
+		class="flex rounded-lg bg-muted/50 p-1"
+		data-qrbarcode-tablist
+	>
+		<button
+			type="button"
+			role="tab"
+			id="tab-qr"
+			aria-selected="true"
+			aria-controls="panel-qr"
+			data-qrbarcode-tab="qr"
+			class="flex-1 rounded-md bg-background px-4 py-2 font-mono text-sm font-medium text-foreground shadow-sm transition-all duration-200"
+		>
+			{tabQrLabel}
+		</button>
+		<button
+			type="button"
+			role="tab"
+			id="tab-barcode"
+			aria-selected="false"
+			aria-controls="panel-barcode"
+			data-qrbarcode-tab="barcode"
+			class="flex-1 rounded-md px-4 py-2 font-mono text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-foreground"
+		>
+			{tabBarcodeLabel}
+		</button>
+	</div>
+
+	<!-- Panel QR -->
+	<div
+		id="panel-qr"
+		role="tabpanel"
+		aria-labelledby="tab-qr"
+		data-qrbarcode-panel="qr"
+		class="space-y-6"
+	>
+		<div>
+			<label
+				for="qr-input"
+				class="mb-2 block font-mono text-sm font-medium text-foreground"
+			>
+				{inputLabel}
+			</label>
+			<textarea
+				id="qr-input"
+				data-qr-input
+				rows="4"
+				placeholder={inputPlaceholder}
+				class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			></textarea>
+		</div>
+
+		<div class="flex justify-center">
+			<button
+				type="button"
+				data-qr-generate
+				class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5Z"
+					></path>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z"
+					></path>
+				</svg>
+				{generateLabel}
+			</button>
+		</div>
+
+		<div data-qr-result class="hidden space-y-4">
+			<label class="block font-mono text-sm font-medium text-foreground">
+				{resultLabel}
+			</label>
+			<div
+				class="flex justify-center rounded-lg border border-border bg-white p-4"
+			>
+				<canvas data-qr-canvas></canvas>
+			</div>
+			<div class="flex justify-center">
+				<button
+					type="button"
+					data-qr-download
+					class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-5"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+						></path>
+					</svg>
+					{downloadLabel}
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Panel Barcode -->
+	<div
+		id="panel-barcode"
+		role="tabpanel"
+		aria-labelledby="tab-barcode"
+		data-qrbarcode-panel="barcode"
+		class="hidden space-y-6"
+	>
+		<div>
+			<label
+				for="barcode-input"
+				class="mb-2 block font-mono text-sm font-medium text-foreground"
+			>
+				{inputLabel}
+			</label>
+			<textarea
+				id="barcode-input"
+				data-barcode-input
+				rows="4"
+				placeholder={inputPlaceholder}
+				class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			></textarea>
+		</div>
+
+		<div>
+			<label
+				for="barcode-format"
+				class="mb-2 block font-mono text-sm font-medium text-foreground"
+			>
+				{formatLabel}
+			</label>
+			<select
+				id="barcode-format"
+				data-barcode-format
+				class="w-full cursor-pointer rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			>
+				<option value="CODE128" selected>Code 128</option>
+				<option value="EAN13">EAN-13</option>
+				<option value="UPC">UPC-A</option>
+				<option value="CODE39">Code 39</option>
+			</select>
+		</div>
+
+		<div class="flex justify-center">
+			<button
+				type="button"
+				data-barcode-generate
+				class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5Z"
+					></path>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z"
+					></path>
+				</svg>
+				{generateLabel}
+			</button>
+		</div>
+
+		<div data-barcode-result class="hidden space-y-4">
+			<label class="block font-mono text-sm font-medium text-foreground">
+				{resultLabel}
+			</label>
+			<div
+				class="flex justify-center rounded-lg border border-border bg-white p-4"
+			>
+				<canvas data-barcode-canvas></canvas>
+			</div>
+			<div class="flex justify-center">
+				<button
+					type="button"
+					data-barcode-download
+					class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-5"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+						></path>
+					</svg>
+					{downloadLabel}
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-qrbarcode-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+	</p>
+</div>
+
+<script>
+	import QRCode from 'qrcode';
+	import JsBarcode from 'jsbarcode';
+
+	function setupQrBarcodeTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-qrbarcode-tool]',
+		);
+
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-qrbarcode-initialized')) return;
+			container.setAttribute('data-qrbarcode-initialized', '');
+
+			const errorEmpty = container.dataset.errorEmpty ?? '';
+			const errorGenerate = container.dataset.errorGenerate ?? '';
+			const errorEan13 = container.dataset.errorEan13 ?? '';
+			const errorUpca = container.dataset.errorUpca ?? '';
+
+			const tabs = container.querySelectorAll<HTMLButtonElement>(
+				'[data-qrbarcode-tab]',
+			);
+			const panelQr = container.querySelector<HTMLElement>(
+				'[data-qrbarcode-panel="qr"]',
+			);
+			const panelBarcode = container.querySelector<HTMLElement>(
+				'[data-qrbarcode-panel="barcode"]',
+			);
+
+			const qrInput =
+				container.querySelector<HTMLTextAreaElement>('[data-qr-input]');
+			const qrGenerateBtn =
+				container.querySelector<HTMLButtonElement>('[data-qr-generate]');
+			const qrResult = container.querySelector<HTMLElement>('[data-qr-result]');
+			const qrCanvas =
+				container.querySelector<HTMLCanvasElement>('[data-qr-canvas]');
+			const qrDownloadBtn =
+				container.querySelector<HTMLButtonElement>('[data-qr-download]');
+
+			const barcodeInput = container.querySelector<HTMLTextAreaElement>(
+				'[data-barcode-input]',
+			);
+			const barcodeFormat = container.querySelector<HTMLSelectElement>(
+				'[data-barcode-format]',
+			);
+			const barcodeGenerateBtn = container.querySelector<HTMLButtonElement>(
+				'[data-barcode-generate]',
+			);
+			const barcodeResult = container.querySelector<HTMLElement>(
+				'[data-barcode-result]',
+			);
+			const barcodeCanvas = container.querySelector<HTMLCanvasElement>(
+				'[data-barcode-canvas]',
+			);
+			const barcodeDownloadBtn = container.querySelector<HTMLButtonElement>(
+				'[data-barcode-download]',
+			);
+
+			const errorEl = container.querySelector<HTMLElement>(
+				'[data-qrbarcode-error]',
+			);
+
+			if (
+				!panelQr ||
+				!panelBarcode ||
+				!qrInput ||
+				!qrGenerateBtn ||
+				!qrResult ||
+				!qrCanvas ||
+				!qrDownloadBtn ||
+				!barcodeInput ||
+				!barcodeFormat ||
+				!barcodeGenerateBtn ||
+				!barcodeResult ||
+				!barcodeCanvas ||
+				!barcodeDownloadBtn ||
+				!errorEl
+			)
+				return;
+
+			const ACTIVE_CLASSES = ['bg-background', 'text-foreground', 'shadow-sm'];
+			const INACTIVE_CLASSES = [
+				'text-muted-foreground',
+				'hover:text-foreground',
+			];
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+				errorEl!.textContent = '';
+			}
+
+			function showError(message: string): void {
+				errorEl!.textContent = message;
+				errorEl!.classList.remove('hidden');
+			}
+
+			function downloadCanvas(
+				canvas: HTMLCanvasElement,
+				filename: string,
+			): void {
+				const dataUrl = canvas.toDataURL('image/png');
+				const link = document.createElement('a');
+				link.download = filename;
+				link.href = dataUrl;
+				link.click();
+			}
+
+			// Tab switching
+			tabs.forEach((tab) => {
+				tab.addEventListener('click', () => {
+					hideError();
+					const target = tab.dataset.qrbarcodeTab;
+
+					tabs.forEach((t) => {
+						const isActive = t.dataset.qrbarcodeTab === target;
+						t.setAttribute('aria-selected', String(isActive));
+						if (isActive) {
+							INACTIVE_CLASSES.forEach((cls) => t.classList.remove(cls));
+							ACTIVE_CLASSES.forEach((cls) => t.classList.add(cls));
+						} else {
+							ACTIVE_CLASSES.forEach((cls) => t.classList.remove(cls));
+							INACTIVE_CLASSES.forEach((cls) => t.classList.add(cls));
+						}
+					});
+
+					if (target === 'qr') {
+						panelQr!.classList.remove('hidden');
+						panelBarcode!.classList.add('hidden');
+					} else {
+						panelQr!.classList.add('hidden');
+						panelBarcode!.classList.remove('hidden');
+					}
+				});
+			});
+
+			// QR generate
+			qrGenerateBtn.addEventListener('click', () => {
+				hideError();
+				const text = qrInput!.value.trim();
+
+				if (!text) {
+					showError(errorEmpty);
+					return;
+				}
+
+				QRCode.toCanvas(
+					qrCanvas!,
+					text,
+					{
+						width: 256,
+						margin: 2,
+						color: { dark: '#000000', light: '#ffffff' },
+					},
+					(error: Error | null | undefined) => {
+						if (error) {
+							showError(errorGenerate);
+							qrResult!.classList.add('hidden');
+							return;
+						}
+						qrResult!.classList.remove('hidden');
+					},
+				);
+			});
+
+			// QR download
+			qrDownloadBtn.addEventListener('click', () => {
+				downloadCanvas(qrCanvas!, 'qrcode.png');
+			});
+
+			// Barcode generate
+			barcodeGenerateBtn.addEventListener('click', () => {
+				hideError();
+				const text = barcodeInput!.value.trim();
+				const format = barcodeFormat!.value;
+
+				if (!text) {
+					showError(errorEmpty);
+					return;
+				}
+
+				if (format === 'EAN13' && !/^\d{12,13}$/.test(text)) {
+					showError(errorEan13);
+					return;
+				}
+
+				if (format === 'UPC' && !/^\d{11,12}$/.test(text)) {
+					showError(errorUpca);
+					return;
+				}
+
+				try {
+					JsBarcode(barcodeCanvas!, text, {
+						format,
+						displayValue: true,
+						fontSize: 16,
+						margin: 10,
+						background: '#ffffff',
+						lineColor: '#000000',
+					});
+					barcodeResult!.classList.remove('hidden');
+				} catch {
+					showError(errorGenerate);
+					barcodeResult!.classList.add('hidden');
+				}
+			});
+
+			// Barcode download
+			barcodeDownloadBtn.addEventListener('click', () => {
+				downloadCanvas(barcodeCanvas!, 'barcode.png');
+			});
+
+			// Clear errors on input
+			qrInput.addEventListener('input', () => {
+				hideError();
+			});
+
+			barcodeInput.addEventListener('input', () => {
+				hideError();
+			});
+
+			barcodeFormat.addEventListener('change', () => {
+				hideError();
+			});
+		});
+	}
+
+	setupQrBarcodeTool();
+	document.addEventListener('astro:page-load', setupQrBarcodeTool);
+</script>

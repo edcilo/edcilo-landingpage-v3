@@ -65,6 +65,29 @@ export const UI_STRINGS = {
 		'devtools.jwt.payload.label': 'Payload',
 		'devtools.jwt.signature.label': 'Signature',
 		'devtools.jwt.error.invalid': 'El token JWT ingresado no es válido.',
+		'devtools.qrbarcode.title': 'QR / Barcode Encoder',
+		'devtools.qrbarcode.subtitle':
+			'Genera códigos QR y de barras directamente en tu navegador',
+		'devtools.qrbarcode.description':
+			'Esta herramienta genera códigos QR (2D) y códigos de barras 1D directamente en el navegador. Los códigos QR almacenan texto, URLs u otros datos en una matriz bidimensional legible por cualquier cámara. Los códigos de barras 1D (Code 128, EAN-13, UPC-A, Code 39) codifican datos numéricos o alfanuméricos en barras verticales. Todo se procesa en el cliente — ningún dato se envía a servidores.',
+		'devtools.qrbarcode.example':
+			'Ejemplo: el texto "https://edcilo.com" genera un código QR escaneable.',
+		'devtools.qrbarcode.tab.qr': 'QR Code',
+		'devtools.qrbarcode.tab.barcode': 'Barcode',
+		'devtools.qrbarcode.input.label': 'Texto a codificar',
+		'devtools.qrbarcode.input.placeholder': 'Escribe o pega el texto aquí...',
+		'devtools.qrbarcode.format.label': 'Formato de barcode',
+		'devtools.qrbarcode.generate': 'Generar',
+		'devtools.qrbarcode.download': 'Descargar PNG',
+		'devtools.qrbarcode.result.label': 'Resultado',
+		'devtools.qrbarcode.error.empty':
+			'Ingresa un texto para generar el código.',
+		'devtools.qrbarcode.error.generate':
+			'Error al generar el código. Verifica que el texto sea compatible con el formato seleccionado.',
+		'devtools.qrbarcode.error.ean13':
+			'EAN-13 requiere exactamente 12 o 13 dígitos numéricos.',
+		'devtools.qrbarcode.error.upca':
+			'UPC-A requiere exactamente 11 o 12 dígitos numéricos.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -198,6 +221,28 @@ export const UI_STRINGS = {
 		'devtools.jwt.payload.label': 'Payload',
 		'devtools.jwt.signature.label': 'Signature',
 		'devtools.jwt.error.invalid': 'The JWT token entered is not valid.',
+		'devtools.qrbarcode.title': 'QR / Barcode Encoder',
+		'devtools.qrbarcode.subtitle':
+			'Generate QR codes and barcodes directly in your browser',
+		'devtools.qrbarcode.description':
+			'This tool generates QR codes (2D) and 1D barcodes directly in the browser. QR codes store text, URLs, or other data in a two-dimensional matrix readable by any camera. 1D barcodes (Code 128, EAN-13, UPC-A, Code 39) encode numeric or alphanumeric data in vertical bars. Everything is processed client-side — no data is sent to any server.',
+		'devtools.qrbarcode.example':
+			'Example: the text "https://edcilo.com" generates a scannable QR code.',
+		'devtools.qrbarcode.tab.qr': 'QR Code',
+		'devtools.qrbarcode.tab.barcode': 'Barcode',
+		'devtools.qrbarcode.input.label': 'Text to encode',
+		'devtools.qrbarcode.input.placeholder': 'Type or paste text here...',
+		'devtools.qrbarcode.format.label': 'Barcode format',
+		'devtools.qrbarcode.generate': 'Generate',
+		'devtools.qrbarcode.download': 'Download PNG',
+		'devtools.qrbarcode.result.label': 'Result',
+		'devtools.qrbarcode.error.empty': 'Enter text to generate the code.',
+		'devtools.qrbarcode.error.generate':
+			'Error generating the code. Make sure the text is compatible with the selected format.',
+		'devtools.qrbarcode.error.ean13':
+			'EAN-13 requires exactly 12 or 13 numeric digits.',
+		'devtools.qrbarcode.error.upca':
+			'UPC-A requires exactly 11 or 12 numeric digits.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

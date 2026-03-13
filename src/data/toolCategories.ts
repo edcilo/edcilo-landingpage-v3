@@ -22,6 +22,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 			{ name: 'URL', href: '/dev-tools/url-encoder/' },
 			{ name: 'HTML Entity' },
 			{ name: 'JWT', href: '/dev-tools/jwt/' },
+			{ name: 'QR/Barcode', href: '/dev-tools/qr-barcode/' },
 		],
 	},
 	{

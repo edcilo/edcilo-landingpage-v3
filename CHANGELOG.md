@@ -4,6 +4,33 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-13 — Herramienta QR / Barcode Encoder
+
+**ID:** TASK-2026-03-13-001
+
+**Solicitud:** Crear una herramienta funcional "QR / Barcode Encoder" en su propia página bajo Dev Tools. La herramienta tiene UI con tabs: tab "QR Code" (textarea de entrada, botón "Generar", canvas con resultado, botón "Descargar PNG") y tab "Barcode" (textarea de entrada, selector de formato con Code128/EAN-13/UPC-A/Code39, botón "Generar", canvas con resultado, botón "Descargar PNG"). Generación 100% client-side con librerías `qrcode` y `jsbarcode`. Bilingüe (es/en). La pill "QR/Barcode" en el índice de Dev Tools es link navegable a la herramienta.
+
+**Plan ejecutado:**
+
+1. Se instalaron 3 dependencias npm: `qrcode` (^1.5.4), `jsbarcode` (^3.12.3) como production y `@types/qrcode` (^1.5.6) como dev.
+2. Se agregaron 16 claves de traducción i18n (`devtools.qrbarcode.*`) en español e inglés en `src/i18n/ui.ts`.
+3. Se actualizó `src/data/toolCategories.ts` para agregar `href: '/dev-tools/qr-barcode/'` a la pill "QR/Barcode" en la categoría Encoders.
+4. Se creó `src/components/QrBarcodeTool.astro` con: tabs ARIA completo (`role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`), 2 textareas de entrada, select de formato barcode (4 opciones), 2 canvas para renderizado, 2 botones "Descargar PNG" con `canvas.toDataURL('image/png')`, validación EAN-13 (`/^\d{12,13}$/`) y UPC-A (`/^\d{11,12}$/`), mensajes de error vía `data-*` attributes, patrón `data-qrbarcode-initialized`, listener `astro:page-load`.
+5. Se crearon las páginas `src/pages/dev-tools/qr-barcode/index.astro` (es) y `src/pages/en/dev-tools/qr-barcode/index.astro` (en) con back link, SectionHeading, párrafo descriptivo, QrBarcodeTool.
+6. QA validó: build (85 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico (16 claves × 2 idiomas), componente (12 props, tabs ARIA, canvas, download, validaciones), páginas (es/en consistentes), accesibilidad (labels, role="alert", focus styles, aria-hidden, keyboard nav), no-regresión — 66/66 checks PASS.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/QrBarcodeTool.astro`, `src/pages/dev-tools/qr-barcode/index.astro`, `src/pages/en/dev-tools/qr-barcode/index.astro`
+- **2 archivos modificados:** `src/i18n/ui.ts`, `src/data/toolCategories.ts`
+- **3 dependencias añadidas:** `qrcode`, `jsbarcode`, `@types/qrcode`
+- **Rutas nuevas:** `/dev-tools/qr-barcode/` (es), `/en/dev-tools/qr-barcode/` (en)
+- **Build:** 85 páginas generadas exitosamente, sin errores
+- **Bundle JS:** 96.24 kB (25.06 kB gzipped) — incluye librerías qrcode + jsbarcode
+- **QA:** Build, lint, format, i18n, componente, páginas, toolCategories, accesibilidad y no-regresión — 66/66 checks PASS
+
+---
+
 ## 2026-03-12 — Herramienta JWT Decoder
 
 **ID:** TASK-2026-03-12-011

@@ -1,0 +1,68 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import QrBarcodeTool from '../../../../components/QrBarcodeTool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.qrbarcode.title')} — edcilo`}
+	description={t('devtools.qrbarcode.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="qrbarcode-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="qrbarcode-heading"
+			title={t('devtools.qrbarcode.title')}
+			subtitle={t('devtools.qrbarcode.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.qrbarcode.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.qrbarcode.example')}
+			</p>
+		</div>
+
+		<QrBarcodeTool
+			tabQrLabel={t('devtools.qrbarcode.tab.qr')}
+			tabBarcodeLabel={t('devtools.qrbarcode.tab.barcode')}
+			inputLabel={t('devtools.qrbarcode.input.label')}
+			inputPlaceholder={t('devtools.qrbarcode.input.placeholder')}
+			formatLabel={t('devtools.qrbarcode.format.label')}
+			generateLabel={t('devtools.qrbarcode.generate')}
+			downloadLabel={t('devtools.qrbarcode.download')}
+			resultLabel={t('devtools.qrbarcode.result.label')}
+			errorEmptyMessage={t('devtools.qrbarcode.error.empty')}
+			errorGenerateMessage={t('devtools.qrbarcode.error.generate')}
+			errorEan13Message={t('devtools.qrbarcode.error.ean13')}
+			errorUpcaMessage={t('devtools.qrbarcode.error.upca')}
+		/>
+	</section>
+</Layout>
