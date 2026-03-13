@@ -20,7 +20,6 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 		tools: [
 			{ name: 'Base64', href: '/dev-tools/base64/' },
 			{ name: 'URL', href: '/dev-tools/url-encoder/' },
-			{ name: 'HTML Entity' },
 			{ name: 'JWT', href: '/dev-tools/jwt/' },
 			{ name: 'QR/Barcode', href: '/dev-tools/qr-barcode/' },
 		],
