@@ -4,6 +4,50 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-17 — Nuevo artículo de blog: htop automático en pantalla LCD con Systemd
+
+**ID:** TASK-2026-03-17-003
+
+**Solicitud:** Crear un artículo de blog a partir de una nota técnica sobre cómo configurar un servicio de Systemd que lance htop automáticamente en la pantalla LCD GPIO de una Raspberry Pi 4.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de los artículos existentes del blog y los artículos relacionados (`systemctl.md`, `rpi-gpio-display-35.md`).
+2. Se verificó el schema de contenido en `content.config.ts`.
+3. Se transformó la nota del usuario en un artículo completo con cross-links a los artículos relacionados, tabla de directivas del servicio, tabla de errores comunes, sección de consideraciones SRE y buenas prácticas.
+4. Se creó el archivo `src/content/blog/rpi-htop-lcd-service.md`.
+5. Se verificó que el archivo es válido para el Content Layer de Astro.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/rpi-htop-lcd-service.md`
+- **Tags:** `linux`, `raspberry-pi`, `sre`, `terminal`
+- **Contenido:** 275 líneas, 8 secciones (Requisitos previos, Preparar el entorno, Crear el servicio, Activar y probar, Ajustar dimensiones, Consideraciones SRE, Comandos útiles, Buenas prácticas), tabla de 15 directivas del servicio, tabla de errores comunes, 2 cross-links internos (`/blog/rpi-gpio-display-35/`, `/blog/systemctl/`), 8 buenas prácticas
+
+---
+
+## 2026-03-17 — Nuevo artículo de blog: Pantalla GPIO 3.5" en Raspberry Pi 4
+
+**ID:** TASK-2026-03-17-002
+
+**Solicitud:** Crear un artículo de blog a partir de una nota técnica sobre cómo configurar una pantalla genérica de 3.5" (GPIO/SPI) en Raspberry Pi 4 usando drivers nativos del kernel, sin scripts de terceros.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de los artículos existentes del blog (Docker Networking, SSH Tunnel, Starship).
+2. Se verificó el schema de contenido en `content.config.ts` (title, description, date, tags, draft).
+3. Se transformó la nota del usuario en un artículo completo y bien estructurado, expandiendo el contenido con tablas de referencia, secciones de buenas prácticas y comandos útiles.
+4. Se creó el archivo `src/content/blog/rpi-gpio-display-35.md`.
+5. Se corrigieron los acentos/tildes en el cuerpo del artículo para mantener consistencia con los demás artículos del blog.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/rpi-gpio-display-35.md`
+- **Tags:** `linux`, `raspberry-pi`, `hardware`, `sre`
+- **Contenido:** 221 líneas, 10 secciones (Requisitos previos, Conexión del hardware, Configuración del arranque, Velocidad SPI, Rotación, Calibración táctil, Restaurar HDMI, Recuperar perfil, Comandos útiles, Buenas prácticas), 5 tablas, 7 buenas prácticas, bloques de código bash e ini
+
+---
+
 ## 2026-03-17 — Nuevo artículo de blog: Huevos benedictos
 
 **ID:** TASK-2026-03-17-001
