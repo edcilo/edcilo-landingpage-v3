@@ -1,0 +1,157 @@
+---
+interface Props {
+	jsonLabel: string;
+	jsonPlaceholder: string;
+	yamlLabel: string;
+	yamlPlaceholder: string;
+	convertLabel: string;
+	errorMessage: string;
+}
+
+const {
+	jsonLabel,
+	jsonPlaceholder,
+	yamlLabel,
+	yamlPlaceholder,
+	convertLabel,
+	errorMessage,
+} = Astro.props;
+---
+
+<div data-jsonyaml-tool class="mx-auto max-w-3xl space-y-6">
+	<!-- JSON textarea -->
+	<div>
+		<label
+			for="jsonyaml-input"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{jsonLabel}
+		</label>
+		<textarea
+			id="jsonyaml-input"
+			data-jsonyaml-input
+			rows="8"
+			placeholder={jsonPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Convert button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-jsonyaml-convert
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+				></path>
+			</svg>
+			{convertLabel}
+		</button>
+	</div>
+
+	<!-- YAML textarea -->
+	<div>
+		<label
+			for="jsonyaml-output"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{yamlLabel}
+		</label>
+		<textarea
+			id="jsonyaml-output"
+			data-jsonyaml-output
+			rows="8"
+			placeholder={yamlPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-jsonyaml-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	import jsyaml from 'js-yaml';
+
+	function setupJsonYamlTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-jsonyaml-tool]',
+		);
+		containers.forEach((container) => {
+			const inputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-jsonyaml-input]',
+			);
+			const outputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-jsonyaml-output]',
+			);
+			const convertBtn = container.querySelector<HTMLButtonElement>(
+				'[data-jsonyaml-convert]',
+			);
+			const errorEl = container.querySelector<HTMLElement>(
+				'[data-jsonyaml-error]',
+			);
+
+			if (!inputEl || !outputEl || !convertBtn || !errorEl) return;
+			if (container.hasAttribute('data-jsonyaml-initialized')) return;
+			container.setAttribute('data-jsonyaml-initialized', '');
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			convertBtn.addEventListener('click', () => {
+				hideError();
+				const jsonText = inputEl!.value;
+				const yamlText = outputEl!.value;
+
+				if (jsonText.trim()) {
+					try {
+						const parsed: unknown = JSON.parse(jsonText);
+						outputEl!.value = jsyaml.dump(parsed);
+					} catch {
+						showError();
+					}
+					return;
+				}
+				if (yamlText.trim()) {
+					try {
+						const parsed: unknown = jsyaml.load(yamlText);
+						inputEl!.value = JSON.stringify(parsed, null, 2);
+					} catch {
+						showError();
+					}
+					return;
+				}
+			});
+
+			outputEl.addEventListener('input', () => {
+				hideError();
+			});
+		});
+	}
+
+	setupJsonYamlTool();
+	document.addEventListener('astro:page-load', setupJsonYamlTool);
+</script>

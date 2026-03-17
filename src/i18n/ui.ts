@@ -88,6 +88,20 @@ export const UI_STRINGS = {
 			'EAN-13 requiere exactamente 12 o 13 dígitos numéricos.',
 		'devtools.qrbarcode.error.upca':
 			'UPC-A requiere exactamente 11 o 12 dígitos numéricos.',
+		'devtools.jsonyaml.title': 'JSON ↔ YAML',
+		'devtools.jsonyaml.subtitle':
+			'Convierte entre JSON y YAML directamente en tu navegador',
+		'devtools.jsonyaml.description':
+			"JSON (JavaScript Object Notation) y YAML (YAML Ain't Markup Language) son dos formatos de serialización de datos ampliamente usados en configuración de aplicaciones, APIs y archivos de infraestructura. JSON usa llaves y corchetes con una sintaxis estricta, mientras que YAML usa indentación y es más legible para humanos. Esta herramienta convierte entre ambos formatos.",
+		'devtools.jsonyaml.example':
+			'Ejemplo: {"nombre": "edcilo", "activo": true} se convierte a nombre: edcilo\\nactivo: true en YAML.',
+		'devtools.jsonyaml.json.label': 'JSON',
+		'devtools.jsonyaml.json.placeholder': 'Escribe o pega tu JSON aquí...',
+		'devtools.jsonyaml.yaml.label': 'YAML',
+		'devtools.jsonyaml.yaml.placeholder':
+			'El resultado en YAML aparecerá aquí...',
+		'devtools.jsonyaml.convert': 'Convertir',
+		'devtools.jsonyaml.error.invalid': 'El contenido ingresado no es válido.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -243,6 +257,19 @@ export const UI_STRINGS = {
 			'EAN-13 requires exactly 12 or 13 numeric digits.',
 		'devtools.qrbarcode.error.upca':
 			'UPC-A requires exactly 11 or 12 numeric digits.',
+		'devtools.jsonyaml.title': 'JSON ↔ YAML',
+		'devtools.jsonyaml.subtitle':
+			'Convert between JSON and YAML directly in your browser',
+		'devtools.jsonyaml.description':
+			"JSON (JavaScript Object Notation) and YAML (YAML Ain't Markup Language) are two widely used data serialization formats for application configuration, APIs, and infrastructure files. JSON uses braces and brackets with strict syntax, while YAML uses indentation and is more human-readable. This tool converts between both formats.",
+		'devtools.jsonyaml.example':
+			'Example: {"name": "edcilo", "active": true} converts to name: edcilo\\nactive: true in YAML.',
+		'devtools.jsonyaml.json.label': 'JSON',
+		'devtools.jsonyaml.json.placeholder': 'Type or paste your JSON here...',
+		'devtools.jsonyaml.yaml.label': 'YAML',
+		'devtools.jsonyaml.yaml.placeholder': 'YAML result will appear here...',
+		'devtools.jsonyaml.convert': 'Convert',
+		'devtools.jsonyaml.error.invalid': 'The content entered is not valid.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

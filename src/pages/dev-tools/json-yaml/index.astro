@@ -1,0 +1,62 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import JsonYamlTool from '../../../components/JsonYamlTool.astro';
+import { DEFAULT_LOCALE } from '../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.jsonyaml.title')} — edcilo`}
+	description={t('devtools.jsonyaml.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="jsonyaml-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="jsonyaml-heading"
+			title={t('devtools.jsonyaml.title')}
+			subtitle={t('devtools.jsonyaml.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.jsonyaml.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.jsonyaml.example')}
+			</p>
+		</div>
+
+		<JsonYamlTool
+			jsonLabel={t('devtools.jsonyaml.json.label')}
+			jsonPlaceholder={t('devtools.jsonyaml.json.placeholder')}
+			yamlLabel={t('devtools.jsonyaml.yaml.label')}
+			yamlPlaceholder={t('devtools.jsonyaml.yaml.placeholder')}
+			convertLabel={t('devtools.jsonyaml.convert')}
+			errorMessage={t('devtools.jsonyaml.error.invalid')}
+		/>
+	</section>
+</Layout>

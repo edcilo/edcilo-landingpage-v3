@@ -4,6 +4,33 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-16 — Herramienta JSON ↔ YAML Converter
+
+**ID:** TASK-2026-03-16-001
+
+**Solicitud:** Crear una herramienta funcional "JSON ↔ YAML" en su propia página bajo Dev Tools. La herramienta tiene dos textareas (JSON arriba, YAML abajo) con un botón "Convertir" que detecta automáticamente la dirección de la conversión: si el textarea de JSON tiene contenido lo convierte a YAML, si solo el textarea de YAML tiene contenido lo convierte a JSON, y si ambos tienen contenido prioriza el JSON. Bilingüe (es/en). La pill "JSON ↔ YAML" en el índice de Dev Tools es link navegable a la herramienta.
+
+**Plan ejecutado:**
+
+1. Se instalaron 2 dependencias npm: `js-yaml` (^4.1.1) como production y `@types/js-yaml` como dev.
+2. Se agregaron 10 claves de traducción i18n (`devtools.jsonyaml.*`) en español e inglés en `src/i18n/ui.ts`.
+3. Se actualizó `src/data/toolCategories.ts` para agregar `href: '/dev-tools/json-yaml/'` a la pill "JSON ↔ YAML" en la categoría Converters.
+4. Se creó `src/components/JsonYamlTool.astro` con: 2 textareas (JSON rows="8", YAML rows="8"), botón de conversión con icono SVG, mensaje de error con `role="alert"`, lógica vanilla JS con `js-yaml.dump()` para JSON→YAML y `js-yaml.load()` + `JSON.stringify()` para YAML→JSON, patrón `data-jsonyaml-initialized`, listener `astro:page-load`.
+5. Se crearon las páginas `src/pages/dev-tools/json-yaml/index.astro` (es) y `src/pages/en/dev-tools/json-yaml/index.astro` (en) con back link, SectionHeading, párrafo descriptivo, JsonYamlTool.
+6. QA validó: build (87 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico (10 claves × 2 idiomas), componente (6 props, data attributes, guard, bidirectional conversion, error handling), páginas (es/en consistentes), toolCategories (href), accesibilidad (labels, role="alert", focus styles, aria-hidden, aria-labelledby), consistencia con herramientas existentes — 44/44 checks PASS.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/JsonYamlTool.astro`, `src/pages/dev-tools/json-yaml/index.astro`, `src/pages/en/dev-tools/json-yaml/index.astro`
+- **2 archivos modificados:** `src/i18n/ui.ts`, `src/data/toolCategories.ts`
+- **2 dependencias añadidas:** `js-yaml`, `@types/js-yaml`
+- **Rutas nuevas:** `/dev-tools/json-yaml/` (es), `/en/dev-tools/json-yaml/` (en)
+- **Build:** 87 páginas generadas exitosamente, sin errores
+- **Bundle JS:** 40.57 kB (13.78 kB gzipped) — incluye librería js-yaml
+- **QA:** Build, lint, format, i18n, componente, páginas, toolCategories, accesibilidad y consistencia — 44/44 checks PASS
+
+---
+
 ## 2026-03-13 — Herramienta QR / Barcode Encoder
 
 **ID:** TASK-2026-03-13-001
