@@ -4,6 +4,27 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-17 — Nuevo artículo de blog: Huevos benedictos
+
+**ID:** TASK-2026-03-17-001
+
+**Solicitud:** Crear un artículo de blog con la receta de huevos benedictos, incluyendo salsa holandesa casera (al baño María con yemas, mantequilla y limón) y huevos poché (escalfados con técnica del remolino y colador), más instrucciones de montaje.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de las recetas existentes del blog (`marinado-de-carne.md`, `hotcakes.md`, `japanese-cotton-cheesecake.md`).
+2. Se verificó el schema de contenido en `content.config.ts` (title, description, date, tags, draft).
+3. Se redactó el artículo en español con 3 secciones principales: Salsa holandesa (ingredientes + procedimiento con tip en blockquote), Huevos poché (ingredientes + procedimiento), y Montaje.
+4. Se creó el archivo `src/content/blog/huevos-benedictos.md`.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/huevos-benedictos.md`
+- **Tags:** `receta`, `cocina`
+- **Contenido:** 49 líneas, 3 secciones principales, 2 listas de ingredientes, 2 procedimientos paso a paso, 1 tip en blockquote, 1 sección de montaje
+
+---
+
 ## 2026-03-16 — Herramienta JSON ↔ YAML Converter
 
 **ID:** TASK-2026-03-16-001
