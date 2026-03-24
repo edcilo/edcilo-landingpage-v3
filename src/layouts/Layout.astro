@@ -137,6 +137,11 @@ const ogLocaleAlternate = locale === 'en' ? 'es_MX' : 'en_US';
 		<Footer />
 
 		<script>
+			import { inject } from '@vercel/analytics';
+			inject();
+		</script>
+
+		<script>
 			const elements = document.querySelectorAll<HTMLElement>('[data-animate]');
 			const observer = new IntersectionObserver(
 				(entries) => {
