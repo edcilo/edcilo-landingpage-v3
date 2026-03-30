@@ -4,6 +4,104 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-03-30 — Nuevo artículo de blog: Milanesas de pollo
+
+**ID:** TASK-2026-03-30-002
+
+**Solicitud:** Crear un artículo de blog con la receta de milanesas de pollo, incluyendo ingredientes exactos y procedimiento paso a paso proporcionados por el usuario, sin modificaciones.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de las recetas existentes del blog (`pan-frances.md`, `hotcakes.md`).
+2. Se verificó el schema de contenido en `content.config.ts` (title, description, date, tags, draft).
+3. Se redactó el artículo siguiendo el formato de las recetas existentes: `## Ingredientes (4 porciones)` con lista de viñetas, `## Procedimiento` con lista numerada y pasos en negritas, y `## Notas` con tips adicionales.
+4. Se creó el archivo `src/content/blog/milanesas-de-pollo.md`.
+5. Se verificó que el frontmatter, ingredientes y procedimiento coinciden exactamente con lo proporcionado por el usuario.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/milanesas-de-pollo.md`
+- **Tags:** `receta`, `cocina`
+- **Contenido:** 35 líneas, 3 secciones (Ingredientes con 10 items, Procedimiento con 8 pasos, Notas)
+
+---
+
+## 2026-03-30 — Nuevo artículo de blog: Pan francés (French Toast)
+
+**ID:** TASK-2026-03-30-001
+
+**Solicitud:** Crear un artículo de blog con la receta de pan francés (French Toast), incluyendo ingredientes exactos y procedimiento paso a paso proporcionados por el usuario, sin modificaciones.
+
+**Plan ejecutado:**
+
+1. Se analizaron las convenciones editoriales de las recetas existentes del blog (`hotcakes.md`, `huevos-benedictos.md`).
+2. Se verificó el schema de contenido en `content.config.ts` (title, description, date, tags, draft).
+3. Se redactó el artículo siguiendo el formato de las recetas existentes (estilo `hotcakes.md`): `## Ingredientes (2 porciones)` con lista de viñetas, `## Procedimiento` con lista numerada y pasos en negritas, y `## Notas` con tips adicionales.
+4. Se creó el archivo `src/content/blog/pan-frances.md`.
+5. Se verificó que el frontmatter, ingredientes y procedimiento coinciden exactamente con lo proporcionado por el usuario.
+
+**Resultado:**
+
+- **1 archivo creado:** `src/content/blog/pan-frances.md`
+- **Tags:** `receta`, `cocina`
+- **Contenido:** 31 líneas, 3 secciones (Ingredientes, Procedimiento con 6 pasos, Notas), 8 ingredientes
+
+---
+
+## 2026-03-27 — Fix: Navegación mobile y header roto en tema Y2K
+
+**ID:** TASK-2026-03-27-002
+
+**Solicitud:** El menú de navegación mobile estaba visible en pantallas grandes y no se veía correctamente en pantallas mobile cuando el tema Y2K estaba activo.
+
+**Plan ejecutado:**
+
+1. QA diagnosticó 3 bugs causados por las reglas CSS del tema Y2K:
+   - **Bug 1+6 (CRÍTICO):** La regla `.y2k body > *` aplicaba `position: relative; z-index: 1` a todos los hijos de body, sobreescribiendo `position: sticky` del header (dejaba de ser sticky) y `z-index: 50` del drawer overlay/panel (rompía el stacking context).
+   - **Bug 2 (ALTO):** La regla `.y2k button` aplicaba `border-style: outset; border-width: 3px` a todos los botones, deformando los botones de icono (hamburguesa, cerrar drawer, toggle tema).
+   - **Bug 3 (MEDIO):** El sparkle canvas (`z-[9999]`) se renderizaba sobre el drawer abierto (`z-50`), contaminando la UI de navegación.
+2. **Fix 1+6:** Se actualizó el selector en `global.css` a `.y2k body > *:not(header):not(#drawer-overlay):not(#drawer-panel):not(#y2k-sparkle-canvas)` para excluir elementos de navegación.
+3. **Fix 2:** Se actualizó el selector a `.y2k button:not(#menu-toggle):not(#drawer-close):not(#theme-toggle):not([data-language-switcher])` para excluir botones de utilidad del efecto bevel.
+4. **Fix 3:** Se agregó lógica en `MobileDrawer.astro` para ocultar el sparkle canvas al abrir el drawer y restaurarlo (solo si tema Y2K activo) al cerrar.
+5. QA validó: ESLint (0 errores), build (93 páginas, 0 errores), selectores correctos, lógica JS defensiva, integridad de reglas Y2K existentes — todos PASS.
+
+**Resultado:**
+
+- **2 archivos modificados:** `src/styles/global.css`, `src/components/MobileDrawer.astro`
+- **Build:** 93 páginas generadas exitosamente, sin errores
+- **QA:** ESLint, build, selectores CSS, lógica JS, integridad de reglas existentes — todos PASS
+
+---
+
+## 2026-03-27 — Nuevo tema Y2K (GeoCities Neon) en el selector de temas
+
+**ID:** TASK-2026-03-27-001
+
+**Solicitud:** Agregar un cuarto tema llamado "Y2K" al selector de temas, con una paleta de colores que recuerde a los sitios web de principios de los 2000s (estilo GeoCities). El tema incluye experiencia visual completa: colores neón, tipografía Comic Sans MS, bordes bevel/emboss, sombras neón, gradientes, estrellas titilantas animadas, cursor con sparkle trail, y bordes sólidos visibles. En el blog, el tema se atenúa ligeramente para mejorar la legibilidad.
+
+**Plan ejecutado:**
+
+1. Se realizó brainstorming para definir: alcance visual (experiencia Y2K completa), paleta de colores (GeoCities Neon: navy, lime, magenta, cyan, yellow), tipografía (Comic Sans MS), efectos visuales (7 efectos), estrellas (titilantas CSS), cursor (sparkle trail con canvas), y tratamiento del blog (versión atenuada).
+2. Se generó plan de implementación detallado con el master-planner: 5 pasos ordenados por dependencias.
+3. **Paso 1** — Se agregaron traducciones en `src/i18n/ui.ts`: nueva clave `tooltip.theme.y2k` en ambos locales, y se actualizó `tooltip.theme.dark` para apuntar al tema Y2K en el ciclo.
+4. **Paso 2** — Se implementaron en `src/styles/global.css`: custom variant `@custom-variant y2k`, bloque `.y2k` con 9 tokens de color + 2 fuentes (Comic Sans MS), efectos neon/bevel en links, botones, cards y pills, gradientes alternados en secciones, estrellas titilantas con 2 capas de pseudo-elementos animados (`::before`/`::after` en body), y header con fondo sólido.
+5. **Paso 3** — Se actualizó `src/components/ThemeToggle.astro`: tipo `ThemePreference` extendido a 4 estados, nuevo ciclo `light → dark → y2k → system`, icono SparklesIcon (Heroicons), lógica de `applyTheme()` con `classList.remove('dark', 'y2k')` y loop genérico para iconos.
+6. **Paso 4** — Se actualizó `src/layouts/Layout.astro`: script anti-FOUC ampliado para manejar clase `y2k`, canvas `#y2k-sparkle-canvas` con sistema de partículas (estrellas 4 puntas + círculos en paleta Y2K, MAX_PARTICLES=50, gravedad, requestAnimationFrame), MutationObserver para activación reactiva, respeta `prefers-reduced-motion`.
+7. **Paso 5** — Se actualizó `src/layouts/BlogPostLayout.astro`: 11 reglas CSS con `:global(.y2k)` para texto más grande (1.125rem), links magenta sin text-shadow agresivo, code blocks con fondo #000033 y borde inset, tablas, blockquotes, HR e imágenes con estilo Y2K atenuado.
+8. QA validó: ESLint (0 errores), build (93 páginas, 0 errores), ciclo de temas coherente, anti-FOUC correcto, traducciones consistentes, tokens completos, cleanup de sparkle trail, reduced-motion respetado — aprobado para producción.
+
+**Resultado:**
+
+- **5 archivos modificados:** `src/i18n/ui.ts`, `src/styles/global.css`, `src/components/ThemeToggle.astro`, `src/layouts/Layout.astro`, `src/layouts/BlogPostLayout.astro`
+- **0 dependencias nuevas**
+- **Ciclo de temas:** light → dark → y2k → system
+- **Paleta:** Navy (#000080), Lime (#00FF00), Magenta (#FF00FF), Cyan (#00FFFF), Yellow (#FFFF00)
+- **Efectos:** Comic Sans MS, bordes bevel/emboss, sombras neón, gradientes, estrellas titilantas CSS, sparkle trail canvas, bordes visibles
+- **Build:** 93 páginas generadas exitosamente, sin errores
+- **QA:** ESLint, build, ciclo de temas, anti-FOUC, i18n, tokens CSS, sparkle trail cleanup, reduced-motion, accesibilidad — todos PASS
+
+---
+
 ## 2026-03-17 — Nuevo artículo de blog: htop automático en pantalla LCD con Systemd
 
 **ID:** TASK-2026-03-17-003
