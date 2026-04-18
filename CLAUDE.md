@@ -31,6 +31,10 @@ The site is fully static (SSG), bilingual (Spanish/English), supports dark mode,
 | `@tailwindcss/vite`          | Vite plugin for Tailwind v4 (NOT PostCSS)     |
 | `@fontsource-variable/inter` | Sans-serif font (Inter Variable, self-hosted) |
 | `@fontsource/ibm-plex-mono`  | Monospace font (IBM Plex Mono, self-hosted)   |
+| `@vercel/analytics`          | Vercel Web Analytics (page views, events)     |
+| `js-yaml`                    | YAML <-> JSON conversion (used by dev-tools)  |
+| `jsbarcode`                  | Barcode generation (used by QR/barcode tool)  |
+| `qrcode`                     | QR code generation (used by QR/barcode tool)  |
 
 ### Dev Tools
 
@@ -66,39 +70,28 @@ edc_landingpage_v3/
 ├── src/
 │   ├── assets/                 # Assets processed by Astro (image optimization)
 │   │   └── portfolio/          # Portfolio project images (.webp)
-│   ├── components/             # Reusable Astro components (26 components)
-│   │   ├── Header.astro        # Main navigation with section links
-│   │   ├── Footer.astro        # Footer with social links
-│   │   ├── MobileDrawer.astro  # Mobile navigation drawer (slide-in, focus trap)
-│   │   ├── ThemeToggle.astro   # Theme toggle button (light/dark/system)
-│   │   ├── LanguageSwitcher.astro # Language selector (es/en)
-│   │   ├── Container.astro     # Content wrapper with max-width
-│   │   ├── SectionHeading.astro # Section title with subtitle
-│   │   ├── Tooltip.astro       # CSS-only tooltip (::after pseudo-element)
-│   │   ├── HeroSection.astro   # Hero section -- composes HeroContent, Badge, CTAs, Stats
-│   │   ├── HeroContent.astro   # Name and title with RotatingText
-│   │   ├── HeroBadge.astro     # Animated "Available for work" badge
-│   │   ├── HeroCTAs.astro      # Hero action buttons
-│   │   ├── HeroStats.astro     # Animated counters (years exp, projects, posts)
-│   │   ├── HeroLocation.astro  # Geographic location indicator
-│   │   ├── HeroScrollIndicator.astro # Animated scroll chevron (bounce)
-│   │   ├── RotatingText.astro  # Rotating text with slide animation
-│   │   ├── SkillsSection.astro # Skills/technologies section
-│   │   ├── SkillCategoryCard.astro # Skill category card
-│   │   ├── SkillPill.astro     # Individual technology pill
-│   │   ├── TechIcon.astro      # Technology icon with inline SVG
-│   │   ├── ProjectsSection.astro # Project portfolio section
-│   │   ├── ProjectCard.astro   # Project card with optimized image
-│   │   ├── LatestPosts.astro   # Latest blog posts section
-│   │   ├── BlogPostCard.astro  # Post card with date, tags, reading time
-│   │   ├── BlogTagFilter.astro # Blog tag filter (keyboard-navigable)
-│   │   └── BlogSearchInput.astro # Post search input (real-time filtering)
+│   ├── components/             # Reusable Astro components, grouped by purpose:
+│   │   #
+│   │   # Layout/chrome:  Header, Footer, MobileDrawer, ThemeToggle,
+│   │   #                 LanguageSwitcher, Container, SectionHeading, Tooltip
+│   │   # Hero:           HeroSection (composer) + HeroContent, HeroBadge,
+│   │   #                 HeroCTAs, HeroStats, HeroLocation, HeroScrollIndicator,
+│   │   #                 RotatingText, TypewriterHeading
+│   │   # Skills:         SkillsSection, SkillCategoryCard, SkillPill, TechIcon
+│   │   # Projects:       ProjectsSection, ProjectCard
+│   │   # Blog:           LatestPosts, BlogPostCard, BlogTagFilter,
+│   │   #                 BlogSearchInput, BlogPagination, RSVPReader
+│   │   # Dev-tools:      ToolCategoryCard + one *Tool.astro per tool
+│   │   #                 (Base64Tool, JsonYamlTool, JwtDecoderTool,
+│   │   #                  QrBarcodeTool, UrlEncoderTool)
 │   ├── content/                # Content collections (Astro Content Layer)
-│   │   └── blog/               # 23 Markdown posts (.md)
+│   │   └── blog/               # Markdown posts (.md)
+│   ├── content.config.ts       # Zod schema for the `blog` collection
 │   ├── data/                   # Typed static data
 │   │   ├── projects.ts         # Portfolio projects (with i18n descriptionKey)
 │   │   ├── skills.ts           # Skills and technologies by category
-│   │   └── techIcons.ts        # Technology name to SVG path mapping
+│   │   ├── techIcons.ts        # Technology name to SVG path mapping
+│   │   └── toolCategories.ts   # Dev-tools index (category + tool metadata)
 │   ├── i18n/                   # Internationalization system
 │   │   ├── config.ts           # Constants: DEFAULT_LOCALE='es', LOCALES=['es','en']
 │   │   ├── ui.ts               # UI_STRINGS -- all translated strings (es/en)
@@ -110,14 +103,13 @@ edc_landingpage_v3/
 │   ├── pages/                  # Site routes (file-based routing)
 │   │   ├── index.astro         # Home (Spanish, route: /)
 │   │   ├── 404.astro           # Custom 404 page
-│   │   ├── blog/
-│   │   │   ├── index.astro     # Blog index (Spanish, route: /blog/)
-│   │   │   └── [...slug].astro # Dynamic post (Spanish, route: /blog/{slug}/)
-│   │   └── en/
-│   │       ├── index.astro     # Home (English, route: /en/)
-│   │       └── blog/
-│   │           ├── index.astro     # Blog index (English, route: /en/blog/)
-│   │           └── [...slug].astro # Dynamic post (English, route: /en/blog/{slug}/)
+│   │   ├── api/
+│   │   │   └── search-index.json.ts # SSG JSON endpoint: blog search index
+│   │   ├── blog/               # /blog/ index + /blog/{slug}/ (Spanish)
+│   │   ├── projects/           # /projects/ portfolio listing (Spanish)
+│   │   ├── dev-tools/          # /dev-tools/ hub + one route per tool:
+│   │   │                       #   base64/, json-yaml/, jwt/, qr-barcode/, url-encoder/
+│   │   └── en/                 # English mirror of all of the above (prefixed /en/)
 │   ├── styles/
 │   │   └── global.css          # Global styles: @theme tokens, dark mode, animations, reduced-motion
 │   └── utils/
@@ -160,7 +152,14 @@ The site is generated entirely at build time. There is no server or runtime API.
 - **Schema (Zod):** Defined in `src/content.config.ts` with fields: `title`, `description`, `date`, `updatedDate?`, `tags[]`, `draft`.
 - **Draft filtering:** Posts with `draft: true` are excluded in `getStaticPaths()`.
 - **Dynamic routes:** `[...slug].astro` generates one route per post.
-- **23 published posts** currently.
+- **Search index:** `src/pages/api/search-index.json.ts` emits a static JSON (`/api/search-index.json`) consumed by `BlogSearchInput` for client-side search. When adding fields to the blog schema that the search needs, also extend the index payload.
+
+### Dev Tools
+
+- **Location:** `src/pages/dev-tools/` (hub + one folder per tool) mirrored in `src/pages/en/dev-tools/`.
+- **Metadata:** `src/data/toolCategories.ts` drives the hub cards (`ToolCategoryCard`).
+- **UI:** Each tool page delegates to its own `*Tool.astro` in `src/components/`.
+- **Client-side only:** The logic (base64, JSON/YAML, JWT, QR/barcode, URL encoding) runs in vanilla `<script>` blocks inside each `*Tool.astro`. Heavy dependencies (`js-yaml`, `jsbarcode`, `qrcode`) are imported from those scripts and bundled by Astro/Vite; do not import them from the `---` frontmatter unless the code must run at build time.
 
 ### Styling Strategy
 
@@ -188,14 +187,19 @@ The site is generated entirely at build time. There is no server or runtime API.
 - Anti-FOUC inline script for theme.
 - Zero client-side frameworks -- minimal vanilla JS.
 
+### Analytics
+
+- **Vercel Web Analytics** is wired in the base `Layout.astro` via `@vercel/analytics`. It only sends data in production builds served by Vercel; no action is needed in local dev.
+
 ## Data Files
 
 - `src/data/projects.ts` -- Portfolio entries. Each project has a `descriptionKey` referencing a `TranslationKey` for i18n.
 - `src/data/skills.ts` -- Skills and technologies organized by category.
 - `src/data/techIcons.ts` -- Technology name to SVG path mapping for inline icons.
+- `src/data/toolCategories.ts` -- Dev-tools catalogue (categories + tools) that drives the `/dev-tools/` hub.
 
 ## Layout Structure
 
 - `src/layouts/Layout.astro` -- Base layout with `<head>`, meta tags (OG, Twitter Cards), canonical URL, hreflang tags, anti-FOUC script, skip-to-main link, Header, Footer, and IntersectionObserver for entrance animations.
 - `src/layouts/BlogPostLayout.astro` -- Blog post layout extending the base. Includes `<article>` semantics, prose styles (`.prose`), date, tags, reading time, and back link.
-- **Page composition:** Home composes sections in order: `HeroSection` -> `SkillsSection` -> `ProjectsSection` -> `LatestPosts`.
+- **Page composition:** Home composes sections in order: `HeroSection` -> `SkillsSection` -> `ProjectsSection` -> `LatestPosts` (see `src/pages/index.astro` and its `en/` twin).
