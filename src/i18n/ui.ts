@@ -102,6 +102,26 @@ export const UI_STRINGS = {
 			'El resultado en YAML aparecerá aquí...',
 		'devtools.jsonyaml.convert': 'Convertir',
 		'devtools.jsonyaml.error.invalid': 'El contenido ingresado no es válido.',
+		'devtools.epoch.title': 'Epoch ↔ Date',
+		'devtools.epoch.subtitle':
+			'Convierte entre epoch time y fecha legible directamente en tu navegador',
+		'devtools.epoch.description':
+			'El tiempo epoch (o Unix time) es el número de segundos transcurridos desde el 1 de enero de 1970 a las 00:00:00 UTC, sin contar los segundos intercalares. Se usa ampliamente en sistemas, bases de datos y APIs para representar instantes de tiempo de forma compacta y sin ambigüedades de zona horaria. Esta herramienta muestra la hora actual en ambos formatos y te permite convertir en cualquier dirección.',
+		'devtools.epoch.example':
+			'Ejemplo: el epoch 1700000000 corresponde al 14 de noviembre de 2023, 22:13:20 UTC.',
+		'devtools.epoch.now.title': 'Ahora',
+		'devtools.epoch.now.epoch': 'Epoch (segundos)',
+		'devtools.epoch.now.epochMs': 'Epoch (milisegundos)',
+		'devtools.epoch.now.utc': 'UTC',
+		'devtools.epoch.now.local': 'Local',
+		'devtools.epoch.epoch.label': 'Epoch',
+		'devtools.epoch.epoch.placeholder': 'Ej. 1700000000',
+		'devtools.epoch.date.label': 'Fecha',
+		'devtools.epoch.unit.label': 'Unidad',
+		'devtools.epoch.unit.seconds': 'Segundos',
+		'devtools.epoch.unit.milliseconds': 'Milisegundos',
+		'devtools.epoch.convert': 'Convertir',
+		'devtools.epoch.error.invalid': 'El valor ingresado no es válido.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -270,6 +290,26 @@ export const UI_STRINGS = {
 		'devtools.jsonyaml.yaml.placeholder': 'YAML result will appear here...',
 		'devtools.jsonyaml.convert': 'Convert',
 		'devtools.jsonyaml.error.invalid': 'The content entered is not valid.',
+		'devtools.epoch.title': 'Epoch ↔ Date',
+		'devtools.epoch.subtitle':
+			'Convert between epoch time and human-readable dates directly in your browser',
+		'devtools.epoch.description':
+			'Epoch time (or Unix time) is the number of seconds since January 1st, 1970 at 00:00:00 UTC, ignoring leap seconds. It is widely used in systems, databases, and APIs to represent timestamps compactly and without timezone ambiguity. This tool shows the current time in both formats and lets you convert in either direction.',
+		'devtools.epoch.example':
+			'Example: epoch 1700000000 corresponds to November 14th, 2023, 22:13:20 UTC.',
+		'devtools.epoch.now.title': 'Now',
+		'devtools.epoch.now.epoch': 'Epoch (seconds)',
+		'devtools.epoch.now.epochMs': 'Epoch (milliseconds)',
+		'devtools.epoch.now.utc': 'UTC',
+		'devtools.epoch.now.local': 'Local',
+		'devtools.epoch.epoch.label': 'Epoch',
+		'devtools.epoch.epoch.placeholder': 'e.g. 1700000000',
+		'devtools.epoch.date.label': 'Date',
+		'devtools.epoch.unit.label': 'Unit',
+		'devtools.epoch.unit.seconds': 'Seconds',
+		'devtools.epoch.unit.milliseconds': 'Milliseconds',
+		'devtools.epoch.convert': 'Convert',
+		'devtools.epoch.error.invalid': 'The value entered is not valid.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

@@ -1,0 +1,334 @@
+---
+interface Props {
+	nowTitle: string;
+	nowEpochLabel: string;
+	nowEpochMsLabel: string;
+	nowUtcLabel: string;
+	nowLocalLabel: string;
+	epochLabel: string;
+	epochPlaceholder: string;
+	dateLabel: string;
+	unitLabel: string;
+	unitSeconds: string;
+	unitMilliseconds: string;
+	convertLabel: string;
+	errorMessage: string;
+}
+
+const {
+	nowTitle,
+	nowEpochLabel,
+	nowEpochMsLabel,
+	nowUtcLabel,
+	nowLocalLabel,
+	epochLabel,
+	epochPlaceholder,
+	dateLabel,
+	unitLabel,
+	unitSeconds,
+	unitMilliseconds,
+	convertLabel,
+	errorMessage,
+} = Astro.props;
+---
+
+<div data-epoch-tool class="mx-auto max-w-3xl space-y-8">
+	<!-- Current time -->
+	<section
+		aria-labelledby="epoch-now-heading"
+		class="rounded-lg border border-border bg-muted/30 p-5"
+	>
+		<h3
+			id="epoch-now-heading"
+			class="mb-4 font-mono text-sm font-semibold text-foreground"
+		>
+			{nowTitle}
+		</h3>
+		<dl class="grid gap-3 sm:grid-cols-2">
+			<div>
+				<dt class="font-mono text-xs text-muted-foreground">
+					{nowEpochLabel}
+				</dt>
+				<dd
+					data-epoch-now-seconds
+					class="font-mono text-sm text-foreground tabular-nums"
+				>
+					—
+				</dd>
+			</div>
+			<div>
+				<dt class="font-mono text-xs text-muted-foreground">
+					{nowEpochMsLabel}
+				</dt>
+				<dd
+					data-epoch-now-milliseconds
+					class="font-mono text-sm text-foreground tabular-nums"
+				>
+					—
+				</dd>
+			</div>
+			<div>
+				<dt class="font-mono text-xs text-muted-foreground">
+					{nowUtcLabel}
+				</dt>
+				<dd
+					data-epoch-now-utc
+					class="font-mono text-sm text-foreground tabular-nums"
+				>
+					—
+				</dd>
+			</div>
+			<div>
+				<dt class="font-mono text-xs text-muted-foreground">
+					{nowLocalLabel}
+				</dt>
+				<dd
+					data-epoch-now-local
+					class="font-mono text-sm text-foreground tabular-nums"
+				>
+					—
+				</dd>
+			</div>
+		</dl>
+	</section>
+
+	<!-- Unit selector -->
+	<div>
+		<label
+			for="epoch-unit"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{unitLabel}
+		</label>
+		<select
+			id="epoch-unit"
+			data-epoch-unit
+			class="w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		>
+			<option value="s">{unitSeconds}</option>
+			<option value="ms">{unitMilliseconds}</option>
+		</select>
+	</div>
+
+	<!-- Epoch input -->
+	<div>
+		<label
+			for="epoch-input"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{epochLabel}
+		</label>
+		<input
+			id="epoch-input"
+			data-epoch-input
+			type="text"
+			inputmode="numeric"
+			autocomplete="off"
+			placeholder={epochPlaceholder}
+			class="w-full rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 tabular-nums"
+		/>
+	</div>
+
+	<!-- Convert button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-epoch-convert
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+				></path>
+			</svg>
+			{convertLabel}
+		</button>
+	</div>
+
+	<!-- Date input -->
+	<div>
+		<label
+			for="epoch-date"
+			class="mb-2 block font-mono text-sm font-medium text-foreground"
+		>
+			{dateLabel}
+		</label>
+		<input
+			id="epoch-date"
+			data-epoch-date
+			type="datetime-local"
+			step="1"
+			class="w-full rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 tabular-nums"
+		/>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-epoch-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	function setupEpochTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-epoch-tool]');
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-epoch-initialized')) return;
+			container.setAttribute('data-epoch-initialized', '');
+
+			const nowSecondsEl = container.querySelector<HTMLElement>(
+				'[data-epoch-now-seconds]',
+			);
+			const nowMillisecondsEl = container.querySelector<HTMLElement>(
+				'[data-epoch-now-milliseconds]',
+			);
+			const nowUtcEl = container.querySelector<HTMLElement>(
+				'[data-epoch-now-utc]',
+			);
+			const nowLocalEl = container.querySelector<HTMLElement>(
+				'[data-epoch-now-local]',
+			);
+			const unitEl =
+				container.querySelector<HTMLSelectElement>('[data-epoch-unit]');
+			const epochEl =
+				container.querySelector<HTMLInputElement>('[data-epoch-input]');
+			const dateEl =
+				container.querySelector<HTMLInputElement>('[data-epoch-date]');
+			const convertBtn = container.querySelector<HTMLButtonElement>(
+				'[data-epoch-convert]',
+			);
+			const errorEl =
+				container.querySelector<HTMLElement>('[data-epoch-error]');
+
+			if (
+				!nowSecondsEl ||
+				!nowMillisecondsEl ||
+				!nowUtcEl ||
+				!nowLocalEl ||
+				!unitEl ||
+				!epochEl ||
+				!dateEl ||
+				!convertBtn ||
+				!errorEl
+			) {
+				return;
+			}
+
+			function pad(n: number, width = 2): string {
+				return n.toString().padStart(width, '0');
+			}
+
+			function toLocalInputValue(date: Date): string {
+				const year = date.getFullYear();
+				const month = pad(date.getMonth() + 1);
+				const day = pad(date.getDate());
+				const hours = pad(date.getHours());
+				const minutes = pad(date.getMinutes());
+				const seconds = pad(date.getSeconds());
+				return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+			}
+
+			function renderNow(): void {
+				const now = new Date();
+				const ms = now.getTime();
+				nowSecondsEl!.textContent = Math.floor(ms / 1000).toString();
+				nowMillisecondsEl!.textContent = ms.toString();
+				nowUtcEl!.textContent = now.toUTCString();
+				nowLocalEl!.textContent = now.toLocaleString();
+			}
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			function epochToMs(raw: string, unit: string): number | null {
+				const trimmed = raw.trim();
+				if (!trimmed) return null;
+				if (!/^-?\d+$/.test(trimmed)) return null;
+				const value = Number(trimmed);
+				if (!Number.isFinite(value)) return null;
+				return unit === 'ms' ? value : value * 1000;
+			}
+
+			function convert(): void {
+				hideError();
+				const unit = unitEl!.value;
+				const epochRaw = epochEl!.value;
+				const dateRaw = dateEl!.value;
+
+				if (epochRaw.trim()) {
+					const ms = epochToMs(epochRaw, unit);
+					if (ms === null) {
+						showError();
+						return;
+					}
+					const date = new Date(ms);
+					if (Number.isNaN(date.getTime())) {
+						showError();
+						return;
+					}
+					dateEl!.value = toLocalInputValue(date);
+					return;
+				}
+
+				if (dateRaw.trim()) {
+					const date = new Date(dateRaw);
+					if (Number.isNaN(date.getTime())) {
+						showError();
+						return;
+					}
+					const ms = date.getTime();
+					epochEl!.value = (
+						unit === 'ms' ? ms : Math.floor(ms / 1000)
+					).toString();
+					return;
+				}
+			}
+
+			convertBtn.addEventListener('click', convert);
+
+			epochEl.addEventListener('input', hideError);
+			dateEl.addEventListener('input', hideError);
+
+			unitEl.addEventListener('change', () => {
+				hideError();
+				const raw = epochEl!.value.trim();
+				if (!raw || !/^-?\d+$/.test(raw)) return;
+				const previous = unitEl!.value === 'ms' ? 's' : 'ms';
+				const ms = epochToMs(raw, previous);
+				if (ms === null) return;
+				epochEl!.value = (
+					unitEl!.value === 'ms' ? ms : Math.floor(ms / 1000)
+				).toString();
+			});
+
+			renderNow();
+			const intervalId = window.setInterval(renderNow, 1000);
+			document.addEventListener(
+				'astro:before-swap',
+				() => window.clearInterval(intervalId),
+				{ once: true },
+			);
+		});
+	}
+
+	setupEpochTool();
+	document.addEventListener('astro:page-load', setupEpochTool);
+</script>

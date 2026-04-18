@@ -1,0 +1,69 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import EpochDateTool from '../../../components/EpochDateTool.astro';
+import { DEFAULT_LOCALE } from '../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.epoch.title')} — edcilo`}
+	description={t('devtools.epoch.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="epoch-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="epoch-heading"
+			title={t('devtools.epoch.title')}
+			subtitle={t('devtools.epoch.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.epoch.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.epoch.example')}
+			</p>
+		</div>
+
+		<EpochDateTool
+			nowTitle={t('devtools.epoch.now.title')}
+			nowEpochLabel={t('devtools.epoch.now.epoch')}
+			nowEpochMsLabel={t('devtools.epoch.now.epochMs')}
+			nowUtcLabel={t('devtools.epoch.now.utc')}
+			nowLocalLabel={t('devtools.epoch.now.local')}
+			epochLabel={t('devtools.epoch.epoch.label')}
+			epochPlaceholder={t('devtools.epoch.epoch.placeholder')}
+			dateLabel={t('devtools.epoch.date.label')}
+			unitLabel={t('devtools.epoch.unit.label')}
+			unitSeconds={t('devtools.epoch.unit.seconds')}
+			unitMilliseconds={t('devtools.epoch.unit.milliseconds')}
+			convertLabel={t('devtools.epoch.convert')}
+			errorMessage={t('devtools.epoch.error.invalid')}
+		/>
+	</section>
+</Layout>
