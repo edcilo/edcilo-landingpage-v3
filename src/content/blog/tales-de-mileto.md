@@ -34,7 +34,7 @@ Este contexto no es un dato decorativo. Explica **por qué la filosofía raciona
 
 ## El hombre de acción
 
-Tales no fue un "filósofo de torre de marfil". Su vida pública es tan notable como su pensamiento:
+Tales no fue un ["filósofo de torre de marfil"](/blog/diccionario-filosofico/#filósofo-de-torre-de-marfil). Su vida pública es tan notable como su pensamiento:
 
 - **Político**: Heródoto (I, 170) cuenta que aconsejó a los jonios formar una federación política con capital en Teos para resistir el avance persa. De haberse adoptado, esta estrategia podría haber permitido a las ciudades jonias conservar su independencia. Unas décadas después de Tales, Mileto y sus vecinas cayeron bajo el dominio persa, y la ciudad sería finalmente destruida en 494 a.C. tras la Revuelta Jónica.
 - **Ingeniero**: según Heródoto (I, 75), desvió el curso del río Halis para que el ejército de Creso pudiera cruzarlo.
