@@ -90,7 +90,7 @@ Y relacionado con esto, la idea de que el alma es lo que causa movimiento:
 >
 > — Aristóteles, _De Anima_ A 2, 405a19
 
-Esta tesis se conoce como **[hilozoísmo](/blog/diccionario-filosofico/#hilozoísmo)**: la idea de que la materia está viva. Conviene subrayar que Tales **no es un ateo ni un materialista moderno**. Lo que hace es _reubicar_ lo divino: ya no son los dioses olímpicos interviniendo caprichosamente desde fuera, sino algo inmanente a la _physis_ misma. Ese desplazamiento —de una divinidad externa y antropomórfica a una inmanente y racional— es un hilo que reaparecerá con fuerza en Heráclito y, más de dos milenios después, en Spinoza.
+Esta tesis se conoce como **[hilozoísmo](/blog/diccionario-filosofico/#hilozoísmo)**: la idea de que la materia está viva. Conviene subrayar que Tales **no es un ateo ni un materialista moderno**. Lo que hace es _reubicar_ lo divino: ya no son los dioses olímpicos interviniendo caprichosamente desde fuera, sino algo inmanente a la [_physis_](/blog/diccionario-filosofico/#physis) misma. Ese desplazamiento —de una divinidad externa y antropomórfica a una inmanente y racional— es un hilo que reaparecerá con fuerza en Heráclito y, más de dos milenios después, en Spinoza.
 
 ## Anécdotas memorables
 
@@ -108,7 +108,7 @@ Esta tesis se conoce como **[hilozoísmo](/blog/diccionario-filosofico/#hilozoí
 
 No importa tanto _que_ dijera que todo es agua —una respuesta que sería superada rápidamente por su discípulo Anaximandro—. Lo verdaderamente revolucionario es:
 
-1. **Explicar la naturaleza por la naturaleza misma**, no por intervenciones divinas arbitrarias. Nace la _physis_ como objeto autónomo de estudio.
+1. **Explicar la naturaleza por la naturaleza misma**, no por intervenciones divinas arbitrarias. Nace la [_physis_](/blog/diccionario-filosofico/#physis) como objeto autónomo de estudio.
 2. **Buscar unidad bajo la multiplicidad**: hay un principio común a todos los fenómenos.
 3. **Ofrecer explicaciones susceptibles de crítica**: sus sucesores (Anaximandro, Anaxímenes) pueden debatir con él proponiendo otros principios. Nace la **tradición crítica**.
 

@@ -16,6 +16,7 @@ Los términos se listan en **orden alfabético**, y cada uno puede enlazarse dir
 - [Filósofo de torre de marfil](#filósofo-de-torre-de-marfil)
 - [Floruit](#floruit)
 - [Hilozoísmo](#hilozoísmo)
+- [Physis](#physis)
 
 ---
 
@@ -320,3 +321,136 @@ La pregunta de Tales —**¿cómo surge el movimiento y la vida en la materia?**
 - Bennett, J. (2010). _Vibrant Matter: A Political Ecology of Things_. Duke University Press. (Revitalización contemporánea de intuiciones hilozoístas.)
 - "Hylozoism". En _Routledge Encyclopedia of Philosophy_ (1998).
 - Goff, P., Seager, W., & Allen-Hermanson, S. "Panpsychism". _Stanford Encyclopedia of Philosophy_. <https://plato.stanford.edu/entries/panpsychism/> (Distingue hilozoísmo, panpsiquismo y doctrinas afines.)
+
+---
+
+## Physis
+
+(griego: φύσις, _phýsis_)
+
+**Etimología**: del griego φύσις (_phýsis_), sustantivo femenino derivado del verbo φύω (_phýō_), que significa "nacer", "brotar", "crecer", "producir", "engendrar". La raíz indoeuropea _bheu-/bhū-_ (ser, existir, crecer) está emparentada con el inglés _to be_, el alemán _bin_, el latín _fui_ ("yo fui") y el sánscrito _bhū_ ("ser"). Del latín derivado _natura_ (de _nasci_, "nacer") procede nuestra palabra "naturaleza", que traduce _physis_ pero pierde algunos matices.
+
+De _physis_ derivan directamente: **física, fisiología, fisonomía**, y en general el prefijo _físico-_.
+
+**Doble sentido fundamental**:
+
+- El **proceso** de nacimiento, crecimiento y desarrollo de algo.
+- El **resultado** de ese proceso: la constitución, carácter o esencia propia de cada cosa.
+
+### Definición filosófica
+
+En el vocabulario griego, _physis_ designa **aquello que una cosa es por sí misma, de forma espontánea, sin intervención externa**. Es lo que una cosa hace y es por su propia dinámica interna, por su propio modo de brotar y desplegarse. Se opone tanto a lo que es fabricado por arte humano (_téchnē_) como a lo que se establece por convención (_nómos_).
+
+La _physis_ no es, en el sentido griego originario, la "naturaleza" como objeto pasivo que observamos —tal como la entendería la ciencia moderna—. Es más bien **el principio activo por el cual cada cosa llega a ser lo que es y se mantiene siéndolo**. En la _physis_ hay una fuerza productiva inmanente: las cosas no son hechas, sino que se hacen desde sí mismas.
+
+### El significado en los presocráticos
+
+Cuando la tradición dice que los primeros filósofos escribieron tratados _Perì Phýseōs_ (Περὶ Φύσεως, "Sobre la naturaleza"), el término tiene una amplitud mucho mayor que la actual palabra "naturaleza":
+
+- Designa **el conjunto total de lo que es**, el cosmos como realidad viviente y ordenada.
+- Designa **el principio originario y constitutivo** de las cosas (la [_archē_](#arché) y la _physis_ están íntimamente conectadas).
+- Designa **el modo de ser propio de cada cosa**, su esencia desplegándose.
+
+Los primeros filósofos son llamados por Aristóteles _physiólogoi_ (φυσιολόγοι), "los que hablan sobre la _physis_". Nota que no los llama "filósofos" (ese es un término más tardío), sino que los identifica por su objeto de estudio.
+
+### La oposición clave: _physis_ vs. _nómos_
+
+Este es uno de los ejes conceptuales más importantes de toda la filosofía griega. A partir del siglo V a.C., especialmente con los sofistas, se articula una oposición entre:
+
+- **_Physis_** (φύσις): lo que es por naturaleza, lo que es así por sí mismo, universalmente, necesariamente.
+- **_Nómos_** (νόμος): lo que es por convención humana, por ley, costumbre o acuerdo; varía entre pueblos y épocas.
+
+La pregunta decisiva se vuelve: _¿tal cosa (la justicia, la esclavitud, los dioses, el lenguaje, el bien) es por physis o por nómos? ¿Es natural o convencional?_
+
+Esta distinción será explotada por los sofistas (Antifonte, Calicles) para cuestionar el orden establecido, argumentando que muchas cosas que se presentan como "naturales" son en realidad convenciones humanas cambiantes. Platón y Aristóteles, en respuesta, intentarán mostrar que hay cosas verdaderamente físicas —la justicia, por ejemplo, o ciertas jerarquías políticas— frente a los que relativizaban todo al _nómos_.
+
+### La oposición secundaria: _physis_ vs. _téchnē_
+
+Aristóteles sistematiza otra distinción importante en su _Física_ (libro II, cap. 1):
+
+> _"τῶν ὄντων τὰ μέν ἐστι φύσει, τὰ δὲ δι' ἄλλας αἰτίας"_
+>
+> _"De los seres, unos son por naturaleza (phýsei), otros por otras causas."_
+>
+> — Aristóteles, _Física_ II, 1, 192b8
+
+Aristóteles define entonces la _physis_ como:
+
+> _"ἀρχὴ κινήσεως καὶ μεταβολῆς... καθ' αὑτὸ καὶ μὴ κατὰ συμβεβηκός"_
+>
+> _"Principio del movimiento y del cambio... en sí mismo y no por accidente."_
+>
+> — _Física_ II, 1, 192b21
+
+La distinción es clave:
+
+- Un árbol tiene _physis_: crece por sí mismo, desde un principio interno.
+- Una mesa **no** tiene _physis_, sino _téchnē_: existe porque un carpintero la hizo desde fuera. El principio de su ser está en el artesano, no en la mesa misma.
+
+La _physis_ es, entonces, **autoproductiva e interna**; la _téchnē_ es **producida e impuesta desde fuera**.
+
+### Evolución del concepto
+
+El término _physis_ tiene una historia fascinante:
+
+#### En Homero
+
+La palabra aparece ya en Homero (_Odisea_ X, 303), donde Hermes muestra a Odiseo la _physis_ de la planta mágica _mōly_: su aspecto, su manera de brotar, lo que la hace ser esa planta. Aquí _physis_ significa ya "naturaleza propia de algo".
+
+#### En los presocráticos
+
+Heráclito utiliza el término en uno de los fragmentos más célebres:
+
+> _"φύσις κρύπτεσθαι φιλεῖ"_
+>
+> _"La naturaleza gusta de ocultarse."_
+>
+> — Heráclito, fragmento DK 22 B 123
+
+La _physis_ no es lo visible, sino el **principio oculto que subyace a los fenómenos**.
+
+#### En Platón
+
+Platón desplaza el interés hacia las Ideas (_eídē_) como verdadera "naturaleza" de las cosas. La _physis_ sensible es apariencia; la _physis_ auténtica es inteligible.
+
+#### En Aristóteles
+
+Aristóteles recupera y sistematiza el concepto. La _physis_ es **principio interno de movimiento y reposo**. Cada cosa natural tiende hacia su fin propio (_télos_) por su _physis_.
+
+#### Traducción latina y moderna
+
+Los romanos traducen _physis_ por _natura_ (de _nasci_, "nacer"), y esta es la forma que pasa a las lenguas modernas. Pero en el trayecto, algo se pierde: la _natura_ latina y luego la "naturaleza" moderna tienden a **cosificarse**, a convertirse en objeto externo que se observa, se mide y se domina. La _physis_ griega es más activa, más productiva, más viviente.
+
+#### En Heidegger
+
+El filósofo alemán **Martin Heidegger** dedicó mucha atención a recuperar el sentido originario de _physis_, que él interpreta como "el surgir que se manifiesta desde sí mismo" (_das von sich aus Aufgehen_). Para Heidegger, la filosofía occidental habría olvidado este sentido originario al traducir _physis_ por _natura_, iniciando el largo proceso por el cual la naturaleza se convirtió en objeto disponible para la técnica moderna. Su ensayo "Sobre la esencia y el concepto de φύσις" (en _Wegmarken_, 1967), centrado en Aristóteles, es una referencia clave.
+
+### Por qué importa el concepto
+
+La _physis_ es el concepto que abre el espacio mismo de la filosofía. Cuando los milesios se preguntan por la _physis_ de las cosas, están haciendo dos cosas inéditas:
+
+- Asumen que hay un **orden inherente al mundo** —no un caos sostenido por voluntades divinas arbitrarias—, y que ese orden puede ser pensado racionalmente.
+- Asumen que las cosas tienen un **modo de ser propio**, descubrible por el _logos_, independiente de lo que los humanos digan o hagan sobre ellas.
+
+Sin _physis_ no hay ciencia, no hay ontología, no hay metafísica. Y la oposición _physis_/_nómos_ funda toda la filosofía política y ética posterior: cada vez que nos preguntamos si algo es "natural" o "cultural", si tiene fundamento objetivo o es mera convención, estamos usando una distinción griega de hace 2500 años.
+
+### Fuentes
+
+**Textos antiguos**:
+
+- Homero, _Odisea_, X, 303. (Primera aparición literaria del término.)
+- Heráclito, fragmento DK 22 B 123 (_physis kryptesthai phileî_).
+- Aristóteles, _Física_, libro II, caps. 1–2.
+- Aristóteles, _Metafísica_, libro V (Δ), cap. 4 (entrada "physis").
+- Platón, _Leyes_, libro X (discusión _physis_/_nómos_).
+
+**Fuentes secundarias**:
+
+- Burnet, J. (1930). _Early Greek Philosophy_ (4ª ed.). Londres: Adam & Charles Black. (Cap. "On the Meaning of Physis".)
+- Naddaf, G. (2005). _The Greek Concept of Nature_. State University of New York Press. (Monografía completa sobre el concepto.)
+- Kirk, G. S., Raven, J. E., & Schofield, M. (1983). _The Presocratic Philosophers_ (2ª ed.). Cambridge University Press.
+- Heidegger, M. (1967). "Vom Wesen und Begriff der φύσις". En _Wegmarken_. Frankfurt: Klostermann. (Traducción española: "Sobre la esencia y el concepto de φύσις", en _Hitos_, Alianza.)
+- Vernant, J.-P. (1962). _Les origines de la pensée grecque_. PUF. (Traducción española: _Los orígenes del pensamiento griego_, Paidós.)
+- Reale, G. (2007). _Historia de la filosofía griega y romana, Vol. I_. Herder.
+- "Physis". En Peters, F. E. (1967). _Greek Philosophical Terms: A Historical Lexicon_. New York University Press. (Entrada técnica sobre el término.)
+- "Nature". _Stanford Encyclopedia of Philosophy_. (Sección histórica sobre el concepto griego.)
