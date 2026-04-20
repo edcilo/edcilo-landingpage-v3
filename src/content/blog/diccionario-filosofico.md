@@ -12,8 +12,104 @@ Los términos se listan en **orden alfabético**, y cada uno puede enlazarse dir
 
 ## Índice
 
+- [Arché](#arché)
 - [Filósofo de torre de marfil](#filósofo-de-torre-de-marfil)
 - [Floruit](#floruit)
+
+---
+
+## Arché
+
+(griego: ἀρχή, _archḗ_)
+
+**Etimología**: del griego antiguo ἀρχή (_archḗ_), sustantivo femenino derivado del verbo ἄρχω (_árchō_), que significa "comenzar", "ser el primero", "mandar", "gobernar". De la misma raíz provienen palabras castellanas como **arquitecto** (el "principio constructor"), **arqueología** (estudio de los orígenes), **arcaico**, **monarquía** (gobierno de uno solo), **anarquía** (sin mando).
+
+**Doble sentido en griego**: el término une desde el origen dos significados que en español aparecen separados:
+
+- **Principio en sentido temporal**: aquello por lo que algo comienza, su punto de partida, su origen.
+- **Mando, poder, autoridad**: aquello que rige, que domina, que gobierna.
+
+Esta doble acepción es filosóficamente fecunda: la _archē_ no es solo de dónde proviene algo, sino también aquello que lo sigue determinando mientras existe. Es a la vez **fundamento y principio rector**.
+
+### Definición filosófica
+
+En el vocabulario de la filosofía griega, la _archē_ es el **principio fundamental, originario y constitutivo** de todas las cosas; aquello a partir de lo cual todo procede, aquello en lo que todo se resuelve, y aquello que permanece a través del cambio.
+
+La formulación clásica del concepto la da Aristóteles, que es quien lo convierte en categoría técnica cuando describe el pensamiento de los primeros filósofos:
+
+> _"ἐξ οὗ γὰρ ἔστιν ἅπαντα τὰ ὄντα καὶ ἐξ οὗ γίγνεται πρώτου καὶ εἰς ὃ φθείρεται τελευταῖον... τοῦτο στοιχεῖον καὶ ταύτην ἀρχήν φασιν εἶναι τῶν ὄντων"_
+>
+> _"Aquello de lo que son todos los seres, aquello de lo que primero provienen y en lo que finalmente se disuelven... eso dicen que es el elemento y el principio (archē) de los seres."_
+>
+> — Aristóteles, _Metafísica_ A 3, 983b8–11
+
+La _archē_, entonces, reúne tres funciones simultáneas:
+
+- **Origen**: aquello de lo cual todo procede.
+- **Sustrato**: aquello que permanece mientras las cosas cambian.
+- **Fin**: aquello a lo que todas las cosas retornan cuando se destruyen.
+
+### Contexto histórico del término
+
+Es importante una precisión filológica: es muy probable que los primeros filósofos jonios (Tales, Anaximandro, Anaxímenes) **no hayan usado la palabra _archē_ en sentido técnico**. El uso filosófico-técnico del término como "principio originario de las cosas" se consolida con Aristóteles, que lo aplica retrospectivamente a sus predecesores.
+
+Sin embargo, la tradición atribuye a **Anaximandro** —discípulo de Tales— el primer uso filosófico del término, según testimonio de Simplicio que parafrasea a Teofrasto:
+
+> _"ἀρχήν... εἴρηκε τῶν ὄντων τὸ ἄπειρον... πρῶτος τοῦτο τοὔνομα κομίσας τῆς ἀρχῆς"_
+>
+> _"Dijo que el principio (archē) de los seres es lo ilimitado (ápeiron)... siendo el primero en introducir este nombre de 'principio'."_
+>
+> — Simplicio, _Comentario a la Física de Aristóteles_, 24, 13 (= DK 12 A 9)
+
+Aunque los especialistas debaten si esta frase refleja el lenguaje real de Anaximandro o la reconstrucción aristotélico-teofrastea, hay consenso en que **el concepto** —la búsqueda de un principio único— **es genuinamente presocrático**.
+
+### Las respuestas de los presocráticos
+
+El interés filosófico de la _archē_ es que cada filósofo ofrece una respuesta distinta a la misma pregunta, lo que inaugura la tradición crítica occidental:
+
+- **Tales**: el agua (_hýdōr_).
+- **Anaximandro**: lo ilimitado (_ápeiron_).
+- **Anaxímenes**: el aire (_aēr_).
+- **Heráclito**: el fuego (_pŷr_) y el _lógos_.
+- **Pitagóricos**: el número (_arithmós_).
+- **Parménides**: el Ser (_tò eón_).
+- **Empédocles**: cuatro raíces (tierra, agua, aire, fuego) movidas por Amor y Odio.
+- **Anaxágoras**: infinitas semillas (_spérmata_) ordenadas por el Intelecto (_Noûs_).
+- **Demócrito**: átomos (_átomoi_) y vacío (_kenón_).
+
+Cada uno intenta satisfacer tres exigencias: **explicar el origen, dar cuenta del cambio, y preservar una unidad subyacente a la multiplicidad de lo real**.
+
+### Evolución posterior del concepto
+
+El término no se queda en la cosmología presocrática. Atraviesa toda la filosofía occidental y toma matices distintos:
+
+- En **Platón**, las Ideas (_eídē_) funcionan como _archē_ ontológica y epistemológica: son el fundamento del ser y del conocimiento.
+- En **Aristóteles**, distingue varios tipos de _archē_: principios del ser, del conocimiento, del movimiento. Su teoría de las cuatro causas (material, formal, eficiente, final) es una sistematización de distintos sentidos de principio.
+- En la **teología cristiana**, el _Logos_ del Evangelio de Juan comienza precisamente con esta palabra: _"Ἐν ἀρχῇ ἦν ὁ Λόγος"_ ("En el principio era el Verbo/Logos", Juan 1:1), identificando a Cristo con la _archē_ del mundo.
+- En la **filosofía moderna**, la búsqueda de un "primer principio" reaparece en Descartes (el _cogito_), en Spinoza (la sustancia única), en Fichte (el Yo absoluto), en Hegel (el Espíritu).
+- En la **filosofía contemporánea**, Heidegger, Derrida y otros han criticado el llamado "pensamiento arqueológico" (en el doble sentido: tanto búsqueda del origen como imposición de un fundamento dominante), argumentando que la metafísica occidental quedó atrapada en la ilusión de encontrar una _archē_ estable.
+
+### Por qué importa el concepto
+
+La pregunta por la _archē_ inaugura la filosofía porque introduce una operación intelectual nueva: **buscar unidad bajo la multiplicidad y explicar lo visible por lo invisible**. El agua de Tales no es el agua de los ríos; es un principio que subyace a las apariencias. Esta operación —distinguir entre el principio y sus manifestaciones— será la base de toda metafísica, de toda ciencia, y de toda teología posteriores.
+
+### Fuentes
+
+**Textos antiguos**:
+
+- Aristóteles, _Metafísica_, libro I (A), cap. 3, 983b6–984a.
+- Aristóteles, _Física_, libro I, cap. 5; libro II, cap. 1.
+- Simplicio, _Comentario a la Física de Aristóteles_, 24, 13 (recopilado en DK 12 A 9).
+
+**Fuentes secundarias**:
+
+- Diels, H. & Kranz, W. (1951). _Die Fragmente der Vorsokratiker_. Berlín: Weidmann.
+- Kirk, G. S., Raven, J. E., & Schofield, M. (1983). _The Presocratic Philosophers_ (2ª ed.). Cambridge University Press. (Cap. 1 sobre los milesios; discusión del concepto de _archē_.)
+- Guthrie, W. K. C. (1962). _A History of Greek Philosophy, Vol. I_. Cambridge University Press.
+- Reale, G. (2007). _Historia de la filosofía griega y romana, Vol. I_. Herder.
+- Graham, D. W. "Anaximander". _Stanford Encyclopedia of Philosophy_. <https://plato.stanford.edu/entries/anaximander/> (Discute el problema del uso técnico del término.)
+- Vernant, J.-P. (1962). _Les origines de la pensée grecque_. PUF. (Traducción española: _Los orígenes del pensamiento griego_, Paidós.)
+- "Archē". En _The Cambridge Dictionary of Philosophy_ (2ª ed., 1999). Cambridge University Press.
 
 ---
 
@@ -65,10 +161,6 @@ La expresión entronca con debates más profundos de la filosofía:
 - La distinción aristotélica entre **vida teorética** (_bíos theōrētikós_) y **vida práctica** (_bíos praktikós_), y el problema de cuál es superior.
 - La famosa **tesis 11 de Marx sobre Feuerbach**: _"Los filósofos se han limitado a interpretar el mundo de distintos modos; de lo que se trata es de transformarlo."_ (una crítica implícita a la "torre de marfil").
 - La oposición sartreana entre el **intelectual comprometido** (_engagé_) y el que se refugia en la abstracción.
-
-### En el contexto de Tales
-
-Cuando dije que Tales "no fue un filósofo de torre de marfil", la expresión señala precisamente que rompe con el estereotipo moderno del pensador aislado: su sabiduría se probaba en asesoría política, ingeniería militar, predicción astronómica y especulación comercial. Es importante insistir en esto porque **el filósofo original de Occidente no era un académico encerrado en un despacho**: era un sabio integrado en la vida pública de su ciudad. La imagen del filósofo aislado es un producto histórico posterior, no el modelo originario.
 
 ### Fuentes
 

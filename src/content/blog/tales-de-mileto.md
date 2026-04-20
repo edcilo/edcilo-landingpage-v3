@@ -50,7 +50,7 @@ Esto significa algo importante: **todo lo que sabemos de Tales proviene de fuent
 
 ## Su contribución filosófica
 
-Aristóteles identifica a Tales como el iniciador de la filosofía entendida como búsqueda de un **principio racional (_archē_)** del cosmos. La _archē_ es aquello de lo que proceden todas las cosas, aquello en lo que se resuelven, y que permanece a través del cambio.
+Aristóteles identifica a Tales como el iniciador de la filosofía entendida como búsqueda de un **principio racional ([_archē_](/blog/diccionario-filosofico/#arché))** del cosmos. La [_archē_](/blog/diccionario-filosofico/#arché) es aquello de lo que proceden todas las cosas, aquello en lo que se resuelven, y que permanece a través del cambio.
 
 La tradición le atribuye tres tesis centrales:
 
