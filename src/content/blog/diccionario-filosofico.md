@@ -15,6 +15,7 @@ Los términos se listan en **orden alfabético**, y cada uno puede enlazarse dir
 - [Arché](#arché)
 - [Filósofo de torre de marfil](#filósofo-de-torre-de-marfil)
 - [Floruit](#floruit)
+- [Hilozoísmo](#hilozoísmo)
 
 ---
 
@@ -212,3 +213,110 @@ El _floruit_ es una convención útil pero **imprecisa**. La suposición de los 
 - Jacoby, F. (1902). _Apollodors Chronik: Eine Sammlung der Fragmente_. Berlín: Weidmann. (Estudio clásico sobre el método doxográfico.)
 - "Floruit". _Oxford English Dictionary_. Oxford University Press.
 - "Akmē". En _The Oxford Classical Dictionary_ (4ª ed., 2012). Oxford University Press.
+
+---
+
+## Hilozoísmo
+
+**Etimología**: término compuesto del griego ὕλη (_hýlē_), que significa "materia" (originalmente "bosque" o "madera", y por extensión "materia prima"), y ζωή (_zōē_), que significa "vida". Literalmente, entonces: **"materia-viva"** o la doctrina de que la materia está viva.
+
+**Definición**: doctrina filosófica según la cual toda materia posee, en sí misma, algún grado de **vida, alma o principio animador**. No hay separación tajante entre lo viviente y lo inerte: lo que llamamos "materia inanimada" tiene, en alguna medida, capacidad de movimiento propio, sensibilidad o animación.
+
+El hilozoísmo responde a una pregunta fundamental: **¿de dónde viene el movimiento?** Si la materia fuera puramente pasiva, necesitaríamos un agente externo (un dios, un motor) que la mueva. El hilozoísmo resuelve el problema atribuyendo la capacidad de movimiento a la materia misma.
+
+### Origen del término
+
+El término **no es griego antiguo**, aunque designa una doctrina que sí lo es. Fue acuñado en el siglo XVII por el filósofo **Ralph Cudworth** (1617–1688), miembro de los platónicos de Cambridge, en su obra _The True Intellectual System of the Universe_ (1678). Cudworth lo usó de forma crítica, para referirse —y combatir— a ciertas filosofías materialistas que atribuían vida a la materia sin necesidad de un Dios trascendente.
+
+Es decir, el hilozoísmo es primero una **categoría historiográfica** con la que los modernos etiquetan a los antiguos, no una escuela que se autodenominara así.
+
+### El hilozoísmo de los milesios
+
+Aristóteles atribuye el hilozoísmo (sin usar la palabra) a los primeros filósofos. El _locus_ clásico es su comentario sobre Tales en _De Anima_:
+
+> _"πάντα πλήρη θεῶν εἶναι"_
+>
+> _"Todas las cosas están llenas de dioses."_
+>
+> — Aristóteles, _De Anima_ A 5, 411a7
+
+Y, respecto a cómo identificaba Tales lo viviente:
+
+> _"ἔοικε δὲ καὶ Θαλῆς ἐξ ὧν ἀπομνημονεύουσι κινητικόν τι τὴν ψυχὴν ὑπολαβεῖν, εἴπερ τὴν λίθον ἔφη ψυχὴν ἔχειν, ὅτι τὸν σίδηρον κινεῖ"_
+>
+> _"Parece que también Tales, según lo que se recuerda, concibió el alma como algo que causa movimiento, ya que dijo que el imán tiene alma porque mueve al hierro."_
+>
+> — Aristóteles, _De Anima_ A 2, 405a19
+
+El argumento implícito es importante: **si algo se mueve a sí mismo o mueve a otros, tiene alma** (_psychē_). Como el imán mueve al hierro sin que nadie lo empuje, el imán debe tener alma. Y si esto ocurre incluso con una piedra, entonces el alma está distribuida por toda la materia.
+
+Esta intuición recorre a los milesios:
+
+- **Tales**: el agua como principio viviente; "todo está lleno de dioses".
+- **Anaximandro**: lo ilimitado (_ápeiron_) es divino, inmortal y eternamente en movimiento, generando mundos.
+- **Anaxímenes**: el aire (_aēr_) es comparado con el alma (_psychē_): así como el alma nos sostiene, el aire sostiene al cosmos.
+
+En ninguno de ellos la materia es pasiva. La distinción moderna entre "materia muerta" y "vida" no existe todavía.
+
+### Por qué los milesios eran hilozoístas
+
+Esto no es casualidad ni "pensamiento primitivo". Tiene una lógica conceptual fuerte:
+
+- **Problema del movimiento**: si solo existe un principio único ([_archē_](#arché)), y ese principio genera mundos, debe tener en sí la capacidad de moverse. No hay nada externo que lo mueva.
+- **Indistinción aún no pensada**: la separación tajante entre lo físico y lo psíquico, entre materia y espíritu, aún no existe como problema filosófico. Esa distinción llegará con Platón (dualismo alma/cuerpo) y se radicalizará con Descartes (_res extensa_ vs. _res cogitans_).
+- **Lo divino como inmanente**: los dioses de los presocráticos no son los olímpicos que intervienen desde fuera. Son la vida misma del cosmos. De ahí la frase "todo está lleno de dioses": no es superstición, es **teología inmanentista**.
+
+### Hilozoísmo, animismo y panpsiquismo
+
+Conviene distinguir el hilozoísmo de doctrinas cercanas con las que a veces se confunde:
+
+- **Animismo**: la creencia de que objetos, lugares o fenómenos naturales poseen espíritus individuales, propia de religiones tradicionales. Es un fenómeno religioso y cultural, no una tesis filosófica sistemática. El animismo atribuye espíritus específicos (el espíritu del río, del árbol); el hilozoísmo atribuye vida como propiedad general de la materia.
+- **Panpsiquismo**: doctrina de que toda la materia tiene mente, conciencia o experiencia. Es más fuerte que el hilozoísmo: no solo vida, sino también algún tipo de subjetividad o percepción. Hoy es objeto de renovado debate en filosofía de la mente (Galen Strawson, David Chalmers, Philip Goff).
+- **Vitalismo**: doctrina que postula un principio vital específico (_élan vital_, entelequia) distinto de la materia, que explica la vida orgánica. Es casi lo opuesto al hilozoísmo: el vitalismo separa vida y materia; el hilozoísmo las identifica.
+
+La relación puede esquematizarse así:
+
+| Doctrina         | Tesis central                                     |
+| ---------------- | ------------------------------------------------- |
+| **Hilozoísmo**   | La materia misma está viva.                       |
+| **Animismo**     | Los seres y lugares tienen espíritus.             |
+| **Panpsiquismo** | Toda la materia tiene mente/experiencia.          |
+| **Vitalismo**    | La vida requiere un principio extra a la materia. |
+
+### Historia del hilozoísmo
+
+El hilozoísmo no desaparece con los presocráticos. Reaparece periódicamente en la historia del pensamiento:
+
+- **Estoicismo**: el cosmos es un ser vivo animado por un _pneûma_ (soplo, espíritu) material y divino.
+- **Renacimiento**: Giordano Bruno concibe el universo como un organismo infinito animado.
+- **Spinoza** (s. XVII): aunque no es estrictamente hilozoísta, su monismo —una sola sustancia con atributos de pensamiento y extensión— está emparentado. Toda cosa individual, para Spinoza, tiene un grado de pensamiento.
+- **Leibniz** (s. XVII–XVIII): las mónadas como unidades vivientes de las que todo se compone acerca su filosofía al panpsiquismo.
+- **Schelling y el idealismo alemán**: la _Naturphilosophie_ concibe la naturaleza como organismo vivo productivo.
+- **Filosofía contemporánea**: el debate actual sobre el panpsiquismo, y la _new materialism_ (Jane Bennett, _Vibrant Matter_, 2010), retoman intuiciones hilozoístas para pensar la agencia de la materia en la era ecológica.
+
+### Relevancia contemporánea
+
+Aunque la ciencia moderna pareció cerrar definitivamente el debate —distinguiendo sistemas vivientes (con metabolismo, reproducción, selección) de la materia inerte—, el **problema de la emergencia de la vida** y, sobre todo, el **problema duro de la conciencia** (por qué hay experiencia subjetiva asociada a ciertos procesos físicos) han hecho que algunos filósofos contemporáneos revisiten el hilozoísmo y el panpsiquismo como alternativas serias a un materialismo reduccionista.
+
+La pregunta de Tales —**¿cómo surge el movimiento y la vida en la materia?**— no está resuelta.
+
+### Fuentes
+
+**Textos antiguos**:
+
+- Aristóteles, _De Anima_, libro I, caps. 2 y 5.
+- Aristóteles, _Física_, libro VIII (sobre el movimiento y su causa).
+
+**Fuente del término**:
+
+- Cudworth, R. (1678). _The True Intellectual System of the Universe_. Londres. (Donde se acuña el término "hylozoism".)
+
+**Fuentes secundarias**:
+
+- Kirk, G. S., Raven, J. E., & Schofield, M. (1983). _The Presocratic Philosophers_ (2ª ed.). Cambridge University Press. (Discusión del alma en los milesios.)
+- Guthrie, W. K. C. (1962). _A History of Greek Philosophy, Vol. I_. Cambridge University Press.
+- Skrbina, D. (2005). _Panpsychism in the West_. MIT Press. (Historia comprensiva del panpsiquismo que incluye el hilozoísmo.)
+- Goff, P. (2017). _Consciousness and Fundamental Reality_. Oxford University Press. (Discusión contemporánea.)
+- Bennett, J. (2010). _Vibrant Matter: A Political Ecology of Things_. Duke University Press. (Revitalización contemporánea de intuiciones hilozoístas.)
+- "Hylozoism". En _Routledge Encyclopedia of Philosophy_ (1998).
+- Goff, P., Seager, W., & Allen-Hermanson, S. "Panpsychism". _Stanford Encyclopedia of Philosophy_. <https://plato.stanford.edu/entries/panpsychism/> (Distingue hilozoísmo, panpsiquismo y doctrinas afines.)
