@@ -22,7 +22,7 @@ Pero decir esto sin más es quedarse corto. Lo que hace a Tales el _inicio_ de a
 
 ## Cuándo y dónde vivió
 
-Las fechas tradicionales son aproximadamente **624–546 a.C.** Apolodoro, citado por Diógenes Laercio, situó su nacimiento en la Olimpiada 35 (640 a.C.) y su muerte hacia los 78 años. Lo que sí sabemos con precisión es que Tales **predijo el eclipse solar del 28 de mayo de 585 a.C.**, que ocurrió durante una batalla entre medos y lidios (Heródoto, _Historias_ I, 74). Esta fecha, por su exactitud astronómica, es el acontecimiento más fiable de su biografía, y suele tomarse como su _floruit_ (el momento de madurez intelectual, hacia los 40 años).
+Las fechas tradicionales son aproximadamente **624–546 a.C.** Apolodoro, citado por Diógenes Laercio, situó su nacimiento en la Olimpiada 35 (640 a.C.) y su muerte hacia los 78 años. Lo que sí sabemos con precisión es que Tales **predijo el eclipse solar del 28 de mayo de 585 a.C.**, que ocurrió durante una batalla entre medos y lidios (Heródoto, _Historias_ I, 74). Esta fecha, por su exactitud astronómica, es el acontecimiento más fiable de su biografía, y suele tomarse como su [_floruit_](/blog/diccionario-filosofico/#floruit) (el momento de madurez intelectual, hacia los 40 años).
 
 Vivió en **Mileto**, una próspera ciudad griega en la costa de Jonia (actual costa occidental de Turquía). En los siglos VII–VI a.C., Mileto era uno de los grandes centros comerciales del Mediterráneo: tenía cuatro puertos, fundó decenas de colonias alrededor del Mar Negro, y mantenía intercambios con Egipto, Fenicia, Babilonia y Lidia.
 
