@@ -13,6 +13,7 @@ Los términos se listan en **orden alfabético**, y cada uno puede enlazarse dir
 ## Índice
 
 - [Arché](#arché)
+- [Epistemología](#epistemología)
 - [Filósofo de torre de marfil](#filósofo-de-torre-de-marfil)
 - [Floruit](#floruit)
 - [Hilozoísmo](#hilozoísmo)
@@ -112,6 +113,163 @@ La pregunta por la _archē_ inaugura la filosofía porque introduce una operaci�
 - Graham, D. W. "Anaximander". _Stanford Encyclopedia of Philosophy_. <https://plato.stanford.edu/entries/anaximander/> (Discute el problema del uso técnico del término.)
 - Vernant, J.-P. (1962). _Les origines de la pensée grecque_. PUF. (Traducción española: _Los orígenes del pensamiento griego_, Paidós.)
 - "Archē". En _The Cambridge Dictionary of Philosophy_ (2ª ed., 1999). Cambridge University Press.
+
+---
+
+## Epistemología
+
+**Etimología**: del griego ἐπιστήμη (_epistḗmē_), que significa "conocimiento", "saber", "ciencia" (en el sentido de saber sólido y fundamentado), y λόγος (_lógos_), que significa "discurso", "tratado", "estudio", "razón". Literalmente, entonces: **"estudio o teoría del conocimiento"**.
+
+La palabra _epistēmē_ deriva a su vez del verbo ἐπίσταμαι (_epístamai_), "saber", "entender", compuesto de _epí-_ ("sobre") e _hístamai_ ("estar firme", "estar de pie"). Etimológicamente evoca **"estar firme sobre algo"**, es decir, poseer un conocimiento sólido, asentado, bien fundado —por contraste con la mera opinión cambiante.
+
+### Definición
+
+La **epistemología** es la rama de la filosofía que estudia la **naturaleza, el origen, los límites, la justificación y la validez del conocimiento humano**. Sus preguntas fundamentales son:
+
+- ¿Qué es el conocimiento?
+- ¿Cómo conocemos? ¿Mediante los sentidos, la razón, o ambos?
+- ¿Qué podemos conocer y qué no?
+- ¿Cuándo una creencia está justificada y puede llamarse conocimiento?
+- ¿Existe la verdad objetiva, o todo conocimiento es relativo?
+- ¿Qué distingue el conocimiento genuino de la mera opinión, la creencia o la ilusión?
+
+La definición clásica de conocimiento —originada en Platón— es **"creencia verdadera justificada"** (_justified true belief_). Según esta, para que yo "sepa" algo (no solo lo crea o lo sospeche), deben cumplirse tres condiciones:
+
+- Que **lo crea** (condición subjetiva).
+- Que **sea verdadero** (condición objetiva).
+- Que **tenga justificación** o razones suficientes para creerlo (condición epistémica).
+
+Esta definición, tradicional durante siglos, fue cuestionada en 1963 por un breve artículo de **Edmund Gettier** ("Is Justified True Belief Knowledge?", _Analysis_, 23), donde mostró contraejemplos en los que se cumplen las tres condiciones pero aun así no parece haber conocimiento genuino. Los llamados **"problemas de Gettier"** abrieron uno de los debates más vivos de la epistemología contemporánea.
+
+### Origen del término
+
+Aunque el concepto de _epistēmē_ es antiguo, la palabra **"epistemología" es moderna**. Se acuñó en el siglo XIX:
+
+- En **inglés**, el término _epistemology_ fue introducido por el filósofo escocés **James Frederick Ferrier** en su obra _Institutes of Metaphysic_ (1854), donde dividió la filosofía en "epistemología" (teoría del conocer) y "ontología" (teoría del ser).
+- En **alemán** ya circulaba la palabra _Erkenntnistheorie_ ("teoría del conocimiento"), usada por Kant y los idealistas alemanes.
+- En **francés**, _épistémologie_ adquirió un sentido ligeramente distinto y más restringido: suele usarse para designar específicamente la **filosofía de la ciencia** (el estudio de los métodos y fundamentos del conocimiento científico), mientras que la "teoría del conocimiento" en general se llama _théorie de la connaissance_ o _gnoséologie_.
+
+Esta diferencia terminológica es importante:
+
+| Tradición           | Uso de "epistemología"                                               |
+| ------------------- | -------------------------------------------------------------------- |
+| **Anglosajona**     | Teoría del conocimiento en general.                                  |
+| **Francesa**        | Filosofía de la ciencia específicamente.                             |
+| **Alemana**         | Se prefiere _Erkenntnistheorie_; _Epistemologie_ es más restringido. |
+| **Hispanohablante** | Uso mixto, aunque predomina el sentido anglosajón amplio.            |
+
+### Distinciones griegas fundamentales
+
+Los griegos distinguían varios tipos de saber, y esta taxonomía sigue siendo útil en epistemología:
+
+- **_Epistēmē_** (ἐπιστήμη): conocimiento científico, fundado, demostrable, universal y necesario.
+- **_Dóxa_** (δόξα): opinión, creencia, parecer. Puede ser verdadera o falsa, pero no tiene fundamento sólido.
+- **_Téchnē_** (τέχνη): saber práctico, arte, habilidad; conocimiento productivo de cómo hacer algo.
+- **_Phrónēsis_** (φρόνησις): sabiduría práctica, prudencia; saber deliberar bien sobre cómo actuar.
+- **_Sophía_** (σοφία): sabiduría teorética, conocimiento de los principios últimos.
+- **_Noûs_** (νοῦς): intelecto, intuición intelectual directa de los primeros principios.
+
+La oposición fundamental en Platón es **_epistēmē_ vs. _dóxa_**: el filósofo persigue el conocimiento verdadero, no la opinión. En la _República_ VI–VII, Platón desarrolla esta distinción con la famosa **alegoría de la caverna** y la **línea dividida**: los prisioneros de la caverna viven en _dóxa_; el filósofo que sale a la luz alcanza _epistēmē_.
+
+### Grandes problemas epistemológicos
+
+La epistemología clásica organiza su campo en torno a varios grandes debates:
+
+#### 1. Origen del conocimiento: racionalismo vs. empirismo
+
+- **Racionalismo** (Platón, Descartes, Leibniz, Spinoza): el conocimiento auténtico proviene de la razón. Los sentidos engañan; hay **ideas innatas** o principios _a priori_ que la razón puede descubrir por sí misma.
+- **Empirismo** (Locke, Berkeley, Hume): todo conocimiento proviene de la experiencia sensible. No hay ideas innatas: la mente comienza como una _tabula rasa_ (expresión ya usada por Aristóteles: _grammateîon ouk énergeiai gegramménon_, "tablilla no escrita en acto", _De Anima_ III, 4, 430a1).
+- **Síntesis kantiana**: Kant, en la _Crítica de la razón pura_ (1781), propone que el conocimiento surge de la unión de **intuición sensible** (materia proveniente de los sentidos) y **formas _a priori_ del entendimiento** (aportadas por el sujeto). Su frase célebre: _"Gedanken ohne Inhalt sind leer, Anschauungen ohne Begriffe sind blind"_ — "Los pensamientos sin contenido son vacíos; las intuiciones sin conceptos son ciegas" (KrV A51/B75).
+
+#### 2. Posibilidad del conocimiento: escepticismo vs. dogmatismo
+
+- **Escepticismo** (Pirrón, Sexto Empírico, y modernamente Hume en ciertos aspectos): no es posible alcanzar conocimiento cierto; debemos suspender el juicio (_epokhḗ_).
+- **Dogmatismo**: es posible alcanzar conocimientos ciertos y absolutos.
+- **Criticismo** (Kant): podemos conocer con certeza dentro de ciertos límites (los _fenómenos_), pero no podemos conocer las cosas en sí (_noúmenos_).
+
+#### 3. Naturaleza de la verdad
+
+- **Correspondencia**: una creencia es verdadera si corresponde a los hechos (Aristóteles, Tomás de Aquino, Russell).
+- **Coherencia**: una creencia es verdadera si es coherente con un sistema de creencias (idealistas, Bradley).
+- **Pragmatismo**: una creencia es verdadera si "funciona", si tiene consecuencias prácticas satisfactorias (James, Dewey, Peirce).
+- **Deflacionismo**: "verdadero" no añade nada sustantivo; decir "_p_ es verdadero" equivale a decir "_p_".
+
+#### 4. Justificación
+
+- **Fundacionalismo**: el conocimiento descansa sobre creencias básicas, no derivadas, que se justifican por sí mismas.
+- **Coherentismo**: las creencias se justifican mutuamente formando una red coherente; no hay creencias básicas.
+- **Fiabilismo** (_reliabilism_): una creencia está justificada si es producida por un proceso cognitivo confiable (Alvin Goldman).
+
+### Epistemología contemporánea
+
+La epistemología actual ha diversificado enormemente sus temas:
+
+- **Epistemología social**: cómo el conocimiento se produce y valida en comunidades (Steve Fuller, Alvin Goldman).
+- **Epistemología feminista**: crítica del ideal de "sujeto neutral" y estudio del papel del género en la producción de conocimiento (Sandra Harding, Donna Haraway).
+- **Epistemología de la virtud** (_virtue epistemology_): enfoca las virtudes intelectuales del sujeto que conoce, no solo las propiedades de las creencias (Linda Zagzebski, Ernest Sosa).
+- **Epistemología naturalizada**: Willard Van Orman Quine propuso que la epistemología debe convertirse en un capítulo de la psicología empírica ("Epistemology Naturalized", 1969).
+- **Filosofía de la ciencia**: métodos, paradigmas, cambio científico (Popper, Kuhn, Lakatos, Feyerabend).
+- **Epistemología formal**: uso de lógica, teoría de la probabilidad y teoría de decisiones para analizar el conocimiento.
+
+### Relación con otras ramas de la filosofía
+
+La epistemología no está aislada:
+
+- Se relaciona con la **ontología/metafísica** (¿qué hay? vs. ¿qué podemos conocer?).
+- Con la **lógica** (¿cuáles son las formas válidas de razonamiento?).
+- Con la **filosofía de la mente** (¿cómo funciona el sujeto que conoce?).
+- Con la **filosofía del lenguaje** (¿cómo se relacionan las palabras con lo que conocemos?).
+- Con la **filosofía de la ciencia** (¿cómo valida sus conocimientos la ciencia?).
+
+### Gnoseología: una aclaración terminológica
+
+En la tradición filosófica hispanohablante y en parte de la europea continental, a veces se distingue entre:
+
+- **Gnoseología** (del griego _gnōsis_, "conocimiento"): teoría general del conocimiento.
+- **Epistemología**: teoría del conocimiento científico específicamente.
+
+Esta distinción proviene sobre todo del uso francés y no es universal. En la práctica académica anglosajona y cada vez más en la hispana, "epistemología" ha terminado por abarcar ambos sentidos.
+
+### Relación con los presocráticos
+
+Aunque los presocráticos no hicieron epistemología sistemática, plantearon problemas epistemológicos fundamentales:
+
+- **Jenófanes** anticipó el problema de los límites del conocimiento: _"Ningún hombre ha visto ni verá nunca la verdad cierta sobre los dioses"_ (DK 21 B 34).
+- **Heráclito** distinguió entre el saber común, engañoso, y el _lógos_ que rige el cosmos: la mayoría vive "como si durmiera" (DK 22 B 1).
+- **Parménides** planteó la oposición radical entre "el camino de la verdad" (_alḗtheia_) y "el camino de la opinión" (_dóxa_), inaugurando la problemática platónica.
+- **Los sofistas** (Protágoras: _"el hombre es la medida de todas las cosas"_) introdujeron el relativismo epistemológico.
+
+El giro decisivo vendrá con **Sócrates** —cuyo "solo sé que no sé nada" es ya una posición epistemológica— y sobre todo con **Platón**, que elabora la primera gran teoría sistemática del conocimiento en diálogos como el _Teeteto_, el _Menón_ y la _República_.
+
+### Fuentes
+
+**Textos clásicos**:
+
+- Platón, _Teeteto_ (diálogo clásico sobre qué es el conocimiento).
+- Platón, _República_, libros VI–VII (línea dividida y alegoría de la caverna).
+- Platón, _Menón_ (teoría de la reminiscencia y definición del saber).
+- Aristóteles, _Analíticos posteriores_ (teoría de la ciencia demostrativa).
+- Descartes, R. (1641). _Meditaciones metafísicas_.
+- Locke, J. (1690). _Ensayo sobre el entendimiento humano_.
+- Hume, D. (1748). _Investigación sobre el entendimiento humano_.
+- Kant, I. (1781/1787). _Crítica de la razón pura_.
+
+**Fuente del término moderno**:
+
+- Ferrier, J. F. (1854). _Institutes of Metaphysic: The Theory of Knowing and Being_. Edimburgo: Blackwood.
+
+**Fuentes secundarias contemporáneas**:
+
+- Gettier, E. (1963). "Is Justified True Belief Knowledge?". _Analysis_, 23(6), 121–123.
+- Quine, W. V. O. (1969). "Epistemology Naturalized". En _Ontological Relativity and Other Essays_. Columbia University Press.
+- Goldman, A. (1986). _Epistemology and Cognition_. Harvard University Press.
+- Sosa, E. (2007). _A Virtue Epistemology_. Oxford University Press.
+- BonJour, L. (2010). _Epistemology: Classic Problems and Contemporary Responses_. Rowman & Littlefield.
+- Steup, M., Turri, J., & Sosa, E. (eds.) (2014). _Contemporary Debates in Epistemology_ (2ª ed.). Wiley-Blackwell.
+- Steup, M. & Neta, R. "Epistemology". _Stanford Encyclopedia of Philosophy_. <https://plato.stanford.edu/entries/epistemology/>
+- "Epistemology". _Internet Encyclopedia of Philosophy_. <https://iep.utm.edu/epistemo/>
+- Hessen, J. (1925). _Teoría del conocimiento_ (trad. española en Losada). (Clásico manual introductorio en español.)
+- Villoro, L. (1982). _Creer, saber, conocer_. Siglo XXI. (Obra fundamental en la filosofía hispanoamericana sobre el tema.)
 
 ---
 

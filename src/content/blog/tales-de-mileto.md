@@ -116,7 +116,7 @@ Karl Popper lo formula así: la grandeza de la escuela de Mileto no está tanto 
 
 Tales hace, en el fondo, **dos rupturas simultáneas**:
 
-- Una **epistemológica**: sustituir el _mythos_ por el _lógos_. La naturaleza se explica por causas naturales.
+- Una **[epistemológica](/blog/diccionario-filosofico/#epistemología)**: sustituir el _mythos_ por el _lógos_. La naturaleza se explica por causas naturales.
 - Una **metodológica**: el conocimiento se convierte en un espacio abierto a la crítica, no un dogma cerrado.
 
 Esta segunda ruptura es, en cierto sentido, aún más radical que la primera, y es el cimiento sobre el que se construirá toda la filosofía y la ciencia posteriores.
