@@ -1,0 +1,267 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import GoogleDorksTool from '../../../../components/GoogleDorksTool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+
+// Reference table: operator and example are literal; only the description is localized.
+const isEn = locale === 'en';
+const OPERATORS: { operator: string; desc: string; example: string }[] = [
+	{
+		operator: '"término"',
+		desc: isEn ? 'Exact phrase match' : 'Coincidencia exacta de la frase',
+		example: '"machine learning"',
+	},
+	{
+		operator: '-término',
+		desc: isEn
+			? 'Excludes results with that term'
+			: 'Excluye resultados con ese término',
+		example: 'jaguar -coche',
+	},
+	{
+		operator: 'OR / |',
+		desc: isEn ? 'Either of the terms' : 'Cualquiera de los términos',
+		example: 'linux OR macos',
+	},
+	{
+		operator: 'AND',
+		desc: isEn
+			? 'Both terms (implicit by default)'
+			: 'Ambos términos (implícito por defecto)',
+		example: 'react AND astro',
+	},
+	{
+		operator: '*',
+		desc: isEn ? 'Wildcard: any word' : 'Comodín: cualquier palabra',
+		example: '"el mejor * de 2024"',
+	},
+	{
+		operator: '( )',
+		desc: isEn ? 'Groups terms' : 'Agrupa términos',
+		example: '(linux OR macos) tutorial',
+	},
+	{
+		operator: 'site:',
+		desc: isEn
+			? 'Restricts to a domain or site'
+			: 'Limita a un dominio o sitio',
+		example: 'site:github.com',
+	},
+	{
+		operator: '-site:',
+		desc: isEn ? 'Excludes a domain' : 'Excluye un dominio',
+		example: 'astro -site:pinterest.com',
+	},
+	{
+		operator: 'filetype: / ext:',
+		desc: isEn ? 'File type / extension' : 'Tipo / extensión de archivo',
+		example: 'filetype:pdf',
+	},
+	{
+		operator: 'intitle:',
+		desc: isEn ? 'Word in the title' : 'Palabra en el título',
+		example: 'intitle:curriculum',
+	},
+	{
+		operator: 'allintitle:',
+		desc: isEn ? 'All words in the title' : 'Todas las palabras en el título',
+		example: 'allintitle:hoja de vida',
+	},
+	{
+		operator: 'inurl:',
+		desc: isEn ? 'Word in the URL' : 'Palabra en la URL',
+		example: 'inurl:login',
+	},
+	{
+		operator: 'allinurl:',
+		desc: isEn ? 'All words in the URL' : 'Todas las palabras en la URL',
+		example: 'allinurl:admin panel',
+	},
+	{
+		operator: 'intext:',
+		desc: isEn ? 'Word in the page body' : 'Palabra en el cuerpo de la página',
+		example: 'intext:contraseña',
+	},
+	{
+		operator: 'allintext:',
+		desc: isEn ? 'All words in the body' : 'Todas las palabras en el cuerpo',
+		example: 'allintext:usuario contraseña',
+	},
+	{
+		operator: 'inanchor:',
+		desc: isEn ? 'Word in the link text' : 'Palabra en el texto del enlace',
+		example: 'inanchor:descargar',
+	},
+	{
+		operator: 'before:',
+		desc: isEn ? 'Results before a date' : 'Resultados antes de una fecha',
+		example: 'before:2020-01-01',
+	},
+	{
+		operator: 'after:',
+		desc: isEn ? 'Results after a date' : 'Resultados después de una fecha',
+		example: 'after:2023-01-01',
+	},
+	{
+		operator: 'related:',
+		desc: isEn
+			? 'Sites related to a domain'
+			: 'Sitios relacionados con un dominio',
+		example: 'related:nytimes.com',
+	},
+	{
+		operator: 'define:',
+		desc: isEn ? 'Definition of a word' : 'Definición de una palabra',
+		example: 'define:epistemología',
+	},
+	{
+		operator: 'AROUND(n)',
+		desc: isEn
+			? 'Terms within n words of each other'
+			: 'Términos a n palabras de distancia',
+		example: 'tesla AROUND(3) batería',
+	},
+	{
+		operator: '..',
+		desc: isEn ? 'Number range' : 'Rango numérico',
+		example: 'cámara $200..$500',
+	},
+	{
+		operator: 'source:',
+		desc: isEn ? 'Source in Google News' : 'Fuente en Google News',
+		example: 'astro source:hacker_news',
+	},
+	{
+		operator: 'cache:',
+		desc: isEn
+			? 'Cached version (discontinued by Google; may not work)'
+			: 'Versión en caché (descontinuado por Google; puede no funcionar)',
+		example: 'cache:example.com',
+	},
+];
+---
+
+<Layout
+	title={`${t('devtools.googledorks.title')} — edcilo`}
+	description={t('devtools.googledorks.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="google-dorks-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="google-dorks-heading"
+			title={t('devtools.googledorks.title')}
+			subtitle={t('devtools.googledorks.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.googledorks.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.googledorks.example')}
+			</p>
+		</div>
+
+		<GoogleDorksTool
+			keywordsLabel={t('devtools.googledorks.keywords.label')}
+			keywordsPlaceholder={t('devtools.googledorks.keywords.placeholder')}
+			phraseLabel={t('devtools.googledorks.phrase.label')}
+			phrasePlaceholder={t('devtools.googledorks.phrase.placeholder')}
+			siteLabel={t('devtools.googledorks.site.label')}
+			sitePlaceholder={t('devtools.googledorks.site.placeholder')}
+			filetypeLabel={t('devtools.googledorks.filetype.label')}
+			filetypePlaceholder={t('devtools.googledorks.filetype.placeholder')}
+			intitleLabel={t('devtools.googledorks.intitle.label')}
+			intitlePlaceholder={t('devtools.googledorks.intitle.placeholder')}
+			inurlLabel={t('devtools.googledorks.inurl.label')}
+			inurlPlaceholder={t('devtools.googledorks.inurl.placeholder')}
+			intextLabel={t('devtools.googledorks.intext.label')}
+			intextPlaceholder={t('devtools.googledorks.intext.placeholder')}
+			excludeLabel={t('devtools.googledorks.exclude.label')}
+			excludePlaceholder={t('devtools.googledorks.exclude.placeholder')}
+			orLabel={t('devtools.googledorks.or.label')}
+			orPlaceholder={t('devtools.googledorks.or.placeholder')}
+			afterLabel={t('devtools.googledorks.after.label')}
+			beforeLabel={t('devtools.googledorks.before.label')}
+			previewLabel={t('devtools.googledorks.preview.label')}
+			previewPlaceholder={t('devtools.googledorks.preview.placeholder')}
+			searchLabel={t('devtools.googledorks.search')}
+			copyLabel={t('devtools.googledorks.copy')}
+			copiedLabel={t('devtools.googledorks.copied')}
+			clearLabel={t('devtools.googledorks.clear')}
+		/>
+
+		<div class="mx-auto mt-14 max-w-3xl">
+			<h2
+				class="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-foreground"
+			>
+				{t('devtools.googledorks.reference.title')}
+			</h2>
+			<div class="overflow-x-auto rounded-lg border border-border">
+				<table class="w-full border-collapse text-left text-sm">
+					<thead>
+						<tr class="border-b border-border bg-muted/50">
+							<th
+								class="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+							>
+								{t('devtools.googledorks.reference.col.operator')}
+							</th>
+							<th
+								class="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+							>
+								{t('devtools.googledorks.reference.col.desc')}
+							</th>
+							<th
+								class="px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+							>
+								{t('devtools.googledorks.reference.col.example')}
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							OPERATORS.map((op) => (
+								<tr class="border-b border-border last:border-b-0">
+									<td class="whitespace-nowrap px-4 py-3 font-mono text-sm text-primary">
+										{op.operator}
+									</td>
+									<td class="px-4 py-3 text-sm text-muted-foreground">
+										{op.desc}
+									</td>
+									<td class="px-4 py-3 font-mono text-xs text-muted-foreground">
+										{op.example}
+									</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</Layout>

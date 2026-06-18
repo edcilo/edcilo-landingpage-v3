@@ -1,0 +1,413 @@
+---
+interface Props {
+	keywordsLabel: string;
+	keywordsPlaceholder: string;
+	phraseLabel: string;
+	phrasePlaceholder: string;
+	siteLabel: string;
+	sitePlaceholder: string;
+	filetypeLabel: string;
+	filetypePlaceholder: string;
+	intitleLabel: string;
+	intitlePlaceholder: string;
+	inurlLabel: string;
+	inurlPlaceholder: string;
+	intextLabel: string;
+	intextPlaceholder: string;
+	excludeLabel: string;
+	excludePlaceholder: string;
+	orLabel: string;
+	orPlaceholder: string;
+	afterLabel: string;
+	beforeLabel: string;
+	previewLabel: string;
+	previewPlaceholder: string;
+	searchLabel: string;
+	copyLabel: string;
+	copiedLabel: string;
+	clearLabel: string;
+}
+
+const {
+	keywordsLabel,
+	keywordsPlaceholder,
+	phraseLabel,
+	phrasePlaceholder,
+	siteLabel,
+	sitePlaceholder,
+	filetypeLabel,
+	filetypePlaceholder,
+	intitleLabel,
+	intitlePlaceholder,
+	inurlLabel,
+	inurlPlaceholder,
+	intextLabel,
+	intextPlaceholder,
+	excludeLabel,
+	excludePlaceholder,
+	orLabel,
+	orPlaceholder,
+	afterLabel,
+	beforeLabel,
+	previewLabel,
+	previewPlaceholder,
+	searchLabel,
+	copyLabel,
+	copiedLabel,
+	clearLabel,
+} = Astro.props;
+
+const inputClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+---
+
+<div
+	data-google-dorks-tool
+	data-copied-label={copiedLabel}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Field grid -->
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+		<div class="sm:col-span-2">
+			<label for="gd-keywords" class={labelClass}>{keywordsLabel}</label>
+			<input
+				id="gd-keywords"
+				data-gd-field="keywords"
+				type="text"
+				placeholder={keywordsPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div class="sm:col-span-2">
+			<label for="gd-phrase" class={labelClass}>{phraseLabel}</label>
+			<input
+				id="gd-phrase"
+				data-gd-field="phrase"
+				type="text"
+				placeholder={phrasePlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-site" class={labelClass}>{siteLabel}</label>
+			<input
+				id="gd-site"
+				data-gd-field="site"
+				type="text"
+				placeholder={sitePlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-filetype" class={labelClass}>{filetypeLabel}</label>
+			<input
+				id="gd-filetype"
+				data-gd-field="filetype"
+				type="text"
+				list="gd-filetype-options"
+				placeholder={filetypePlaceholder}
+				class={inputClass}
+			/>
+			<datalist id="gd-filetype-options">
+				<option value="pdf"></option>
+				<option value="doc"></option>
+				<option value="docx"></option>
+				<option value="xls"></option>
+				<option value="xlsx"></option>
+				<option value="ppt"></option>
+				<option value="csv"></option>
+				<option value="txt"></option>
+			</datalist>
+		</div>
+
+		<div>
+			<label for="gd-intitle" class={labelClass}>{intitleLabel}</label>
+			<input
+				id="gd-intitle"
+				data-gd-field="intitle"
+				type="text"
+				placeholder={intitlePlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-inurl" class={labelClass}>{inurlLabel}</label>
+			<input
+				id="gd-inurl"
+				data-gd-field="inurl"
+				type="text"
+				placeholder={inurlPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div class="sm:col-span-2">
+			<label for="gd-intext" class={labelClass}>{intextLabel}</label>
+			<input
+				id="gd-intext"
+				data-gd-field="intext"
+				type="text"
+				placeholder={intextPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-exclude" class={labelClass}>{excludeLabel}</label>
+			<input
+				id="gd-exclude"
+				data-gd-field="exclude"
+				type="text"
+				placeholder={excludePlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-or" class={labelClass}>{orLabel}</label>
+			<input
+				id="gd-or"
+				data-gd-field="or"
+				type="text"
+				placeholder={orPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-after" class={labelClass}>{afterLabel}</label>
+			<input
+				id="gd-after"
+				data-gd-field="after"
+				type="date"
+				class={inputClass}
+			/>
+		</div>
+
+		<div>
+			<label for="gd-before" class={labelClass}>{beforeLabel}</label>
+			<input
+				id="gd-before"
+				data-gd-field="before"
+				type="date"
+				class={inputClass}
+			/>
+		</div>
+	</div>
+
+	<!-- Generated query preview -->
+	<div>
+		<label for="gd-preview" class={labelClass}>{previewLabel}</label>
+		<textarea
+			id="gd-preview"
+			data-gd-preview
+			rows="3"
+			readonly
+			placeholder={previewPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+
+	<!-- Actions -->
+	<div class="flex flex-wrap items-center justify-center gap-3">
+		<button
+			type="button"
+			data-gd-search
+			disabled
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-primary"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+				></path>
+			</svg>
+			{searchLabel}
+		</button>
+
+		<button
+			type="button"
+			data-gd-copy
+			class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+				></path>
+			</svg>
+			<span data-gd-copy-label>{copyLabel}</span>
+		</button>
+
+		<button
+			type="button"
+			data-gd-clear
+			class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			{clearLabel}
+		</button>
+	</div>
+</div>
+
+<script>
+	function setupGoogleDorksTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-google-dorks-tool]',
+		);
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-google-dorks-initialized')) return;
+			container.setAttribute('data-google-dorks-initialized', '');
+
+			const fields =
+				container.querySelectorAll<HTMLInputElement>('[data-gd-field]');
+			const previewEl =
+				container.querySelector<HTMLTextAreaElement>('[data-gd-preview]');
+			const searchBtn =
+				container.querySelector<HTMLButtonElement>('[data-gd-search]');
+			const copyBtn =
+				container.querySelector<HTMLButtonElement>('[data-gd-copy]');
+			const copyLabelEl = container.querySelector<HTMLElement>(
+				'[data-gd-copy-label]',
+			);
+			const clearBtn =
+				container.querySelector<HTMLButtonElement>('[data-gd-clear]');
+
+			if (!previewEl || !searchBtn || !copyBtn || !clearBtn) return;
+
+			const copyText = copyLabelEl?.textContent ?? '';
+			const copiedText = container.getAttribute('data-copied-label') ?? '';
+			let copyTimeout: ReturnType<typeof setTimeout> | undefined;
+
+			// Wrap a value in quotes if it contains whitespace.
+			function maybeQuote(value: string): string {
+				return /\s/.test(value) ? `"${value}"` : value;
+			}
+
+			function getValue(name: string): string {
+				const el = container.querySelector<HTMLInputElement>(
+					`[data-gd-field="${name}"]`,
+				);
+				return el ? el.value.trim() : '';
+			}
+
+			function buildQuery(): string {
+				const parts: string[] = [];
+
+				const keywords = getValue('keywords');
+				if (keywords) parts.push(keywords);
+
+				const phrase = getValue('phrase');
+				if (phrase) parts.push(`"${phrase}"`);
+
+				const site = getValue('site');
+				if (site) parts.push(`site:${site}`);
+
+				const filetype = getValue('filetype');
+				if (filetype) parts.push(`filetype:${filetype}`);
+
+				const intitle = getValue('intitle');
+				if (intitle) parts.push(`intitle:${maybeQuote(intitle)}`);
+
+				const inurl = getValue('inurl');
+				if (inurl) parts.push(`inurl:${maybeQuote(inurl)}`);
+
+				const intext = getValue('intext');
+				if (intext) parts.push(`intext:${maybeQuote(intext)}`);
+
+				const exclude = getValue('exclude');
+				if (exclude) {
+					exclude
+						.split(/\s+/)
+						.filter(Boolean)
+						.forEach((term) => parts.push(`-${term}`));
+				}
+
+				const or = getValue('or');
+				if (or) {
+					const terms = or.split(/\s+/).filter(Boolean);
+					if (terms.length) parts.push(terms.join(' OR '));
+				}
+
+				const after = getValue('after');
+				if (after) parts.push(`after:${after}`);
+
+				const before = getValue('before');
+				if (before) parts.push(`before:${before}`);
+
+				return parts.join(' ');
+			}
+
+			function refresh(): void {
+				const query = buildQuery();
+				previewEl!.value = query;
+				searchBtn!.disabled = query.length === 0;
+			}
+
+			fields.forEach((field) => {
+				field.addEventListener('input', refresh);
+			});
+
+			searchBtn.addEventListener('click', () => {
+				const query = buildQuery();
+				if (!query) return;
+				window.open(
+					`https://www.google.com/search?q=${encodeURIComponent(query)}`,
+					'_blank',
+					'noopener',
+				);
+			});
+
+			copyBtn.addEventListener('click', async () => {
+				const query = buildQuery();
+				if (!query) return;
+				try {
+					await navigator.clipboard.writeText(query);
+					if (copyLabelEl) {
+						copyLabelEl.textContent = copiedText;
+						if (copyTimeout) clearTimeout(copyTimeout);
+						copyTimeout = setTimeout(() => {
+							copyLabelEl.textContent = copyText;
+						}, 2000);
+					}
+				} catch {
+					/* Clipboard unavailable: silently ignore. */
+				}
+			});
+
+			clearBtn.addEventListener('click', () => {
+				fields.forEach((field) => {
+					field.value = '';
+				});
+				refresh();
+			});
+
+			refresh();
+		});
+	}
+
+	setupGoogleDorksTool();
+	document.addEventListener('astro:page-load', setupGoogleDorksTool);
+</script>
