@@ -160,6 +160,22 @@ export const UI_STRINGS = {
 		'devtools.epoch.unit.milliseconds': 'Milisegundos',
 		'devtools.epoch.convert': 'Convertir',
 		'devtools.epoch.error.invalid': 'El valor ingresado no es válido.',
+		'devtools.hexrgb.title': 'Hex ↔ RGB',
+		'devtools.hexrgb.subtitle':
+			'Convierte colores entre HEX, RGB y HSL directamente en tu navegador',
+		'devtools.hexrgb.description':
+			'Un mismo color puede expresarse de varias formas en CSS: HEX (#RRGGBB), RGB (rgb(r, g, b), con r/g/b de 0 a 255) y HSL (hsl(h, s%, l%), tono/saturación/luminosidad). Esta herramienta convierte entre las tres representaciones y mantiene los campos sincronizados. Escribe un valor en cualquier campo y pulsa Convertir; la muestra de color reflejará el resultado.',
+		'devtools.hexrgb.example':
+			'Ejemplo: #3b82f6 equivale a rgb(59, 130, 246) y a hsl(217, 91%, 60%).',
+		'devtools.hexrgb.hex.label': 'HEX',
+		'devtools.hexrgb.hex.placeholder': '#3b82f6 o #39f',
+		'devtools.hexrgb.rgb.label': 'RGB',
+		'devtools.hexrgb.rgb.placeholder': 'rgb(59, 130, 246) o 59, 130, 246',
+		'devtools.hexrgb.hsl.label': 'HSL',
+		'devtools.hexrgb.hsl.placeholder': 'hsl(217, 91%, 60%) o 217, 91, 60',
+		'devtools.hexrgb.swatch.label': 'Muestra de color',
+		'devtools.hexrgb.convert': 'Convertir',
+		'devtools.hexrgb.error.invalid': 'El color ingresado no es válido.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -386,6 +402,22 @@ export const UI_STRINGS = {
 		'devtools.epoch.unit.milliseconds': 'Milliseconds',
 		'devtools.epoch.convert': 'Convert',
 		'devtools.epoch.error.invalid': 'The value entered is not valid.',
+		'devtools.hexrgb.title': 'Hex ↔ RGB',
+		'devtools.hexrgb.subtitle':
+			'Convert colors between HEX, RGB and HSL directly in your browser',
+		'devtools.hexrgb.description':
+			'The same color can be expressed in several ways in CSS: HEX (#RRGGBB), RGB (rgb(r, g, b), with r/g/b from 0 to 255) and HSL (hsl(h, s%, l%), hue/saturation/lightness). This tool converts between the three representations and keeps the fields in sync. Type a value into any field and press Convert; the color swatch will reflect the result.',
+		'devtools.hexrgb.example':
+			'Example: #3b82f6 equals rgb(59, 130, 246) and hsl(217, 91%, 60%).',
+		'devtools.hexrgb.hex.label': 'HEX',
+		'devtools.hexrgb.hex.placeholder': '#3b82f6 or #39f',
+		'devtools.hexrgb.rgb.label': 'RGB',
+		'devtools.hexrgb.rgb.placeholder': 'rgb(59, 130, 246) or 59, 130, 246',
+		'devtools.hexrgb.hsl.label': 'HSL',
+		'devtools.hexrgb.hsl.placeholder': 'hsl(217, 91%, 60%) or 217, 91, 60',
+		'devtools.hexrgb.swatch.label': 'Color swatch',
+		'devtools.hexrgb.convert': 'Convert',
+		'devtools.hexrgb.error.invalid': 'The color entered is not valid.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

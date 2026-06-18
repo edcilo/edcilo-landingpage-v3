@@ -1,0 +1,65 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import HexRgbTool from '../../../../components/HexRgbTool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.hexrgb.title')} — edcilo`}
+	description={t('devtools.hexrgb.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="hex-rgb-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="hex-rgb-heading"
+			title={t('devtools.hexrgb.title')}
+			subtitle={t('devtools.hexrgb.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.hexrgb.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.hexrgb.example')}
+			</p>
+		</div>
+
+		<HexRgbTool
+			hexLabel={t('devtools.hexrgb.hex.label')}
+			hexPlaceholder={t('devtools.hexrgb.hex.placeholder')}
+			rgbLabel={t('devtools.hexrgb.rgb.label')}
+			rgbPlaceholder={t('devtools.hexrgb.rgb.placeholder')}
+			hslLabel={t('devtools.hexrgb.hsl.label')}
+			hslPlaceholder={t('devtools.hexrgb.hsl.placeholder')}
+			swatchLabel={t('devtools.hexrgb.swatch.label')}
+			convertLabel={t('devtools.hexrgb.convert')}
+			errorMessage={t('devtools.hexrgb.error.invalid')}
+		/>
+	</section>
+</Layout>

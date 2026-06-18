@@ -1,0 +1,306 @@
+---
+interface Props {
+	hexLabel: string;
+	hexPlaceholder: string;
+	rgbLabel: string;
+	rgbPlaceholder: string;
+	hslLabel: string;
+	hslPlaceholder: string;
+	swatchLabel: string;
+	convertLabel: string;
+	errorMessage: string;
+}
+
+const {
+	hexLabel,
+	hexPlaceholder,
+	rgbLabel,
+	rgbPlaceholder,
+	hslLabel,
+	hslPlaceholder,
+	swatchLabel,
+	convertLabel,
+	errorMessage,
+} = Astro.props;
+
+const inputClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+---
+
+<div data-hexrgb-tool class="mx-auto max-w-3xl space-y-6">
+	<!-- Fields -->
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+		<div>
+			<label for="hexrgb-hex" class={labelClass}>{hexLabel}</label>
+			<input
+				id="hexrgb-hex"
+				data-hexrgb-hex
+				type="text"
+				autocomplete="off"
+				spellcheck="false"
+				placeholder={hexPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+		<div>
+			<label for="hexrgb-rgb" class={labelClass}>{rgbLabel}</label>
+			<input
+				id="hexrgb-rgb"
+				data-hexrgb-rgb
+				type="text"
+				autocomplete="off"
+				spellcheck="false"
+				placeholder={rgbPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+		<div>
+			<label for="hexrgb-hsl" class={labelClass}>{hslLabel}</label>
+			<input
+				id="hexrgb-hsl"
+				data-hexrgb-hsl
+				type="text"
+				autocomplete="off"
+				spellcheck="false"
+				placeholder={hslPlaceholder}
+				class={inputClass}
+			/>
+		</div>
+	</div>
+
+	<!-- Convert button -->
+	<div class="flex justify-center">
+		<button
+			type="button"
+			data-hexrgb-convert
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+				></path>
+			</svg>
+			{convertLabel}
+		</button>
+	</div>
+
+	<!-- Color swatch -->
+	<div class="flex items-center justify-center gap-3">
+		<span class="font-mono text-sm text-muted-foreground">{swatchLabel}</span>
+		<div
+			data-hexrgb-swatch
+			class="h-10 w-20 rounded-lg border border-border"
+			style="background-color: transparent"
+			aria-hidden="true"
+		>
+		</div>
+	</div>
+
+	<!-- Error message -->
+	<p
+		role="alert"
+		data-hexrgb-error
+		class="hidden text-center font-mono text-sm text-red-500 dark:text-red-400"
+	>
+		{errorMessage}
+	</p>
+</div>
+
+<script>
+	interface Rgb {
+		r: number;
+		g: number;
+		b: number;
+	}
+
+	function setupHexRgbTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-hexrgb-tool]');
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-hexrgb-initialized')) return;
+			container.setAttribute('data-hexrgb-initialized', '');
+
+			const hexEl =
+				container.querySelector<HTMLInputElement>('[data-hexrgb-hex]');
+			const rgbEl =
+				container.querySelector<HTMLInputElement>('[data-hexrgb-rgb]');
+			const hslEl =
+				container.querySelector<HTMLInputElement>('[data-hexrgb-hsl]');
+			const swatchEl = container.querySelector<HTMLElement>(
+				'[data-hexrgb-swatch]',
+			);
+			const convertBtn = container.querySelector<HTMLButtonElement>(
+				'[data-hexrgb-convert]',
+			);
+			const errorEl = container.querySelector<HTMLElement>(
+				'[data-hexrgb-error]',
+			);
+
+			if (!hexEl || !rgbEl || !hslEl || !swatchEl || !convertBtn || !errorEl) {
+				return;
+			}
+
+			let lastEdited: HTMLInputElement | null = null;
+
+			function hideError(): void {
+				errorEl!.classList.add('hidden');
+			}
+			function showError(): void {
+				errorEl!.classList.remove('hidden');
+			}
+
+			function clamp(value: number, min: number, max: number): number {
+				return Math.min(max, Math.max(min, value));
+			}
+
+			// --- Parsers (return null on invalid input) ---
+
+			function parseHex(raw: string): Rgb | null {
+				const value = raw.trim().replace(/^#/, '');
+				if (/^[0-9a-fA-F]{3}$/.test(value)) {
+					const r = parseInt(value[0] + value[0], 16);
+					const g = parseInt(value[1] + value[1], 16);
+					const b = parseInt(value[2] + value[2], 16);
+					return { r, g, b };
+				}
+				if (/^[0-9a-fA-F]{6}$/.test(value)) {
+					return {
+						r: parseInt(value.slice(0, 2), 16),
+						g: parseInt(value.slice(2, 4), 16),
+						b: parseInt(value.slice(4, 6), 16),
+					};
+				}
+				return null;
+			}
+
+			function parseRgb(raw: string): Rgb | null {
+				const nums = raw.trim().match(/-?\d+(?:\.\d+)?/g);
+				if (!nums || nums.length !== 3) return null;
+				const [r, g, b] = nums.map(Number);
+				if ([r, g, b].some((n) => n < 0 || n > 255)) return null;
+				return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
+			}
+
+			function parseHsl(raw: string): Rgb | null {
+				const nums = raw.trim().match(/-?\d+(?:\.\d+)?/g);
+				if (!nums || nums.length !== 3) return null;
+				const [h, s, l] = nums.map(Number);
+				if (s < 0 || s > 100 || l < 0 || l > 100) return null;
+				return hslToRgb(((h % 360) + 360) % 360, s, l);
+			}
+
+			// --- Conversions ---
+
+			function rgbToHex({ r, g, b }: Rgb): string {
+				const toHex = (n: number) =>
+					clamp(Math.round(n), 0, 255).toString(16).padStart(2, '0');
+				return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+			}
+
+			function rgbToHsl({ r, g, b }: Rgb): {
+				h: number;
+				s: number;
+				l: number;
+			} {
+				const rn = r / 255;
+				const gn = g / 255;
+				const bn = b / 255;
+				const max = Math.max(rn, gn, bn);
+				const min = Math.min(rn, gn, bn);
+				const delta = max - min;
+				let h = 0;
+				if (delta !== 0) {
+					if (max === rn) h = ((gn - bn) / delta) % 6;
+					else if (max === gn) h = (bn - rn) / delta + 2;
+					else h = (rn - gn) / delta + 4;
+					h *= 60;
+					if (h < 0) h += 360;
+				}
+				const l = (max + min) / 2;
+				const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+				return {
+					h: Math.round(h),
+					s: Math.round(s * 100),
+					l: Math.round(l * 100),
+				};
+			}
+
+			function hslToRgb(h: number, s: number, l: number): Rgb {
+				const sn = s / 100;
+				const ln = l / 100;
+				const c = (1 - Math.abs(2 * ln - 1)) * sn;
+				const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+				const m = ln - c / 2;
+				let rp = 0;
+				let gp = 0;
+				let bp = 0;
+				if (h < 60) [rp, gp, bp] = [c, x, 0];
+				else if (h < 120) [rp, gp, bp] = [x, c, 0];
+				else if (h < 180) [rp, gp, bp] = [0, c, x];
+				else if (h < 240) [rp, gp, bp] = [0, x, c];
+				else if (h < 300) [rp, gp, bp] = [x, 0, c];
+				else [rp, gp, bp] = [c, 0, x];
+				return {
+					r: Math.round((rp + m) * 255),
+					g: Math.round((gp + m) * 255),
+					b: Math.round((bp + m) * 255),
+				};
+			}
+
+			// --- Output sync ---
+
+			function applyColor(rgb: Rgb): void {
+				const hsl = rgbToHsl(rgb);
+				hexEl!.value = rgbToHex(rgb);
+				rgbEl!.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+				hslEl!.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+				swatchEl!.style.backgroundColor = rgbEl!.value;
+			}
+
+			function convert(): void {
+				hideError();
+				// Determine the source field: last edited, else first non-empty.
+				let source = lastEdited;
+				if (!source || !source.value.trim()) {
+					source =
+						[hexEl!, rgbEl!, hslEl!].find((el) => el.value.trim()) ?? null;
+				}
+				if (!source) return;
+
+				let rgb: Rgb | null = null;
+				if (source === hexEl) rgb = parseHex(source.value);
+				else if (source === rgbEl) rgb = parseRgb(source.value);
+				else if (source === hslEl) rgb = parseHsl(source.value);
+
+				if (!rgb) {
+					showError();
+					return;
+				}
+				applyColor(rgb);
+			}
+
+			[hexEl, rgbEl, hslEl].forEach((el) => {
+				el.addEventListener('input', () => {
+					lastEdited = el;
+					hideError();
+				});
+			});
+
+			convertBtn.addEventListener('click', convert);
+		});
+	}
+
+	setupHexRgbTool();
+	document.addEventListener('astro:page-load', setupHexRgbTool);
+</script>
