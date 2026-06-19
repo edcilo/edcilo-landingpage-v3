@@ -1,0 +1,311 @@
+---
+interface Props {
+	versionLabel: string;
+	versionV4: string;
+	versionV7: string;
+	versionNil: string;
+	countLabel: string;
+	uppercaseLabel: string;
+	hyphensLabel: string;
+	generateLabel: string;
+	copyLabel: string;
+	copiedLabel: string;
+	outputLabel: string;
+	outputPlaceholder: string;
+}
+
+const {
+	versionLabel,
+	versionV4,
+	versionV7,
+	versionNil,
+	countLabel,
+	uppercaseLabel,
+	hyphensLabel,
+	generateLabel,
+	copyLabel,
+	copiedLabel,
+	outputLabel,
+	outputPlaceholder,
+} = Astro.props;
+
+const controlClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+---
+
+<div
+	data-uuid-tool
+	data-copied-label={copiedLabel}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Controls -->
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+		<div>
+			<label for="uuid-version" class={labelClass}>{versionLabel}</label>
+			<select id="uuid-version" data-uuid-version class={controlClass}>
+				<option value="v4">{versionV4}</option>
+				<option value="v7">{versionV7}</option>
+				<option value="nil">{versionNil}</option>
+			</select>
+		</div>
+		<div>
+			<label for="uuid-count" class={labelClass}>{countLabel}</label>
+			<input
+				id="uuid-count"
+				data-uuid-count
+				type="number"
+				inputmode="numeric"
+				min="1"
+				max="100"
+				step="1"
+				value="1"
+				class={`${controlClass} tabular-nums`}
+			/>
+		</div>
+	</div>
+
+	<!-- Format toggles -->
+	<div class="flex flex-wrap gap-x-6 gap-y-2">
+		<label
+			class="inline-flex items-center gap-2 font-mono text-sm text-foreground"
+		>
+			<input
+				type="checkbox"
+				data-uuid-uppercase
+				class="size-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
+			/>
+			{uppercaseLabel}
+		</label>
+		<label
+			class="inline-flex items-center gap-2 font-mono text-sm text-foreground"
+		>
+			<input
+				type="checkbox"
+				data-uuid-nohyphens
+				class="size-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
+			/>
+			{hyphensLabel}
+		</label>
+	</div>
+
+	<!-- Actions -->
+	<div class="flex flex-wrap items-center justify-center gap-3">
+		<button
+			type="button"
+			data-uuid-generate
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+				></path>
+			</svg>
+			{generateLabel}
+		</button>
+
+		<button
+			type="button"
+			data-uuid-copy
+			disabled
+			class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-border disabled:hover:bg-muted disabled:hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+				></path>
+			</svg>
+			<span data-uuid-copy-label>{copyLabel}</span>
+		</button>
+	</div>
+
+	<!-- Output -->
+	<div>
+		<label for="uuid-output" class={labelClass}>{outputLabel}</label>
+		<textarea
+			id="uuid-output"
+			data-uuid-output
+			rows="8"
+			readonly
+			placeholder={outputPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+	</div>
+</div>
+
+<script>
+	const NIL_UUID = '00000000-0000-0000-0000-000000000000';
+
+	function setupUuidTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-uuid-tool]');
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-uuid-initialized')) return;
+			container.setAttribute('data-uuid-initialized', '');
+
+			const versionEl = container.querySelector<HTMLSelectElement>(
+				'[data-uuid-version]',
+			);
+			const countEl =
+				container.querySelector<HTMLInputElement>('[data-uuid-count]');
+			const uppercaseEl = container.querySelector<HTMLInputElement>(
+				'[data-uuid-uppercase]',
+			);
+			const noHyphensEl = container.querySelector<HTMLInputElement>(
+				'[data-uuid-nohyphens]',
+			);
+			const generateBtn = container.querySelector<HTMLButtonElement>(
+				'[data-uuid-generate]',
+			);
+			const copyBtn =
+				container.querySelector<HTMLButtonElement>('[data-uuid-copy]');
+			const copyLabelEl = container.querySelector<HTMLElement>(
+				'[data-uuid-copy-label]',
+			);
+			const outputEl =
+				container.querySelector<HTMLTextAreaElement>('[data-uuid-output]');
+
+			if (
+				!versionEl ||
+				!countEl ||
+				!uppercaseEl ||
+				!noHyphensEl ||
+				!generateBtn ||
+				!copyBtn ||
+				!outputEl
+			) {
+				return;
+			}
+
+			const copyText = copyLabelEl?.textContent ?? '';
+			const copiedText = container.getAttribute('data-copied-label') ?? '';
+			let copyTimeout: ReturnType<typeof setTimeout> | undefined;
+
+			function clampCount(): number {
+				const raw = Number(countEl!.value);
+				if (!Number.isFinite(raw)) return 1;
+				return Math.min(100, Math.max(1, Math.floor(raw)));
+			}
+
+			function bytesToUuid(bytes: Uint8Array): string {
+				const hex: string[] = [];
+				for (let i = 0; i < 16; i++) {
+					hex.push(bytes[i].toString(16).padStart(2, '0'));
+				}
+				return (
+					hex.slice(0, 4).join('') +
+					'-' +
+					hex.slice(4, 6).join('') +
+					'-' +
+					hex.slice(6, 8).join('') +
+					'-' +
+					hex.slice(8, 10).join('') +
+					'-' +
+					hex.slice(10, 16).join('')
+				);
+			}
+
+			function generateV4(): string {
+				if (typeof crypto.randomUUID === 'function') {
+					return crypto.randomUUID();
+				}
+				const bytes = crypto.getRandomValues(new Uint8Array(16));
+				bytes[6] = (bytes[6] & 0x0f) | 0x40; // version 4
+				bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant
+				return bytesToUuid(bytes);
+			}
+
+			function generateV7(): string {
+				const bytes = crypto.getRandomValues(new Uint8Array(16));
+				const timestamp = Date.now();
+				// 48-bit big-endian timestamp in the first 6 bytes.
+				bytes[0] = Math.floor(timestamp / 2 ** 40) & 0xff;
+				bytes[1] = Math.floor(timestamp / 2 ** 32) & 0xff;
+				bytes[2] = Math.floor(timestamp / 2 ** 24) & 0xff;
+				bytes[3] = Math.floor(timestamp / 2 ** 16) & 0xff;
+				bytes[4] = Math.floor(timestamp / 2 ** 8) & 0xff;
+				bytes[5] = timestamp & 0xff;
+				bytes[6] = (bytes[6] & 0x0f) | 0x70; // version 7
+				bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant
+				return bytesToUuid(bytes);
+			}
+
+			function generateOne(version: string): string {
+				if (version === 'nil') return NIL_UUID;
+				if (version === 'v7') return generateV7();
+				return generateV4();
+			}
+
+			function formatUuid(uuid: string): string {
+				let result = uuid;
+				if (noHyphensEl!.checked) result = result.replace(/-/g, '');
+				if (uppercaseEl!.checked) result = result.toUpperCase();
+				return result;
+			}
+
+			function updateCopyState(): void {
+				copyBtn!.disabled = outputEl!.value.trim().length === 0;
+			}
+
+			function generate(): void {
+				const count = clampCount();
+				countEl!.value = count.toString();
+				const version = versionEl!.value;
+				const uuids: string[] = [];
+				for (let i = 0; i < count; i++) {
+					uuids.push(formatUuid(generateOne(version)));
+				}
+				outputEl!.value = uuids.join('\n');
+				updateCopyState();
+			}
+
+			generateBtn.addEventListener('click', generate);
+
+			countEl.addEventListener('change', () => {
+				countEl.value = clampCount().toString();
+			});
+
+			copyBtn.addEventListener('click', async () => {
+				const text = outputEl!.value;
+				if (!text.trim()) return;
+				try {
+					await navigator.clipboard.writeText(text);
+					if (copyLabelEl) {
+						copyLabelEl.textContent = copiedText;
+						if (copyTimeout) clearTimeout(copyTimeout);
+						copyTimeout = setTimeout(() => {
+							copyLabelEl.textContent = copyText;
+						}, 2000);
+					}
+				} catch {
+					/* Clipboard unavailable: silently ignore. */
+				}
+			});
+
+			updateCopyState();
+		});
+	}
+
+	setupUuidTool();
+	document.addEventListener('astro:page-load', setupUuidTool);
+</script>

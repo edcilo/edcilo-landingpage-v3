@@ -176,6 +176,26 @@ export const UI_STRINGS = {
 		'devtools.hexrgb.swatch.label': 'Muestra de color',
 		'devtools.hexrgb.convert': 'Convertir',
 		'devtools.hexrgb.error.invalid': 'El color ingresado no es válido.',
+		'devtools.uuid.title': 'Generador de UUID',
+		'devtools.uuid.subtitle':
+			'Genera identificadores únicos (UUID) directamente en tu navegador',
+		'devtools.uuid.description':
+			'Un UUID (Universally Unique Identifier) es un identificador de 128 bits prácticamente único, usado para nombrar recursos sin coordinación central. Esta herramienta genera varios a la vez: v4 (totalmente aleatorio, el más común), v7 (incluye una marca de tiempo, por lo que es ordenable cronológicamente) y NIL (el UUID nulo, todo ceros). Todo se genera localmente con la API Crypto del navegador.',
+		'devtools.uuid.example':
+			'Ejemplo (v4): 3f50 a8c2-... — elige la versión, la cantidad y pulsa Generar.',
+		'devtools.uuid.version.label': 'Versión',
+		'devtools.uuid.version.v4': 'v4 (aleatorio)',
+		'devtools.uuid.version.v7': 'v7 (ordenable por tiempo)',
+		'devtools.uuid.version.nil': 'NIL (todo ceros)',
+		'devtools.uuid.count.label': 'Cantidad',
+		'devtools.uuid.uppercase.label': 'MAYÚSCULAS',
+		'devtools.uuid.hyphens.label': 'Sin guiones',
+		'devtools.uuid.generate': 'Generar',
+		'devtools.uuid.copy': 'Copiar',
+		'devtools.uuid.copied': '¡Copiado!',
+		'devtools.uuid.output.label': 'Resultado',
+		'devtools.uuid.output.placeholder':
+			'Los UUIDs generados aparecerán aquí, uno por línea...',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -418,6 +438,26 @@ export const UI_STRINGS = {
 		'devtools.hexrgb.swatch.label': 'Color swatch',
 		'devtools.hexrgb.convert': 'Convert',
 		'devtools.hexrgb.error.invalid': 'The color entered is not valid.',
+		'devtools.uuid.title': 'UUID Generator',
+		'devtools.uuid.subtitle':
+			'Generate unique identifiers (UUIDs) directly in your browser',
+		'devtools.uuid.description':
+			'A UUID (Universally Unique Identifier) is a practically unique 128-bit identifier, used to name resources without central coordination. This tool generates several at once: v4 (fully random, the most common), v7 (includes a timestamp, so it is chronologically sortable) and NIL (the null UUID, all zeros). Everything is generated locally with the browser Crypto API.',
+		'devtools.uuid.example':
+			'Example (v4): 3f50a8c2-... — pick the version, the amount and press Generate.',
+		'devtools.uuid.version.label': 'Version',
+		'devtools.uuid.version.v4': 'v4 (random)',
+		'devtools.uuid.version.v7': 'v7 (time-sortable)',
+		'devtools.uuid.version.nil': 'NIL (all zeros)',
+		'devtools.uuid.count.label': 'Amount',
+		'devtools.uuid.uppercase.label': 'UPPERCASE',
+		'devtools.uuid.hyphens.label': 'No hyphens',
+		'devtools.uuid.generate': 'Generate',
+		'devtools.uuid.copy': 'Copy',
+		'devtools.uuid.copied': 'Copied!',
+		'devtools.uuid.output.label': 'Result',
+		'devtools.uuid.output.placeholder':
+			'Generated UUIDs will appear here, one per line...',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

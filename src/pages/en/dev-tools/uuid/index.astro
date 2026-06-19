@@ -1,0 +1,68 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import SectionHeading from '../../../../components/SectionHeading.astro';
+import UuidGeneratorTool from '../../../../components/UuidGeneratorTool.astro';
+import { DEFAULT_LOCALE } from '../../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.uuid.title')} — edcilo`}
+	description={t('devtools.uuid.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="uuid-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="uuid-heading"
+			title={t('devtools.uuid.title')}
+			subtitle={t('devtools.uuid.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.uuid.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.uuid.example')}
+			</p>
+		</div>
+
+		<UuidGeneratorTool
+			versionLabel={t('devtools.uuid.version.label')}
+			versionV4={t('devtools.uuid.version.v4')}
+			versionV7={t('devtools.uuid.version.v7')}
+			versionNil={t('devtools.uuid.version.nil')}
+			countLabel={t('devtools.uuid.count.label')}
+			uppercaseLabel={t('devtools.uuid.uppercase.label')}
+			hyphensLabel={t('devtools.uuid.hyphens.label')}
+			generateLabel={t('devtools.uuid.generate')}
+			copyLabel={t('devtools.uuid.copy')}
+			copiedLabel={t('devtools.uuid.copied')}
+			outputLabel={t('devtools.uuid.output.label')}
+			outputPlaceholder={t('devtools.uuid.output.placeholder')}
+		/>
+	</section>
+</Layout>
