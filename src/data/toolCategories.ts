@@ -52,7 +52,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 		tools: [
 			{ name: 'Google Dorks', href: '/dev-tools/google-dorks/' },
 			{ name: 'UUID', href: '/dev-tools/uuid/' },
-			{ name: 'Password' },
+			{ name: 'Password', href: '/dev-tools/password/' },
 			{ name: 'Lorem Ipsum' },
 			{ name: 'Hash' },
 		],

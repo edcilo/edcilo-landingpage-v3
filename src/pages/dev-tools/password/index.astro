@@ -1,0 +1,93 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import PasswordGeneratorTool from '../../../components/PasswordGeneratorTool.astro';
+import { DEFAULT_LOCALE } from '../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.password.title')} — edcilo`}
+	description={t('devtools.password.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="password-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="password-heading"
+			title={t('devtools.password.title')}
+			subtitle={t('devtools.password.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-2">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.password.description')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.password.example')}
+			</p>
+		</div>
+
+		<PasswordGeneratorTool
+			defaultLanguage={locale}
+			typeRandomLabel={t('devtools.password.type.random')}
+			typeWordsLabel={t('devtools.password.type.words')}
+			lengthLabel={t('devtools.password.length.label')}
+			vowelsLabel={t('devtools.password.class.vowels')}
+			consonantsLabel={t('devtools.password.class.consonants')}
+			numbersLabel={t('devtools.password.class.numbers')}
+			specialLabel={t('devtools.password.class.special')}
+			uppercaseLabel={t('devtools.password.option.uppercase')}
+			excludeAmbiguousLabel={t('devtools.password.option.excludeAmbiguous')}
+			guaranteeLabel={t('devtools.password.option.guarantee')}
+			wordsCountLabel={t('devtools.password.words.count.label')}
+			languageLabel={t('devtools.password.words.language.label')}
+			languageEs={t('devtools.password.words.language.es')}
+			languageEn={t('devtools.password.words.language.en')}
+			separatorLabel={t('devtools.password.separator.label')}
+			sepDash={t('devtools.password.separator.dash')}
+			sepUnderscore={t('devtools.password.separator.underscore')}
+			sepDot={t('devtools.password.separator.dot')}
+			sepSpace={t('devtools.password.separator.space')}
+			sepNone={t('devtools.password.separator.none')}
+			addNumberLabel={t('devtools.password.option.addNumber')}
+			addSpecialLabel={t('devtools.password.option.addSpecial')}
+			generateLabel={t('devtools.password.generate')}
+			regenerateLabel={t('devtools.password.regenerate')}
+			copyLabel={t('devtools.password.copy')}
+			copiedLabel={t('devtools.password.copied')}
+			outputLabel={t('devtools.password.output.label')}
+			outputPlaceholder={t('devtools.password.output.placeholder')}
+			strengthLabel={t('devtools.password.strength.label')}
+			strengthWeak={t('devtools.password.strength.weak')}
+			strengthFair={t('devtools.password.strength.fair')}
+			strengthGood={t('devtools.password.strength.good')}
+			strengthStrong={t('devtools.password.strength.strong')}
+			strengthVeryStrong={t('devtools.password.strength.veryStrong')}
+			bitsLabel={t('devtools.password.strength.bits')}
+			errorNoClass={t('devtools.password.error.noClass')}
+		/>
+	</section>
+</Layout>
