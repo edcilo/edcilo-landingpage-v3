@@ -32,7 +32,6 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 			{ name: 'JSON \u2194 YAML', href: '/dev-tools/json-yaml/' },
 			{ name: 'Epoch \u2194 Date', href: '/dev-tools/epoch-date/' },
 			{ name: 'Hex \u2194 RGB', href: '/dev-tools/hex-rgb/' },
-			{ name: 'Markdown \u2194 HTML' },
 		],
 	},
 	{
