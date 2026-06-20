@@ -240,6 +240,25 @@ export const UI_STRINGS = {
 		'devtools.password.strength.bits': 'bits',
 		'devtools.password.error.noClass':
 			'Selecciona al menos una clase de caracteres.',
+		'devtools.lorem.title': 'Generador de Lorem Ipsum',
+		'devtools.lorem.subtitle':
+			'Genera texto de relleno para tus diseños y maquetas',
+		'devtools.lorem.description':
+			'Lorem ipsum es un texto de relleno (placeholder) basado en un pasaje del latín, usado desde hace siglos en tipografía y diseño para mostrar la forma de un documento sin distraer con contenido legible. Elige cuántas palabras tendrá cada párrafo y cuántos párrafos generar; el texto se arma en frases con mayúsculas y puntuación.',
+		'devtools.lorem.example':
+			'Ejemplo: 50 palabras por párrafo × 3 párrafos = un bloque de texto listo para maquetar.',
+		'devtools.lorem.words.label': 'Palabras por párrafo',
+		'devtools.lorem.paragraphs.label': 'Número de párrafos',
+		'devtools.lorem.option.startWithLorem':
+			'Empezar con «Lorem ipsum dolor sit amet…»',
+		'devtools.lorem.option.htmlOutput': 'Salida en HTML (<p>)',
+		'devtools.lorem.generate': 'Generar',
+		'devtools.lorem.copy': 'Copiar',
+		'devtools.lorem.copied': '¡Copiado!',
+		'devtools.lorem.output.label': 'Resultado',
+		'devtools.lorem.output.placeholder': 'El texto generado aparecerá aquí...',
+		'devtools.lorem.counter.words': 'Palabras',
+		'devtools.lorem.counter.chars': 'Caracteres',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -545,6 +564,26 @@ export const UI_STRINGS = {
 		'devtools.password.strength.veryStrong': 'Very strong',
 		'devtools.password.strength.bits': 'bits',
 		'devtools.password.error.noClass': 'Select at least one character class.',
+		'devtools.lorem.title': 'Lorem Ipsum Generator',
+		'devtools.lorem.subtitle':
+			'Generate placeholder text for your designs and mockups',
+		'devtools.lorem.description':
+			'Lorem ipsum is placeholder text based on a Latin passage, used for centuries in typography and design to show the shape of a document without distracting with readable content. Choose how many words each paragraph will have and how many paragraphs to generate; the text is built into sentences with capitalization and punctuation.',
+		'devtools.lorem.example':
+			'Example: 50 words per paragraph × 3 paragraphs = a block of text ready to lay out.',
+		'devtools.lorem.words.label': 'Words per paragraph',
+		'devtools.lorem.paragraphs.label': 'Number of paragraphs',
+		'devtools.lorem.option.startWithLorem':
+			'Start with “Lorem ipsum dolor sit amet…”',
+		'devtools.lorem.option.htmlOutput': 'HTML output (<p>)',
+		'devtools.lorem.generate': 'Generate',
+		'devtools.lorem.copy': 'Copy',
+		'devtools.lorem.copied': 'Copied!',
+		'devtools.lorem.output.label': 'Result',
+		'devtools.lorem.output.placeholder':
+			'The generated text will appear here...',
+		'devtools.lorem.counter.words': 'Words',
+		'devtools.lorem.counter.chars': 'Characters',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',

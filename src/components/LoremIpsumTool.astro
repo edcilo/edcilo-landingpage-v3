@@ -1,0 +1,519 @@
+---
+interface Props {
+	wordsLabel: string;
+	paragraphsLabel: string;
+	startWithLoremLabel: string;
+	htmlOutputLabel: string;
+	generateLabel: string;
+	copyLabel: string;
+	copiedLabel: string;
+	outputLabel: string;
+	outputPlaceholder: string;
+	wordsCounterLabel: string;
+	charsCounterLabel: string;
+}
+
+const {
+	wordsLabel,
+	paragraphsLabel,
+	startWithLoremLabel,
+	htmlOutputLabel,
+	generateLabel,
+	copyLabel,
+	copiedLabel,
+	outputLabel,
+	outputPlaceholder,
+	wordsCounterLabel,
+	charsCounterLabel,
+} = Astro.props;
+
+const controlClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+const checkClass =
+	'inline-flex items-center gap-2 font-mono text-sm text-foreground';
+const checkInputClass =
+	'size-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20';
+---
+
+<div
+	data-lorem-tool
+	data-copied-label={copiedLabel}
+	data-words-label={wordsCounterLabel}
+	data-chars-label={charsCounterLabel}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Controls -->
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+		<div>
+			<label for="lorem-words" class={labelClass}>{wordsLabel}</label>
+			<input
+				id="lorem-words"
+				data-lorem-words
+				type="number"
+				inputmode="numeric"
+				min="5"
+				max="200"
+				step="1"
+				value="50"
+				class={`${controlClass} tabular-nums`}
+			/>
+		</div>
+		<div>
+			<label for="lorem-paragraphs" class={labelClass}>{paragraphsLabel}</label>
+			<input
+				id="lorem-paragraphs"
+				data-lorem-paragraphs
+				type="number"
+				inputmode="numeric"
+				min="1"
+				max="50"
+				step="1"
+				value="3"
+				class={`${controlClass} tabular-nums`}
+			/>
+		</div>
+	</div>
+
+	<!-- Toggles -->
+	<div class="flex flex-wrap gap-x-6 gap-y-3">
+		<label class={checkClass}>
+			<input type="checkbox" data-lorem-start checked class={checkInputClass} />
+			{startWithLoremLabel}
+		</label>
+		<label class={checkClass}>
+			<input type="checkbox" data-lorem-html class={checkInputClass} />
+			{htmlOutputLabel}
+		</label>
+	</div>
+
+	<!-- Actions -->
+	<div class="flex flex-wrap items-center justify-center gap-3">
+		<button
+			type="button"
+			data-lorem-generate
+			class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.847-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.847.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z"
+				></path>
+			</svg>
+			{generateLabel}
+		</button>
+
+		<button
+			type="button"
+			data-lorem-copy
+			disabled
+			class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-border disabled:hover:bg-muted disabled:hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+				></path>
+			</svg>
+			<span data-lorem-copy-label>{copyLabel}</span>
+		</button>
+	</div>
+
+	<!-- Output -->
+	<div>
+		<label for="lorem-output" class={labelClass}>{outputLabel}</label>
+		<textarea
+			id="lorem-output"
+			data-lorem-output
+			rows="12"
+			readonly
+			placeholder={outputPlaceholder}
+			class="w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm leading-relaxed text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+		></textarea>
+		<p
+			data-lorem-counter
+			aria-live="polite"
+			class="mt-2 text-right font-mono text-xs text-muted-foreground tabular-nums"
+		>
+		</p>
+	</div>
+</div>
+
+<script>
+	const LOREM_WORDS = [
+		'lorem',
+		'ipsum',
+		'dolor',
+		'sit',
+		'amet',
+		'consectetur',
+		'adipiscing',
+		'elit',
+		'sed',
+		'do',
+		'eiusmod',
+		'tempor',
+		'incididunt',
+		'ut',
+		'labore',
+		'et',
+		'dolore',
+		'magna',
+		'aliqua',
+		'enim',
+		'ad',
+		'minim',
+		'veniam',
+		'quis',
+		'nostrud',
+		'exercitation',
+		'ullamco',
+		'laboris',
+		'nisi',
+		'aliquip',
+		'ex',
+		'ea',
+		'commodo',
+		'consequat',
+		'duis',
+		'aute',
+		'irure',
+		'in',
+		'reprehenderit',
+		'voluptate',
+		'velit',
+		'esse',
+		'cillum',
+		'eu',
+		'fugiat',
+		'nulla',
+		'pariatur',
+		'excepteur',
+		'sint',
+		'occaecat',
+		'cupidatat',
+		'non',
+		'proident',
+		'sunt',
+		'culpa',
+		'qui',
+		'officia',
+		'deserunt',
+		'mollit',
+		'anim',
+		'id',
+		'est',
+		'laborum',
+		'at',
+		'vero',
+		'eos',
+		'accusamus',
+		'accusantium',
+		'doloremque',
+		'laudantium',
+		'totam',
+		'rem',
+		'aperiam',
+		'eaque',
+		'ipsa',
+		'quae',
+		'ab',
+		'illo',
+		'inventore',
+		'veritatis',
+		'quasi',
+		'architecto',
+		'beatae',
+		'vitae',
+		'dicta',
+		'explicabo',
+		'aspernatur',
+		'aut',
+		'odit',
+		'fugit',
+		'consequuntur',
+		'magni',
+		'dolores',
+		'ratione',
+		'sequi',
+		'nesciunt',
+		'neque',
+		'porro',
+		'quisquam',
+		'dolorem',
+		'adipisci',
+		'numquam',
+		'eius',
+		'modi',
+		'tempora',
+		'incidunt',
+		'magnam',
+		'quaerat',
+		'voluptatem',
+		'fuga',
+		'harum',
+		'quidem',
+		'rerum',
+		'facilis',
+		'expedita',
+		'distinctio',
+		'nam',
+		'libero',
+		'tempore',
+		'cum',
+		'soluta',
+		'nobis',
+		'eligendi',
+		'optio',
+		'cumque',
+		'nihil',
+		'impedit',
+		'quo',
+		'minus',
+		'quod',
+		'maxime',
+		'placeat',
+		'facere',
+		'possimus',
+		'omnis',
+		'assumenda',
+		'repellendus',
+		'temporibus',
+		'autem',
+		'quibusdam',
+		'officiis',
+		'debitis',
+		'necessitatibus',
+		'saepe',
+		'eveniet',
+		'voluptates',
+		'repudiandae',
+		'recusandae',
+		'itaque',
+		'earum',
+		'hic',
+		'tenetur',
+		'sapiente',
+		'delectus',
+		'reiciendis',
+		'voluptatibus',
+		'maiores',
+		'doloribus',
+		'asperiores',
+		'repellat',
+		'perspiciatis',
+		'unde',
+		'iste',
+		'natus',
+		'error',
+		'voluptatem',
+		'corporis',
+		'suscipit',
+		'laboriosam',
+		'aliquid',
+		'commodi',
+		'molestiae',
+		'gravida',
+		'pretium',
+		'tincidunt',
+		'lacus',
+		'ornare',
+		'arcu',
+		'dapibus',
+		'ultrices',
+		'mattis',
+		'feugiat',
+		'vivamus',
+		'pellentesque',
+		'habitant',
+		'morbi',
+		'senectus',
+		'netus',
+		'malesuada',
+		'fames',
+	];
+
+	function setupLoremTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-lorem-tool]');
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-lorem-initialized')) return;
+			container.setAttribute('data-lorem-initialized', '');
+
+			const wordsEl =
+				container.querySelector<HTMLInputElement>('[data-lorem-words]');
+			const paragraphsEl = container.querySelector<HTMLInputElement>(
+				'[data-lorem-paragraphs]',
+			);
+			const startEl =
+				container.querySelector<HTMLInputElement>('[data-lorem-start]');
+			const htmlEl =
+				container.querySelector<HTMLInputElement>('[data-lorem-html]');
+			const generateBtn = container.querySelector<HTMLButtonElement>(
+				'[data-lorem-generate]',
+			);
+			const copyBtn =
+				container.querySelector<HTMLButtonElement>('[data-lorem-copy]');
+			const copyLabelEl = container.querySelector<HTMLElement>(
+				'[data-lorem-copy-label]',
+			);
+			const outputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-lorem-output]',
+			);
+			const counterEl = container.querySelector<HTMLElement>(
+				'[data-lorem-counter]',
+			);
+
+			if (
+				!wordsEl ||
+				!paragraphsEl ||
+				!startEl ||
+				!htmlEl ||
+				!generateBtn ||
+				!copyBtn ||
+				!outputEl ||
+				!counterEl
+			) {
+				return;
+			}
+
+			const copyText = copyLabelEl?.textContent ?? '';
+			const copiedText = container.getAttribute('data-copied-label') ?? '';
+			const wordsCounterLabel =
+				container.getAttribute('data-words-label') ?? 'Words';
+			const charsCounterLabel =
+				container.getAttribute('data-chars-label') ?? 'Characters';
+			let copyTimeout: ReturnType<typeof setTimeout> | undefined;
+
+			const INCIPIT = [
+				'lorem',
+				'ipsum',
+				'dolor',
+				'sit',
+				'amet',
+				'consectetur',
+				'adipiscing',
+				'elit',
+			];
+
+			function clampNumber(
+				el: HTMLInputElement,
+				min: number,
+				max: number,
+				fallback: number,
+			): number {
+				const raw = Number(el.value);
+				if (!Number.isFinite(raw)) return fallback;
+				return Math.min(max, Math.max(min, Math.floor(raw)));
+			}
+
+			function randomWord(): string {
+				return LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)];
+			}
+
+			function capitalize(word: string): string {
+				return word.charAt(0).toUpperCase() + word.slice(1);
+			}
+
+			// Build a paragraph of exactly `count` words, grouped into punctuated sentences.
+			function buildParagraph(count: number, useIncipit: boolean): string {
+				const words: string[] = [];
+				if (useIncipit) {
+					for (let i = 0; i < INCIPIT.length && i < count; i++) {
+						words.push(INCIPIT[i]);
+					}
+				}
+				while (words.length < count) {
+					words.push(randomWord());
+				}
+
+				const sentences: string[] = [];
+				let i = 0;
+				while (i < count) {
+					const remaining = count - i;
+					// Sentence length 8-15 words, but absorb a tiny remainder.
+					let len = 8 + Math.floor(Math.random() * 8);
+					if (remaining - len < 4) len = remaining;
+					len = Math.min(len, remaining);
+					const slice = words.slice(i, i + len);
+					i += len;
+
+					// Optional comma in the middle of longer sentences.
+					if (slice.length >= 8) {
+						const commaPos = 3 + Math.floor(Math.random() * (slice.length - 5));
+						slice[commaPos] = slice[commaPos] + ',';
+					}
+					slice[0] = capitalize(slice[0]);
+					sentences.push(slice.join(' ') + '.');
+				}
+				return sentences.join(' ');
+			}
+
+			function generate(): void {
+				const wordsPer = clampNumber(wordsEl!, 5, 200, 50);
+				wordsEl!.value = wordsPer.toString();
+				const paragraphCount = clampNumber(paragraphsEl!, 1, 50, 3);
+				paragraphsEl!.value = paragraphCount.toString();
+				const useHtml = htmlEl!.checked;
+
+				const paragraphs: string[] = [];
+				for (let p = 0; p < paragraphCount; p++) {
+					const text = buildParagraph(wordsPer, startEl!.checked && p === 0);
+					paragraphs.push(useHtml ? `<p>${text}</p>` : text);
+				}
+				const output = paragraphs.join(useHtml ? '\n' : '\n\n');
+				outputEl!.value = output;
+
+				const plain = output.replace(/<[^>]+>/g, ' ');
+				const wordCount = plain.split(/\s+/).filter(Boolean).length;
+				counterEl!.textContent = `${wordsCounterLabel}: ${wordCount} · ${charsCounterLabel}: ${output.length}`;
+				copyBtn!.disabled = output.length === 0;
+			}
+
+			generateBtn.addEventListener('click', generate);
+			[wordsEl, paragraphsEl, startEl, htmlEl].forEach((el) => {
+				el.addEventListener('change', generate);
+			});
+
+			copyBtn.addEventListener('click', async () => {
+				const text = outputEl!.value;
+				if (!text) return;
+				try {
+					await navigator.clipboard.writeText(text);
+					if (copyLabelEl) {
+						copyLabelEl.textContent = copiedText;
+						if (copyTimeout) clearTimeout(copyTimeout);
+						copyTimeout = setTimeout(() => {
+							copyLabelEl.textContent = copyText;
+						}, 2000);
+					}
+				} catch {
+					/* Clipboard unavailable: silently ignore. */
+				}
+			});
+
+			generate();
+		});
+	}
+
+	setupLoremTool();
+	document.addEventListener('astro:page-load', setupLoremTool);
+</script>
