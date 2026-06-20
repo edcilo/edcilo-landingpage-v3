@@ -54,7 +54,6 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 			{ name: 'UUID', href: '/dev-tools/uuid/' },
 			{ name: 'Password', href: '/dev-tools/password/' },
 			{ name: 'Lorem Ipsum', href: '/dev-tools/lorem-ipsum/' },
-			{ name: 'Hash' },
 		],
 	},
 	{
