@@ -259,6 +259,27 @@ export const UI_STRINGS = {
 		'devtools.lorem.output.placeholder': 'El texto generado aparecerá aquí...',
 		'devtools.lorem.counter.words': 'Palabras',
 		'devtools.lorem.counter.chars': 'Caracteres',
+		'devtools.diff.title': 'Comparador de texto (Diff)',
+		'devtools.diff.subtitle':
+			'Compara dos textos línea por línea directamente en tu navegador',
+		'devtools.diff.description':
+			'Pega dos versiones de un texto (original y modificado) y la herramienta resalta sus diferencias línea por línea, al estilo de git diff: las líneas añadidas aparecen en verde con «+», las eliminadas en rojo con «−» y las que no cambian en gris. Todo el cálculo se hace en tu navegador con un algoritmo de subsecuencia común más larga (LCS); ningún texto sale de tu equipo.',
+		'devtools.diff.example':
+			'Ejemplo: compara dos versiones de un archivo de configuración para ver qué cambió.',
+		'devtools.diff.original.label': 'Texto original',
+		'devtools.diff.original.placeholder': 'Pega aquí la versión original...',
+		'devtools.diff.modified.label': 'Texto modificado',
+		'devtools.diff.modified.placeholder': 'Pega aquí la versión modificada...',
+		'devtools.diff.compare': 'Comparar',
+		'devtools.diff.copy': 'Copiar',
+		'devtools.diff.copied': '¡Copiado!',
+		'devtools.diff.output.label': 'Diferencias',
+		'devtools.diff.summary.added': 'añadidas',
+		'devtools.diff.summary.removed': 'eliminadas',
+		'devtools.diff.summary.unchanged': 'sin cambios',
+		'devtools.diff.noDiff': 'No hay diferencias entre los dos textos.',
+		'devtools.diff.tooLarge':
+			'Los textos son demasiado grandes para compararlos. Reduce su tamaño e inténtalo de nuevo.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -584,6 +605,27 @@ export const UI_STRINGS = {
 			'The generated text will appear here...',
 		'devtools.lorem.counter.words': 'Words',
 		'devtools.lorem.counter.chars': 'Characters',
+		'devtools.diff.title': 'Text Compare (Diff)',
+		'devtools.diff.subtitle':
+			'Compare two texts line by line directly in your browser',
+		'devtools.diff.description':
+			'Paste two versions of a text (original and modified) and the tool highlights their differences line by line, git diff style: added lines appear in green with “+”, removed lines in red with “−”, and unchanged lines in gray. All the computation happens in your browser with a longest common subsequence (LCS) algorithm; no text leaves your machine.',
+		'devtools.diff.example':
+			'Example: compare two versions of a config file to see what changed.',
+		'devtools.diff.original.label': 'Original text',
+		'devtools.diff.original.placeholder': 'Paste the original version here...',
+		'devtools.diff.modified.label': 'Modified text',
+		'devtools.diff.modified.placeholder': 'Paste the modified version here...',
+		'devtools.diff.compare': 'Compare',
+		'devtools.diff.copy': 'Copy',
+		'devtools.diff.copied': 'Copied!',
+		'devtools.diff.output.label': 'Differences',
+		'devtools.diff.summary.added': 'added',
+		'devtools.diff.summary.removed': 'removed',
+		'devtools.diff.summary.unchanged': 'unchanged',
+		'devtools.diff.noDiff': 'There are no differences between the two texts.',
+		'devtools.diff.tooLarge':
+			'The texts are too large to compare. Reduce their size and try again.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',
