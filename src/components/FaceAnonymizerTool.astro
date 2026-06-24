@@ -15,6 +15,8 @@ interface Props {
 	processLabel: string;
 	downloadLabel: string;
 	clearLabel: string;
+	rotateLeftLabel: string;
+	rotateRightLabel: string;
 	loadingModelMessage: string;
 	detectingMessage: string;
 	detectedMessage: string;
@@ -39,6 +41,8 @@ const {
 	processLabel,
 	downloadLabel,
 	clearLabel,
+	rotateLeftLabel,
+	rotateRightLabel,
 	loadingModelMessage,
 	detectingMessage,
 	detectedMessage,
@@ -220,6 +224,54 @@ const shapeBtn =
 		>
 		</p>
 
+		<!-- Rotation toolbar -->
+		<div class="flex items-center justify-center gap-2">
+			<button
+				type="button"
+				data-faceanon-rotate="left"
+				aria-label={rotateLeftLabel}
+				title={rotateLeftLabel}
+				class="inline-flex items-center justify-center rounded-lg border border-border bg-muted p-2.5 text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"></path>
+				</svg>
+			</button>
+			<button
+				type="button"
+				data-faceanon-rotate="right"
+				aria-label={rotateRightLabel}
+				title={rotateRightLabel}
+				class="inline-flex items-center justify-center rounded-lg border border-border bg-muted p-2.5 text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"></path>
+				</svg>
+			</button>
+		</div>
+
 		<!-- Canvas -->
 		<div
 			class="overflow-x-auto rounded-lg border border-border bg-muted/30 p-2"
@@ -308,6 +360,9 @@ const shapeBtn =
 			);
 			const canvas = container.querySelector<HTMLCanvasElement>(
 				'[data-faceanon-canvas]',
+			);
+			const rotateBtns = container.querySelectorAll<HTMLButtonElement>(
+				'[data-faceanon-rotate]',
 			);
 
 			if (
@@ -509,6 +564,33 @@ const shapeBtn =
 				dropzone!.classList.remove('hidden');
 			}
 
+			// Rotate the base image 90°: dir -1 = counter-clockwise, 1 = clockwise.
+			function rotate(dir: -1 | 1): void {
+				if (!hasImage) return;
+				const w = base.width;
+				const h = base.height;
+				const tmp = document.createElement('canvas');
+				tmp.width = h;
+				tmp.height = w;
+				const tctx = tmp.getContext('2d');
+				if (!tctx) return;
+				tctx.translate(h / 2, w / 2);
+				tctx.rotate((dir * Math.PI) / 2);
+				tctx.drawImage(base, -w / 2, -h / 2);
+				base.width = h;
+				base.height = w;
+				baseCtx!.drawImage(tmp, 0, 0);
+				canvas!.width = h;
+				canvas!.height = w;
+				// Rotation invalidates previous detections (coordinates changed).
+				const hadFaces = Boolean(lastBoxes && lastBoxes.length > 0);
+				lastBoxes = null;
+				downloadBtn!.disabled = true;
+				render();
+				// Re-detect automatically if the image was already censored.
+				if (hadFaces) process();
+			}
+
 			// --- Wiring ---
 
 			dropzone.addEventListener('click', () => input.click());
@@ -560,6 +642,12 @@ const shapeBtn =
 						b.classList.toggle('hover:text-foreground', !active);
 					});
 					if (lastBoxes) render();
+				});
+			});
+
+			rotateBtns.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					rotate(btn.getAttribute('data-faceanon-rotate') === 'right' ? 1 : -1);
 				});
 			});
 

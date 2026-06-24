@@ -306,6 +306,8 @@ export const UI_STRINGS = {
 		'devtools.faceanon.process': 'Censurar',
 		'devtools.faceanon.download': 'Descargar PNG',
 		'devtools.faceanon.clear': 'Limpiar',
+		'devtools.faceanon.rotateLeft': 'Girar a la izquierda',
+		'devtools.faceanon.rotateRight': 'Girar a la derecha',
 		'devtools.faceanon.status.loadingModel': 'Cargando modelo de detección…',
 		'devtools.faceanon.status.detecting': 'Detectando rostros…',
 		'devtools.faceanon.status.detected':
@@ -686,6 +688,8 @@ export const UI_STRINGS = {
 		'devtools.faceanon.process': 'Censor',
 		'devtools.faceanon.download': 'Download PNG',
 		'devtools.faceanon.clear': 'Clear',
+		'devtools.faceanon.rotateLeft': 'Rotate left',
+		'devtools.faceanon.rotateRight': 'Rotate right',
 		'devtools.faceanon.status.loadingModel': 'Loading detection model…',
 		'devtools.faceanon.status.detecting': 'Detecting faces…',
 		'devtools.faceanon.status.detected': 'face(s) detected and censored.',
