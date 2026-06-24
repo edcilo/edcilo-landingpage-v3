@@ -1,0 +1,82 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SectionHeading from '../../../components/SectionHeading.astro';
+import FaceAnonymizerTool from '../../../components/FaceAnonymizerTool.astro';
+import { DEFAULT_LOCALE } from '../../../i18n/config';
+import { useTranslations, getLocalizedPath } from '../../../i18n/utils';
+
+const locale = Astro.currentLocale ?? DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<Layout
+	title={`${t('devtools.faceanon.title')} — edcilo`}
+	description={t('devtools.faceanon.subtitle')}
+>
+	<section class="py-16 sm:py-24" aria-labelledby="faceanon-heading">
+		<a
+			href={getLocalizedPath('/dev-tools/', locale)}
+			class="mb-8 inline-flex items-center gap-1 font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-4"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+			</svg>
+			{t('devtools.backToDevTools')}
+		</a>
+
+		<SectionHeading
+			id="faceanon-heading"
+			title={t('devtools.faceanon.title')}
+			subtitle={t('devtools.faceanon.subtitle')}
+		/>
+
+		<div class="mx-auto mb-10 max-w-3xl space-y-3">
+			<p class="text-sm leading-relaxed text-muted-foreground">
+				{t('devtools.faceanon.description')}
+			</p>
+			<p
+				class="rounded-lg border border-border bg-muted/30 px-4 py-3 font-mono text-xs leading-relaxed text-muted-foreground"
+			>
+				🔒 {t('devtools.faceanon.privacy')}
+			</p>
+			<p class="font-mono text-sm text-muted-foreground">
+				{t('devtools.faceanon.example')}
+			</p>
+		</div>
+
+		<FaceAnonymizerTool
+			uploadLabel={t('devtools.faceanon.upload.label')}
+			uploadHint={t('devtools.faceanon.upload.hint')}
+			censorLabel={t('devtools.faceanon.censor.label')}
+			censorBlur={t('devtools.faceanon.censor.blur')}
+			censorPixelate={t('devtools.faceanon.censor.pixelate')}
+			censorBlock={t('devtools.faceanon.censor.block')}
+			censorEmoji={t('devtools.faceanon.censor.emoji')}
+			shapeLabel={t('devtools.faceanon.shape.label')}
+			shapeOval={t('devtools.faceanon.shape.oval')}
+			shapeRect={t('devtools.faceanon.shape.rect')}
+			intensityLabel={t('devtools.faceanon.intensity.label')}
+			colorLabel={t('devtools.faceanon.color.label')}
+			processLabel={t('devtools.faceanon.process')}
+			downloadLabel={t('devtools.faceanon.download')}
+			clearLabel={t('devtools.faceanon.clear')}
+			loadingModelMessage={t('devtools.faceanon.status.loadingModel')}
+			detectingMessage={t('devtools.faceanon.status.detecting')}
+			detectedMessage={t('devtools.faceanon.status.detected')}
+			noFacesMessage={t('devtools.faceanon.status.noFaces')}
+			errorLoadMessage={t('devtools.faceanon.error.load')}
+			errorModelMessage={t('devtools.faceanon.error.model')}
+		/>
+	</section>
+</Layout>

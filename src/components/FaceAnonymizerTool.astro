@@ -1,0 +1,581 @@
+---
+interface Props {
+	uploadLabel: string;
+	uploadHint: string;
+	censorLabel: string;
+	censorBlur: string;
+	censorPixelate: string;
+	censorBlock: string;
+	censorEmoji: string;
+	shapeLabel: string;
+	shapeOval: string;
+	shapeRect: string;
+	intensityLabel: string;
+	colorLabel: string;
+	processLabel: string;
+	downloadLabel: string;
+	clearLabel: string;
+	loadingModelMessage: string;
+	detectingMessage: string;
+	detectedMessage: string;
+	noFacesMessage: string;
+	errorLoadMessage: string;
+	errorModelMessage: string;
+}
+
+const {
+	uploadLabel,
+	uploadHint,
+	censorLabel,
+	censorBlur,
+	censorPixelate,
+	censorBlock,
+	censorEmoji,
+	shapeLabel,
+	shapeOval,
+	shapeRect,
+	intensityLabel,
+	colorLabel,
+	processLabel,
+	downloadLabel,
+	clearLabel,
+	loadingModelMessage,
+	detectingMessage,
+	detectedMessage,
+	noFacesMessage,
+	errorLoadMessage,
+	errorModelMessage,
+} = Astro.props;
+
+const controlClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+const primaryBtn =
+	'inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-primary';
+const secondaryBtn =
+	'inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-border disabled:hover:bg-muted disabled:hover:text-foreground';
+const shapeBtn =
+	'flex-1 rounded-lg px-4 py-2.5 font-mono text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20';
+---
+
+<div
+	data-faceanon-tool
+	data-msg-loading={loadingModelMessage}
+	data-msg-detecting={detectingMessage}
+	data-msg-detected={detectedMessage}
+	data-msg-nofaces={noFacesMessage}
+	data-msg-errorload={errorLoadMessage}
+	data-msg-errormodel={errorModelMessage}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Dropzone -->
+	<div
+		data-faceanon-dropzone
+		role="button"
+		tabindex="0"
+		aria-label={uploadLabel}
+		class="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-border bg-muted/30 px-6 py-12 text-center transition-colors duration-200 hover:border-primary/50 hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="size-10 text-muted-foreground"
+			aria-hidden="true"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+			></path>
+		</svg>
+		<p class="font-mono text-sm font-medium text-foreground">{uploadLabel}</p>
+		<p class="font-mono text-xs text-muted-foreground">{uploadHint}</p>
+		<input type="file" data-faceanon-input accept="image/*" class="hidden" />
+	</div>
+
+	<!-- Editor -->
+	<div data-faceanon-editor class="hidden space-y-6">
+		<!-- Controls -->
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<div>
+				<label for="faceanon-censor" class={labelClass}>{censorLabel}</label>
+				<select id="faceanon-censor" data-faceanon-censor class={controlClass}>
+					<option value="blur">{censorBlur}</option>
+					<option value="pixelate">{censorPixelate}</option>
+					<option value="block">{censorBlock}</option>
+					<option value="emoji">{censorEmoji}</option>
+				</select>
+			</div>
+
+			<div>
+				<span class={labelClass}>{shapeLabel}</span>
+				<div
+					class="grid grid-cols-2 gap-2 rounded-xl border border-border bg-muted/30 p-1"
+				>
+					<button
+						type="button"
+						data-faceanon-shape="oval"
+						aria-pressed="true"
+						class={`${shapeBtn} bg-primary text-primary-foreground`}
+					>
+						{shapeOval}
+					</button>
+					<button
+						type="button"
+						data-faceanon-shape="rect"
+						aria-pressed="false"
+						class={`${shapeBtn} text-muted-foreground hover:text-foreground`}
+					>
+						{shapeRect}
+					</button>
+				</div>
+			</div>
+
+			<div>
+				<label for="faceanon-intensity" class={labelClass}>
+					{intensityLabel}
+				</label>
+				<input
+					id="faceanon-intensity"
+					data-faceanon-intensity
+					type="range"
+					min="10"
+					max="100"
+					step="5"
+					value="50"
+					class="w-full accent-primary"
+				/>
+			</div>
+
+			<div data-faceanon-color-wrapper class="hidden">
+				<label for="faceanon-color" class={labelClass}>{colorLabel}</label>
+				<input
+					id="faceanon-color"
+					data-faceanon-color
+					type="color"
+					value="#000000"
+					class="h-11 w-full cursor-pointer rounded-lg border border-border bg-muted/50"
+				/>
+			</div>
+		</div>
+
+		<!-- Actions -->
+		<div class="flex flex-wrap items-center justify-center gap-3">
+			<button type="button" data-faceanon-process class={primaryBtn}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+					></path>
+				</svg>
+				{processLabel}
+			</button>
+
+			<button
+				type="button"
+				data-faceanon-download
+				disabled
+				class={secondaryBtn}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="size-5"
+					aria-hidden="true"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+					></path>
+				</svg>
+				{downloadLabel}
+			</button>
+
+			<button type="button" data-faceanon-clear class={secondaryBtn}>
+				{clearLabel}
+			</button>
+		</div>
+
+		<!-- Status -->
+		<p
+			data-faceanon-status
+			aria-live="polite"
+			class="min-h-5 text-center font-mono text-sm text-muted-foreground"
+		>
+		</p>
+
+		<!-- Canvas -->
+		<div
+			class="overflow-x-auto rounded-lg border border-border bg-muted/30 p-2"
+		>
+			<canvas
+				data-faceanon-canvas
+				class="mx-auto block h-auto max-w-full rounded"></canvas>
+		</div>
+	</div>
+</div>
+
+<script>
+	import { FilesetResolver, FaceDetector } from '@mediapipe/tasks-vision';
+
+	const WASM_BASE =
+		'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm';
+	const MODEL_URL =
+		'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite';
+	const MAX_DIMENSION = 2000;
+
+	// Shared detector across page navigations (loaded lazily on first use).
+	let detectorPromise: Promise<FaceDetector> | null = null;
+	function getDetector(): Promise<FaceDetector> {
+		if (!detectorPromise) {
+			detectorPromise = FilesetResolver.forVisionTasks(WASM_BASE).then(
+				(vision) =>
+					FaceDetector.createFromOptions(vision, {
+						baseOptions: { modelAssetPath: MODEL_URL },
+						runningMode: 'IMAGE',
+					}),
+			);
+		}
+		return detectorPromise;
+	}
+
+	interface Box {
+		x: number;
+		y: number;
+		w: number;
+		h: number;
+	}
+
+	function setupFaceAnonTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-faceanon-tool]',
+		);
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-faceanon-initialized')) return;
+			container.setAttribute('data-faceanon-initialized', '');
+
+			const dropzone = container.querySelector<HTMLElement>(
+				'[data-faceanon-dropzone]',
+			);
+			const input = container.querySelector<HTMLInputElement>(
+				'[data-faceanon-input]',
+			);
+			const editor = container.querySelector<HTMLElement>(
+				'[data-faceanon-editor]',
+			);
+			const censorEl = container.querySelector<HTMLSelectElement>(
+				'[data-faceanon-censor]',
+			);
+			const shapeBtns = container.querySelectorAll<HTMLButtonElement>(
+				'[data-faceanon-shape]',
+			);
+			const intensityEl = container.querySelector<HTMLInputElement>(
+				'[data-faceanon-intensity]',
+			);
+			const colorWrapper = container.querySelector<HTMLElement>(
+				'[data-faceanon-color-wrapper]',
+			);
+			const colorEl = container.querySelector<HTMLInputElement>(
+				'[data-faceanon-color]',
+			);
+			const processBtn = container.querySelector<HTMLButtonElement>(
+				'[data-faceanon-process]',
+			);
+			const downloadBtn = container.querySelector<HTMLButtonElement>(
+				'[data-faceanon-download]',
+			);
+			const clearBtn = container.querySelector<HTMLButtonElement>(
+				'[data-faceanon-clear]',
+			);
+			const statusEl = container.querySelector<HTMLElement>(
+				'[data-faceanon-status]',
+			);
+			const canvas = container.querySelector<HTMLCanvasElement>(
+				'[data-faceanon-canvas]',
+			);
+
+			if (
+				!dropzone ||
+				!input ||
+				!editor ||
+				!censorEl ||
+				!intensityEl ||
+				!colorWrapper ||
+				!colorEl ||
+				!processBtn ||
+				!downloadBtn ||
+				!clearBtn ||
+				!statusEl ||
+				!canvas
+			) {
+				return;
+			}
+
+			const ctx = canvas.getContext('2d');
+			if (!ctx) return;
+
+			const messages = {
+				loading: container.getAttribute('data-msg-loading') ?? '',
+				detecting: container.getAttribute('data-msg-detecting') ?? '',
+				detected: container.getAttribute('data-msg-detected') ?? '',
+				noFaces: container.getAttribute('data-msg-nofaces') ?? '',
+				errorLoad: container.getAttribute('data-msg-errorload') ?? '',
+				errorModel: container.getAttribute('data-msg-errormodel') ?? '',
+			};
+
+			// Offscreen canvas holding the clean (uncensored) image at display size.
+			const base = document.createElement('canvas');
+			const baseCtx = base.getContext('2d');
+			let hasImage = false;
+			let lastBoxes: Box[] | null = null;
+			let shape: 'oval' | 'rect' = 'oval';
+
+			function setStatus(text: string): void {
+				statusEl!.textContent = text;
+			}
+
+			function toggleColor(): void {
+				colorWrapper!.classList.toggle('hidden', censorEl!.value !== 'block');
+			}
+
+			function loadFile(file: File): void {
+				if (!file.type.startsWith('image/')) return;
+				const url = URL.createObjectURL(file);
+				const img = new Image();
+				img.onload = () => {
+					let { width, height } = img;
+					const scale = Math.min(1, MAX_DIMENSION / Math.max(width, height));
+					width = Math.round(width * scale);
+					height = Math.round(height * scale);
+					base.width = width;
+					base.height = height;
+					baseCtx!.drawImage(img, 0, 0, width, height);
+					canvas!.width = width;
+					canvas!.height = height;
+					ctx!.drawImage(base, 0, 0);
+					URL.revokeObjectURL(url);
+					hasImage = true;
+					lastBoxes = null;
+					downloadBtn!.disabled = true;
+					setStatus('');
+					dropzone!.classList.add('hidden');
+					editor!.classList.remove('hidden');
+				};
+				img.onerror = () => {
+					URL.revokeObjectURL(url);
+					setStatus(messages.errorLoad);
+				};
+				img.src = url;
+			}
+
+			function expandBox(box: Box): Box {
+				const mx = box.w * 0.25;
+				const my = box.h * 0.25;
+				const x = Math.max(0, box.x - mx);
+				const y = Math.max(0, box.y - my);
+				const w = Math.min(base.width - x, box.w + mx * 2);
+				const h = Math.min(base.height - y, box.h + my * 2);
+				return { x, y, w, h };
+			}
+
+			function clipToShape(b: Box): void {
+				ctx!.beginPath();
+				if (shape === 'oval') {
+					ctx!.ellipse(
+						b.x + b.w / 2,
+						b.y + b.h / 2,
+						b.w / 2,
+						b.h / 2,
+						0,
+						0,
+						Math.PI * 2,
+					);
+				} else {
+					ctx!.rect(b.x, b.y, b.w, b.h);
+				}
+				ctx!.clip();
+			}
+
+			function applyEffect(box: Box): void {
+				const b = expandBox(box);
+				const type = censorEl!.value;
+				const intensity = Number(intensityEl!.value); // 10..100
+
+				if (type === 'emoji') {
+					// Emoji ignores the shape clip; it is its own mask.
+					const size = Math.min(b.w, b.h) * (1 + intensity / 100);
+					ctx!.save();
+					ctx!.font = `${size}px sans-serif`;
+					ctx!.textAlign = 'center';
+					ctx!.textBaseline = 'middle';
+					ctx!.fillText('🙂', b.x + b.w / 2, b.y + b.h / 2);
+					ctx!.restore();
+					return;
+				}
+
+				ctx!.save();
+				clipToShape(b);
+				if (type === 'block') {
+					ctx!.fillStyle = colorEl!.value;
+					ctx!.fillRect(b.x, b.y, b.w, b.h);
+				} else if (type === 'pixelate') {
+					const pixelSize = Math.max(4, (b.w * intensity) / 100 / 4);
+					const tw = Math.max(1, Math.round(b.w / pixelSize));
+					const th = Math.max(1, Math.round(b.h / pixelSize));
+					const tmp = document.createElement('canvas');
+					tmp.width = tw;
+					tmp.height = th;
+					const tctx = tmp.getContext('2d')!;
+					tctx.drawImage(base, b.x, b.y, b.w, b.h, 0, 0, tw, th);
+					ctx!.imageSmoothingEnabled = false;
+					ctx!.drawImage(tmp, 0, 0, tw, th, b.x, b.y, b.w, b.h);
+					ctx!.imageSmoothingEnabled = true;
+				} else {
+					// blur
+					const radius = Math.max(4, (b.w * intensity) / 100 / 2);
+					ctx!.filter = `blur(${radius}px)`;
+					ctx!.drawImage(base, b.x, b.y, b.w, b.h, b.x, b.y, b.w, b.h);
+					ctx!.filter = 'none';
+				}
+				ctx!.restore();
+			}
+
+			function render(): void {
+				if (!hasImage) return;
+				ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+				ctx!.drawImage(base, 0, 0);
+				if (lastBoxes) {
+					lastBoxes.forEach((box) => applyEffect(box));
+				}
+			}
+
+			async function process(): Promise<void> {
+				if (!hasImage) return;
+				processBtn!.disabled = true;
+				try {
+					setStatus(messages.loading);
+					const detector = await getDetector();
+					setStatus(messages.detecting);
+					const result = detector.detect(base);
+					const boxes: Box[] = result.detections
+						.map((d) => d.boundingBox)
+						.filter((bb): bb is NonNullable<typeof bb> => Boolean(bb))
+						.map((bb) => ({
+							x: bb.originX,
+							y: bb.originY,
+							w: bb.width,
+							h: bb.height,
+						}));
+					lastBoxes = boxes;
+					render();
+					if (boxes.length === 0) {
+						setStatus(messages.noFaces);
+						downloadBtn!.disabled = true;
+					} else {
+						setStatus(`${boxes.length} ${messages.detected}`);
+						downloadBtn!.disabled = false;
+					}
+				} catch (err) {
+					console.error('[faceanon]', err);
+					setStatus(messages.errorModel);
+				} finally {
+					processBtn!.disabled = false;
+				}
+			}
+
+			function reset(): void {
+				hasImage = false;
+				lastBoxes = null;
+				input!.value = '';
+				downloadBtn!.disabled = true;
+				setStatus('');
+				editor!.classList.add('hidden');
+				dropzone!.classList.remove('hidden');
+			}
+
+			// --- Wiring ---
+
+			dropzone.addEventListener('click', () => input.click());
+			dropzone.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					input.click();
+				}
+			});
+			dropzone.addEventListener('dragover', (e) => {
+				e.preventDefault();
+				dropzone.classList.add('border-primary/50', 'bg-muted/50');
+			});
+			dropzone.addEventListener('dragleave', () => {
+				dropzone.classList.remove('border-primary/50', 'bg-muted/50');
+			});
+			dropzone.addEventListener('drop', (e) => {
+				e.preventDefault();
+				dropzone.classList.remove('border-primary/50', 'bg-muted/50');
+				const file = e.dataTransfer?.files?.[0];
+				if (file) loadFile(file);
+			});
+			input.addEventListener('change', () => {
+				const file = input.files?.[0];
+				if (file) loadFile(file);
+			});
+
+			censorEl.addEventListener('change', () => {
+				toggleColor();
+				if (lastBoxes) render();
+			});
+			intensityEl.addEventListener('input', () => {
+				if (lastBoxes) render();
+			});
+			colorEl.addEventListener('input', () => {
+				if (lastBoxes) render();
+			});
+			shapeBtns.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					shape =
+						(btn.getAttribute('data-faceanon-shape') as 'oval' | 'rect') ??
+						'oval';
+					shapeBtns.forEach((b) => {
+						const active = b === btn;
+						b.setAttribute('aria-pressed', active ? 'true' : 'false');
+						b.classList.toggle('bg-primary', active);
+						b.classList.toggle('text-primary-foreground', active);
+						b.classList.toggle('text-muted-foreground', !active);
+						b.classList.toggle('hover:text-foreground', !active);
+					});
+					if (lastBoxes) render();
+				});
+			});
+
+			processBtn.addEventListener('click', process);
+			clearBtn.addEventListener('click', reset);
+			downloadBtn.addEventListener('click', () => {
+				const link = document.createElement('a');
+				link.download = 'anonymized.png';
+				link.href = canvas.toDataURL('image/png');
+				link.click();
+			});
+
+			toggleColor();
+		});
+	}
+
+	setupFaceAnonTool();
+	document.addEventListener('astro:page-load', setupFaceAnonTool);
+</script>

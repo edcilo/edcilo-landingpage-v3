@@ -15,6 +15,7 @@ export const UI_STRINGS = {
 		'devtools.category.formatters': 'Formatters',
 		'devtools.category.generators': 'Generators',
 		'devtools.category.textutils': 'Text Utils',
+		'devtools.category.ai': 'AI / ML',
 		'devtools.backToDevTools': 'Volver a Dev Tools',
 		'devtools.base64.title': 'Base64 Encoder / Decoder',
 		'devtools.base64.subtitle':
@@ -280,6 +281,40 @@ export const UI_STRINGS = {
 		'devtools.diff.noDiff': 'No hay diferencias entre los dos textos.',
 		'devtools.diff.tooLarge':
 			'Los textos son demasiado grandes para compararlos. Reduce su tamaño e inténtalo de nuevo.',
+		'devtools.faceanon.title': 'Anonimizador de rostros',
+		'devtools.faceanon.subtitle':
+			'Detecta y censura rostros en una imagen, todo en tu navegador',
+		'devtools.faceanon.description':
+			'Sube una imagen y la herramienta detecta los rostros y los oculta con el efecto que elijas: desenfoque, pixelado, un bloque sólido o un emoji. La detección usa el modelo BlazeFace de MediaPipe ejecutándose con WebAssembly directamente en tu navegador.',
+		'devtools.faceanon.privacy':
+			'Tu imagen nunca se sube a ningún servidor: todo el procesamiento ocurre localmente en tu navegador. Solo se descarga el modelo de detección (una vez).',
+		'devtools.faceanon.example':
+			'Útil para compartir capturas o fotos protegiendo la identidad de las personas.',
+		'devtools.faceanon.upload.label': 'Subir imagen',
+		'devtools.faceanon.upload.hint':
+			'Arrastra una imagen aquí o haz clic para seleccionarla',
+		'devtools.faceanon.censor.label': 'Tipo de censura',
+		'devtools.faceanon.censor.blur': 'Desenfoque',
+		'devtools.faceanon.censor.pixelate': 'Pixelado',
+		'devtools.faceanon.censor.block': 'Bloque sólido',
+		'devtools.faceanon.censor.emoji': 'Emoji',
+		'devtools.faceanon.shape.label': 'Forma',
+		'devtools.faceanon.shape.oval': 'Óvalo',
+		'devtools.faceanon.shape.rect': 'Rectángulo',
+		'devtools.faceanon.intensity.label': 'Intensidad',
+		'devtools.faceanon.color.label': 'Color',
+		'devtools.faceanon.process': 'Censurar',
+		'devtools.faceanon.download': 'Descargar PNG',
+		'devtools.faceanon.clear': 'Limpiar',
+		'devtools.faceanon.status.loadingModel': 'Cargando modelo de detección…',
+		'devtools.faceanon.status.detecting': 'Detectando rostros…',
+		'devtools.faceanon.status.detected':
+			'rostro(s) detectado(s) y censurado(s).',
+		'devtools.faceanon.status.noFaces':
+			'No se detectaron rostros en la imagen.',
+		'devtools.faceanon.error.load': 'No se pudo cargar la imagen.',
+		'devtools.faceanon.error.model':
+			'No se pudo cargar el modelo de detección. Revisa tu conexión e inténtalo de nuevo.',
 		'hero.badge': 'Desarrollador Fullstack',
 		'hero.bio':
 			'Apasionado por aprender y experimentar. Construyo experiencias web que importan.',
@@ -367,6 +402,7 @@ export const UI_STRINGS = {
 		'devtools.category.formatters': 'Formatters',
 		'devtools.category.generators': 'Generators',
 		'devtools.category.textutils': 'Text Utils',
+		'devtools.category.ai': 'AI / ML',
 		'devtools.backToDevTools': 'Back to Dev Tools',
 		'devtools.base64.title': 'Base64 Encoder / Decoder',
 		'devtools.base64.subtitle':
@@ -626,6 +662,37 @@ export const UI_STRINGS = {
 		'devtools.diff.noDiff': 'There are no differences between the two texts.',
 		'devtools.diff.tooLarge':
 			'The texts are too large to compare. Reduce their size and try again.',
+		'devtools.faceanon.title': 'Face Anonymizer',
+		'devtools.faceanon.subtitle':
+			'Detect and censor faces in an image, all in your browser',
+		'devtools.faceanon.description':
+			'Upload an image and the tool detects faces and hides them with the effect you choose: blur, pixelation, a solid block or an emoji. Detection uses the MediaPipe BlazeFace model running with WebAssembly directly in your browser.',
+		'devtools.faceanon.privacy':
+			'Your image is never uploaded to any server: all processing happens locally in your browser. Only the detection model is downloaded (once).',
+		'devtools.faceanon.example':
+			'Useful for sharing screenshots or photos while protecting people’s identity.',
+		'devtools.faceanon.upload.label': 'Upload image',
+		'devtools.faceanon.upload.hint': 'Drag an image here or click to select it',
+		'devtools.faceanon.censor.label': 'Censor type',
+		'devtools.faceanon.censor.blur': 'Blur',
+		'devtools.faceanon.censor.pixelate': 'Pixelate',
+		'devtools.faceanon.censor.block': 'Solid block',
+		'devtools.faceanon.censor.emoji': 'Emoji',
+		'devtools.faceanon.shape.label': 'Shape',
+		'devtools.faceanon.shape.oval': 'Oval',
+		'devtools.faceanon.shape.rect': 'Rectangle',
+		'devtools.faceanon.intensity.label': 'Intensity',
+		'devtools.faceanon.color.label': 'Color',
+		'devtools.faceanon.process': 'Censor',
+		'devtools.faceanon.download': 'Download PNG',
+		'devtools.faceanon.clear': 'Clear',
+		'devtools.faceanon.status.loadingModel': 'Loading detection model…',
+		'devtools.faceanon.status.detecting': 'Detecting faces…',
+		'devtools.faceanon.status.detected': 'face(s) detected and censored.',
+		'devtools.faceanon.status.noFaces': 'No faces were detected in the image.',
+		'devtools.faceanon.error.load': 'The image could not be loaded.',
+		'devtools.faceanon.error.model':
+			'The detection model could not be loaded. Check your connection and try again.',
 		'hero.badge': 'Fullstack Developer',
 		'hero.bio':
 			'Passionate about learning and experimenting. I build web experiences that matter.',
