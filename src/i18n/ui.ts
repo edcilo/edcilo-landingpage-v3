@@ -303,6 +303,31 @@ export const UI_STRINGS = {
 		'devtools.wordcounter.time.lessThanMin': 'menos de 1 min',
 		'devtools.wordcounter.time.min': 'min',
 		'devtools.wordcounter.time.empty': '—',
+		'devtools.sqlformatter.title': 'SQL Formatter',
+		'devtools.sqlformatter.subtitle':
+			'Formatea y embellece consultas SQL directamente en tu navegador',
+		'devtools.sqlformatter.description':
+			'SQL Formatter toma una consulta SQL sin formato o comprimida y la reorganiza con indentación, saltos de línea y palabras clave en mayúsculas para que sea más legible. Soporta múltiples dialectos (MySQL, PostgreSQL, SQLite, T-SQL, BigQuery, Snowflake y más). Todo el procesamiento ocurre en tu navegador — ningún dato se envía a servidores.',
+		'devtools.sqlformatter.example':
+			'Ejemplo: SELECT id,name FROM users WHERE active=1 ORDER BY name se formatea con indentación y keywords en mayúsculas.',
+		'devtools.sqlformatter.dialect.label': 'Dialecto SQL',
+		'devtools.sqlformatter.dialect.sql': 'SQL estándar',
+		'devtools.sqlformatter.dialect.mysql': 'MySQL',
+		'devtools.sqlformatter.dialect.postgresql': 'PostgreSQL',
+		'devtools.sqlformatter.dialect.mariadb': 'MariaDB',
+		'devtools.sqlformatter.dialect.sqlite': 'SQLite',
+		'devtools.sqlformatter.dialect.transactsql': 'SQL Server (T-SQL)',
+		'devtools.sqlformatter.dialect.bigquery': 'BigQuery',
+		'devtools.sqlformatter.dialect.snowflake': 'Snowflake',
+		'devtools.sqlformatter.input.label': 'SQL de entrada',
+		'devtools.sqlformatter.input.placeholder':
+			'Escribe o pega tu consulta SQL aquí...',
+		'devtools.sqlformatter.output.label': 'SQL formateado',
+		'devtools.sqlformatter.format': 'Formatear',
+		'devtools.sqlformatter.copy': 'Copiar',
+		'devtools.sqlformatter.copied': '¡Copiado!',
+		'devtools.sqlformatter.error.invalid':
+			'No se pudo formatear la consulta SQL. Verifica la sintaxis e inténtalo de nuevo.',
 		'devtools.faceanon.title': 'Anonimizador de rostros',
 		'devtools.faceanon.subtitle':
 			'Detecta y censura rostros en una imagen, todo en tu navegador',
@@ -733,6 +758,31 @@ export const UI_STRINGS = {
 		'devtools.wordcounter.time.lessThanMin': 'less than 1 min',
 		'devtools.wordcounter.time.min': 'min',
 		'devtools.wordcounter.time.empty': '—',
+		'devtools.sqlformatter.title': 'SQL Formatter',
+		'devtools.sqlformatter.subtitle':
+			'Format and beautify SQL queries directly in your browser',
+		'devtools.sqlformatter.description':
+			'SQL Formatter takes an unformatted or minified SQL query and reorganizes it with indentation, line breaks, and uppercased keywords for better readability. It supports multiple dialects (MySQL, PostgreSQL, SQLite, T-SQL, BigQuery, Snowflake and more). All processing happens in your browser — no data is sent to any server.',
+		'devtools.sqlformatter.example':
+			'Example: SELECT id,name FROM users WHERE active=1 ORDER BY name gets formatted with indentation and uppercased keywords.',
+		'devtools.sqlformatter.dialect.label': 'SQL Dialect',
+		'devtools.sqlformatter.dialect.sql': 'Standard SQL',
+		'devtools.sqlformatter.dialect.mysql': 'MySQL',
+		'devtools.sqlformatter.dialect.postgresql': 'PostgreSQL',
+		'devtools.sqlformatter.dialect.mariadb': 'MariaDB',
+		'devtools.sqlformatter.dialect.sqlite': 'SQLite',
+		'devtools.sqlformatter.dialect.transactsql': 'SQL Server (T-SQL)',
+		'devtools.sqlformatter.dialect.bigquery': 'BigQuery',
+		'devtools.sqlformatter.dialect.snowflake': 'Snowflake',
+		'devtools.sqlformatter.input.label': 'Input SQL',
+		'devtools.sqlformatter.input.placeholder':
+			'Type or paste your SQL query here...',
+		'devtools.sqlformatter.output.label': 'Formatted SQL',
+		'devtools.sqlformatter.format': 'Format',
+		'devtools.sqlformatter.copy': 'Copy',
+		'devtools.sqlformatter.copied': 'Copied!',
+		'devtools.sqlformatter.error.invalid':
+			'Could not format the SQL query. Check the syntax and try again.',
 		'devtools.faceanon.title': 'Face Anonymizer',
 		'devtools.faceanon.subtitle':
 			'Detect and censor faces in an image, all in your browser',

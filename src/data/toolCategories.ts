@@ -40,7 +40,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 		icon: 'M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25',
 		tools: [
 			{ name: 'JSON' },
-			{ name: 'SQL' },
+			{ name: 'SQL', href: '/dev-tools/sql-formatter/' },
 			{ name: 'XML' },
 			{ name: 'CSS' },
 		],

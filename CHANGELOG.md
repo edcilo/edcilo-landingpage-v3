@@ -4,6 +4,30 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-06-24 — Nueva dev-tool: SQL Formatter
+
+**ID:** TASK-2026-06-24-002
+
+**Solicitud:** Desarrollar la dev-tool "SQL Formatter" de la categoría Formatters (declarada en el catálogo pero sin implementar). Debía formatear/embellecer consultas SQL con selector de dialecto (MySQL, PostgreSQL, etc.), layout de dos paneles, disparo mediante botón "Formatear", botón "Copiar", manejo claro de errores y textarea inicial vacío.
+
+**Plan ejecutado:**
+
+1. **Dependencia (fullstack-dev):** Se instaló `sql-formatter@15.8.2` en `dependencies`.
+2. **i18n (content-creator):** Se añadieron 20 claves `devtools.sqlformatter.*` en ambos bloques (`es` y `en`) de `src/i18n/ui.ts`, incluyendo las 8 opciones de dialecto.
+3. **Catálogo (fullstack-dev):** Se registró `href: '/dev-tools/sql-formatter/'` en el entry "SQL" de la categoría `formatters` en `src/data/toolCategories.ts`.
+4. **Componente (fullstack-dev):** Se creó `src/components/SqlFormatterTool.astro` con UI de dos paneles (input editable + output readonly), `<select>` de dialecto, botones "Formatear" y "Copiar", y mensaje de error. Lógica en vanilla JS dentro del `<script>` con `import { format, type SqlLanguage } from 'sql-formatter'` (bundleado por Vite), defaults fijos `keywordCase: 'upper'` y `tabWidth: 2`, guard `data-sqlformatter-initialized` + `astro:page-load`, manejo de excepciones con mensaje de error y uso exclusivo de `.value`/`textContent` (anti-XSS). `dialectOptions` se construye con `t()` en las páginas y se pasa como prop.
+5. **Rutas (fullstack-dev):** Se crearon las páginas espejo `src/pages/dev-tools/sql-formatter/index.astro` (ES) y `src/pages/en/dev-tools/sql-formatter/index.astro` (EN).
+6. **QA (qa-expert):** Verificación de build (`check`/`lint`/`format:check`/`build`) y 51 casos de prueba (funcional multi-dialecto, JOIN, SQL inválido, copiar, i18n, hub, dark/light, responsive, a11y). Veredicto APTO, 51/51 PASS, cero bugs nuevos.
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/SqlFormatterTool.astro`, `src/pages/dev-tools/sql-formatter/index.astro`, `src/pages/en/dev-tools/sql-formatter/index.astro`.
+- **3 archivos modificados:** `package.json` (+ `sql-formatter`), `src/data/toolCategories.ts` (href), `src/i18n/ui.ts` (40 claves: 20 ES + 20 EN).
+- **QA:** 51/51 PASS. Cumple WCAG AA (targets ≥44px, labels asociados, `role="alert"`/`aria-live`). `npm run lint`/`format:check` limpios; `npm run build` exitoso (127 páginas; rutas y sitemap generados para ambos locales).
+- **Notas (issues pre-existentes ajenos a esta tarea):** (a) error en `src/components/ProjectCard.astro` (`fallbackFormat` en Astro Image) que afecta `npm run check` pero no el build; (b) focus trap en `MobileDrawer` que afecta la navegación por teclado en todas las páginas (a11y global, severidad alta) — se recomienda abordarlo en una tarea aparte.
+
+---
+
 ## 2026-06-24 — Nueva dev-tool: Word Counter (Contador de palabras)
 
 **ID:** TASK-2026-06-24-001
