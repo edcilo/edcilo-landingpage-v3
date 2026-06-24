@@ -308,6 +308,31 @@ export const UI_STRINGS = {
 		'devtools.faceanon.clear': 'Limpiar',
 		'devtools.faceanon.rotateLeft': 'Girar a la izquierda',
 		'devtools.faceanon.rotateRight': 'Girar a la derecha',
+		'devtools.tokens.title': 'Contador de tokens',
+		'devtools.tokens.subtitle':
+			'Cuenta los tokens de un texto para distintos modelos de lenguaje',
+		'devtools.tokens.description':
+			'Los modelos de lenguaje (LLMs) no procesan caracteres ni palabras, sino «tokens»: fragmentos de texto que pueden ser una palabra, parte de una palabra o un signo. Saber cuántos tokens consume un texto ayuda a estimar costes y a no exceder el límite de contexto. Pega tu texto y elige un modelo para ver el conteo y cómo se divide en tokens. Todo se calcula en tu navegador.',
+		'devtools.tokens.example':
+			'Ejemplo: «hello world» son 2 tokens en los modelos de OpenAI.',
+		'devtools.tokens.model.label': 'Modelo',
+		'devtools.tokens.model.group.openai': 'OpenAI',
+		'devtools.tokens.model.group.claude': 'Anthropic',
+		'devtools.tokens.model.gpt4o': 'GPT-4o / GPT-4o mini',
+		'devtools.tokens.model.gpt4': 'GPT-4 / GPT-3.5 Turbo',
+		'devtools.tokens.model.claude': 'Claude (estimación)',
+		'devtools.tokens.input.label': 'Texto',
+		'devtools.tokens.input.placeholder': 'Escribe o pega tu texto aquí...',
+		'devtools.tokens.metric.tokens': 'Tokens',
+		'devtools.tokens.metric.chars': 'Caracteres',
+		'devtools.tokens.metric.words': 'Palabras',
+		'devtools.tokens.viz.label': 'Visualización de tokens',
+		'devtools.tokens.viz.truncated':
+			'Visualización omitida: el texto tiene demasiados tokens.',
+		'devtools.tokens.notice.encoding': 'Codificación:',
+		'devtools.tokens.notice.claudeEstimate':
+			'Estimación aproximada: Anthropic no publica el tokenizador de Claude para uso local, así que el conteo se basa en un tokenizador equivalente. Para un valor exacto usa la API de Anthropic.',
+		'devtools.tokens.status.loading': 'Cargando tokenizador…',
 		'devtools.faceanon.status.loadingModel': 'Cargando modelo de detección…',
 		'devtools.faceanon.status.detecting': 'Detectando rostros…',
 		'devtools.faceanon.status.detected':
@@ -690,6 +715,31 @@ export const UI_STRINGS = {
 		'devtools.faceanon.clear': 'Clear',
 		'devtools.faceanon.rotateLeft': 'Rotate left',
 		'devtools.faceanon.rotateRight': 'Rotate right',
+		'devtools.tokens.title': 'Token Counter',
+		'devtools.tokens.subtitle':
+			'Count the tokens of a text for different language models',
+		'devtools.tokens.description':
+			'Language models (LLMs) do not process characters or words but “tokens”: chunks of text that can be a word, part of a word or a symbol. Knowing how many tokens a text uses helps estimate costs and avoid exceeding the context limit. Paste your text and pick a model to see the count and how it splits into tokens. Everything is computed in your browser.',
+		'devtools.tokens.example':
+			'Example: “hello world” is 2 tokens in OpenAI models.',
+		'devtools.tokens.model.label': 'Model',
+		'devtools.tokens.model.group.openai': 'OpenAI',
+		'devtools.tokens.model.group.claude': 'Anthropic',
+		'devtools.tokens.model.gpt4o': 'GPT-4o / GPT-4o mini',
+		'devtools.tokens.model.gpt4': 'GPT-4 / GPT-3.5 Turbo',
+		'devtools.tokens.model.claude': 'Claude (estimate)',
+		'devtools.tokens.input.label': 'Text',
+		'devtools.tokens.input.placeholder': 'Type or paste your text here...',
+		'devtools.tokens.metric.tokens': 'Tokens',
+		'devtools.tokens.metric.chars': 'Characters',
+		'devtools.tokens.metric.words': 'Words',
+		'devtools.tokens.viz.label': 'Token visualization',
+		'devtools.tokens.viz.truncated':
+			'Visualization skipped: the text has too many tokens.',
+		'devtools.tokens.notice.encoding': 'Encoding:',
+		'devtools.tokens.notice.claudeEstimate':
+			'Rough estimate: Anthropic does not publish the Claude tokenizer for local use, so the count is based on an equivalent tokenizer. For an exact value use the Anthropic API.',
+		'devtools.tokens.status.loading': 'Loading tokenizer…',
 		'devtools.faceanon.status.loadingModel': 'Loading detection model…',
 		'devtools.faceanon.status.detecting': 'Detecting faces…',
 		'devtools.faceanon.status.detected': 'face(s) detected and censored.',

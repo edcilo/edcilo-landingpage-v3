@@ -1,0 +1,295 @@
+---
+interface Props {
+	modelLabel: string;
+	groupOpenaiLabel: string;
+	groupClaudeLabel: string;
+	gpt4oLabel: string;
+	gpt4Label: string;
+	claudeLabel: string;
+	inputLabel: string;
+	inputPlaceholder: string;
+	tokensLabel: string;
+	charsLabel: string;
+	wordsLabel: string;
+	vizLabel: string;
+	vizTruncated: string;
+	encodingNotice: string;
+	claudeNotice: string;
+	loadingLabel: string;
+}
+
+const {
+	modelLabel,
+	groupOpenaiLabel,
+	groupClaudeLabel,
+	gpt4oLabel,
+	gpt4Label,
+	claudeLabel,
+	inputLabel,
+	inputPlaceholder,
+	tokensLabel,
+	charsLabel,
+	wordsLabel,
+	vizLabel,
+	vizTruncated,
+	encodingNotice,
+	claudeNotice,
+	loadingLabel,
+} = Astro.props;
+
+const controlClass =
+	'w-full rounded-lg border border-border bg-muted/50 px-4 py-2.5 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+const metricCard =
+	'rounded-lg border border-border bg-muted/30 px-4 py-3 text-center';
+---
+
+<div
+	data-tokens-tool
+	data-encoding-notice={encodingNotice}
+	data-claude-notice={claudeNotice}
+	data-loading-label={loadingLabel}
+	data-viz-truncated={vizTruncated}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Model selector -->
+	<div>
+		<label for="tokens-model" class={labelClass}>{modelLabel}</label>
+		<select id="tokens-model" data-tokens-model class={controlClass}>
+			<optgroup label={groupOpenaiLabel}>
+				<option value="o200k">{gpt4oLabel}</option>
+				<option value="cl100k">{gpt4Label}</option>
+			</optgroup>
+			<optgroup label={groupClaudeLabel}>
+				<option value="claude">{claudeLabel}</option>
+			</optgroup>
+		</select>
+	</div>
+
+	<!-- Input -->
+	<div>
+		<label for="tokens-input" class={labelClass}>{inputLabel}</label>
+		<textarea
+			id="tokens-input"
+			data-tokens-input
+			rows="8"
+			placeholder={inputPlaceholder}
+			class={`${controlClass} resize-y`}></textarea>
+	</div>
+
+	<!-- Metrics -->
+	<div class="grid grid-cols-3 gap-3">
+		<div class={`${metricCard} bg-primary/10`}>
+			<div
+				data-tokens-count
+				aria-live="polite"
+				class="font-mono text-2xl font-bold text-primary tabular-nums"
+			>
+				0
+			</div>
+			<div class="mt-1 font-mono text-xs text-muted-foreground">
+				{tokensLabel}
+			</div>
+		</div>
+		<div class={metricCard}>
+			<div
+				data-tokens-chars
+				class="font-mono text-2xl font-bold text-foreground tabular-nums"
+			>
+				0
+			</div>
+			<div class="mt-1 font-mono text-xs text-muted-foreground">
+				{charsLabel}
+			</div>
+		</div>
+		<div class={metricCard}>
+			<div
+				data-tokens-words
+				class="font-mono text-2xl font-bold text-foreground tabular-nums"
+			>
+				0
+			</div>
+			<div class="mt-1 font-mono text-xs text-muted-foreground">
+				{wordsLabel}
+			</div>
+		</div>
+	</div>
+
+	<!-- Notice -->
+	<p
+		data-tokens-notice
+		aria-live="polite"
+		class="font-mono text-xs leading-relaxed text-muted-foreground"
+	>
+	</p>
+
+	<!-- Visualization -->
+	<div data-tokens-viz-wrapper class="hidden">
+		<span class={labelClass}>{vizLabel}</span>
+		<div
+			data-tokens-viz
+			class="overflow-x-auto whitespace-pre-wrap break-words rounded-lg border border-border bg-muted/30 p-4 font-mono text-sm leading-7"
+		>
+		</div>
+	</div>
+</div>
+
+<script>
+	type TokenizerModule = {
+		encode: (text: string) => number[];
+		decodeGenerator: (tokens: number[]) => Generator<string>;
+	};
+
+	const ENCODING_BY_MODEL: Record<string, 'o200k_base' | 'cl100k_base'> = {
+		o200k: 'o200k_base',
+		cl100k: 'cl100k_base',
+		claude: 'o200k_base',
+	};
+	// Alternating background colors for the token visualization.
+	const TOKEN_COLORS = [
+		'bg-sky-500/15',
+		'bg-emerald-500/15',
+		'bg-amber-500/15',
+		'bg-fuchsia-500/15',
+		'bg-rose-500/15',
+	];
+	const MAX_VIZ_TOKENS = 5000;
+
+	const cache: Partial<Record<string, TokenizerModule>> = {};
+	async function getEncoder(name: string): Promise<TokenizerModule> {
+		const cached = cache[name];
+		if (cached) return cached;
+		const mod =
+			name === 'o200k_base'
+				? await import('gpt-tokenizer/encoding/o200k_base')
+				: await import('gpt-tokenizer/encoding/cl100k_base');
+		const tokenizer = mod as unknown as TokenizerModule;
+		cache[name] = tokenizer;
+		return tokenizer;
+	}
+
+	function setupTokenCounterTool(): void {
+		const containers =
+			document.querySelectorAll<HTMLElement>('[data-tokens-tool]');
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-tokens-initialized')) return;
+			container.setAttribute('data-tokens-initialized', '');
+
+			const modelEl = container.querySelector<HTMLSelectElement>(
+				'[data-tokens-model]',
+			);
+			const inputEl = container.querySelector<HTMLTextAreaElement>(
+				'[data-tokens-input]',
+			);
+			const countEl = container.querySelector<HTMLElement>(
+				'[data-tokens-count]',
+			);
+			const charsEl = container.querySelector<HTMLElement>(
+				'[data-tokens-chars]',
+			);
+			const wordsEl = container.querySelector<HTMLElement>(
+				'[data-tokens-words]',
+			);
+			const noticeEl = container.querySelector<HTMLElement>(
+				'[data-tokens-notice]',
+			);
+			const vizWrapper = container.querySelector<HTMLElement>(
+				'[data-tokens-viz-wrapper]',
+			);
+			const vizEl = container.querySelector<HTMLElement>('[data-tokens-viz]');
+
+			if (
+				!modelEl ||
+				!inputEl ||
+				!countEl ||
+				!charsEl ||
+				!wordsEl ||
+				!noticeEl ||
+				!vizWrapper ||
+				!vizEl
+			) {
+				return;
+			}
+
+			const encodingNotice =
+				container.getAttribute('data-encoding-notice') ?? '';
+			const claudeNotice = container.getAttribute('data-claude-notice') ?? '';
+			const loadingLabel = container.getAttribute('data-loading-label') ?? '';
+			const vizTruncated = container.getAttribute('data-viz-truncated') ?? '';
+
+			let seq = 0;
+			let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+			function renderViz(tokenizer: TokenizerModule, ids: number[]): void {
+				vizEl!.replaceChildren();
+				if (ids.length > MAX_VIZ_TOKENS) {
+					vizWrapper!.classList.remove('hidden');
+					vizEl!.textContent = vizTruncated;
+					return;
+				}
+				const frag = document.createDocumentFragment();
+				let i = 0;
+				for (const piece of tokenizer.decodeGenerator(ids)) {
+					const span = document.createElement('span');
+					span.className = `rounded ${TOKEN_COLORS[i % TOKEN_COLORS.length]}`;
+					span.textContent = piece;
+					frag.appendChild(span);
+					i++;
+				}
+				vizEl!.appendChild(frag);
+				vizWrapper!.classList.remove('hidden');
+			}
+
+			async function update(): Promise<void> {
+				const mySeq = ++seq;
+				const text = inputEl!.value;
+
+				// Character and word counts are immediate.
+				charsEl!.textContent = [...text].length.toLocaleString();
+				const trimmed = text.trim();
+				wordsEl!.textContent = (
+					trimmed ? trimmed.split(/\s+/).length : 0
+				).toLocaleString();
+
+				const model = modelEl!.value;
+				const encName = ENCODING_BY_MODEL[model] ?? 'o200k_base';
+				const isEstimate = model === 'claude';
+
+				if (!cache[encName]) noticeEl!.textContent = loadingLabel;
+				const tokenizer = await getEncoder(encName);
+				if (mySeq !== seq) return; // A newer update superseded this one.
+
+				const ids = text ? tokenizer.encode(text) : [];
+				countEl!.textContent =
+					(isEstimate ? '≈ ' : '') + ids.length.toLocaleString();
+
+				if (isEstimate) {
+					noticeEl!.textContent = claudeNotice;
+					vizWrapper!.classList.add('hidden');
+					vizEl!.replaceChildren();
+				} else {
+					noticeEl!.textContent = `${encodingNotice} ${encName}`;
+					if (ids.length === 0) {
+						vizWrapper!.classList.add('hidden');
+						vizEl!.replaceChildren();
+					} else {
+						renderViz(tokenizer, ids);
+					}
+				}
+			}
+
+			function scheduleUpdate(): void {
+				if (debounceTimer) clearTimeout(debounceTimer);
+				debounceTimer = setTimeout(update, 150);
+			}
+
+			inputEl.addEventListener('input', scheduleUpdate);
+			modelEl.addEventListener('change', update);
+
+			update();
+		});
+	}
+
+	setupTokenCounterTool();
+	document.addEventListener('astro:page-load', setupTokenCounterTool);
+</script>
