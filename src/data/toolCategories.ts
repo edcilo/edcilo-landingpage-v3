@@ -64,7 +64,7 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 			{ name: 'Diff', href: '/dev-tools/diff/' },
 			{ name: 'Case Converter' },
 			{ name: 'Regex Tester' },
-			{ name: 'Word Counter' },
+			{ name: 'Word Counter', href: '/dev-tools/word-counter/' },
 		],
 	},
 	{

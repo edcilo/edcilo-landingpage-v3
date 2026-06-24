@@ -1,0 +1,344 @@
+---
+interface Props {
+	inputLabel: string;
+	inputPlaceholder: string;
+	clearLabel: string;
+	readingSpeedLabel: string;
+	speakingSpeedLabel: string;
+	wpmUnit: string;
+	statWordsLabel: string;
+	statCharsLabel: string;
+	statCharsNoSpacesLabel: string;
+	statLinesLabel: string;
+	timeReadingLabel: string;
+	timeSpeakingLabel: string;
+	timeLessThanMin: string;
+	timeMin: string;
+	timeEmpty: string;
+}
+
+const {
+	inputLabel,
+	inputPlaceholder,
+	clearLabel,
+	readingSpeedLabel,
+	speakingSpeedLabel,
+	wpmUnit,
+	statWordsLabel,
+	statCharsLabel,
+	statCharsNoSpacesLabel,
+	statLinesLabel,
+	timeReadingLabel,
+	timeSpeakingLabel,
+	timeLessThanMin,
+	timeMin,
+	timeEmpty,
+} = Astro.props;
+
+const textareaClass =
+	'w-full resize-y rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
+---
+
+<div
+	data-wordcounter-tool
+	data-lessthan-label={timeLessThanMin}
+	data-min-label={timeMin}
+	data-empty-label={timeEmpty}
+	data-wpm-unit={wpmUnit}
+	class="mx-auto max-w-3xl space-y-6"
+>
+	<!-- Input -->
+	<div>
+		<label for="wc-input" class={labelClass}>{inputLabel}</label>
+		<textarea
+			id="wc-input"
+			data-wc-input
+			rows="10"
+			spellcheck="false"
+			placeholder={inputPlaceholder}
+			class={textareaClass}></textarea>
+	</div>
+
+	<!-- Clear button -->
+	<div class="flex justify-end">
+		<button
+			type="button"
+			data-wc-clear
+			aria-label={clearLabel}
+			class="inline-flex items-center gap-2 rounded-lg border border-border bg-muted px-6 py-3 font-mono text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 focus:ring-offset-background"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				class="size-5"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+				></path>
+			</svg>
+			{clearLabel}
+		</button>
+	</div>
+
+	<!-- Reading speed slider -->
+	<div>
+		<label for="wc-reading-wpm" class={labelClass}>{readingSpeedLabel}</label>
+		<input
+			type="range"
+			id="wc-reading-wpm"
+			data-wc-reading-wpm
+			min="100"
+			max="400"
+			value="200"
+			step="10"
+			aria-valuetext={`200 ${wpmUnit}`}
+			class="w-full accent-primary"
+		/>
+		<div class="mt-1 text-right text-sm text-muted-foreground">
+			<span data-wc-reading-wpm-value class="font-mono tabular-nums">200</span>
+			<span>{wpmUnit}</span>
+		</div>
+	</div>
+
+	<!-- Speaking speed slider -->
+	<div>
+		<label for="wc-speaking-wpm" class={labelClass}>{speakingSpeedLabel}</label>
+		<input
+			type="range"
+			id="wc-speaking-wpm"
+			data-wc-speaking-wpm
+			min="80"
+			max="200"
+			value="130"
+			step="10"
+			aria-valuetext={`130 ${wpmUnit}`}
+			class="w-full accent-primary"
+		/>
+		<div class="mt-1 text-right text-sm text-muted-foreground">
+			<span data-wc-speaking-wpm-value class="font-mono tabular-nums">130</span>
+			<span>{wpmUnit}</span>
+		</div>
+	</div>
+
+	<!-- Stats grid -->
+	<div class="grid grid-cols-2 gap-4 sm:grid-cols-3" aria-live="polite">
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground">{statWordsLabel}</span>
+			<span
+				data-wc-stat-words
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>0</span
+			>
+		</div>
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground">{statCharsLabel}</span>
+			<span
+				data-wc-stat-chars
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>0</span
+			>
+		</div>
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground"
+				>{statCharsNoSpacesLabel}</span
+			>
+			<span
+				data-wc-stat-chars-nospaces
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>0</span
+			>
+		</div>
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground">{statLinesLabel}</span>
+			<span
+				data-wc-stat-lines
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>0</span
+			>
+		</div>
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground">{timeReadingLabel}</span
+			>
+			<span
+				data-wc-stat-reading
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>{timeEmpty}</span
+			>
+		</div>
+		<div class="rounded-lg border border-border bg-muted/30 p-4 text-center">
+			<span class="block text-xs text-muted-foreground"
+				>{timeSpeakingLabel}</span
+			>
+			<span
+				data-wc-stat-speaking
+				class="block font-mono text-2xl font-bold tabular-nums text-foreground"
+				>{timeEmpty}</span
+			>
+		</div>
+	</div>
+</div>
+
+<script>
+	function setupWordCounterTool(): void {
+		const containers = document.querySelectorAll<HTMLElement>(
+			'[data-wordcounter-tool]',
+		);
+		containers.forEach((container) => {
+			if (container.hasAttribute('data-wc-initialized')) return;
+			container.setAttribute('data-wc-initialized', '');
+
+			const textareaEl =
+				container.querySelector<HTMLTextAreaElement>('[data-wc-input]');
+			const clearBtn =
+				container.querySelector<HTMLButtonElement>('[data-wc-clear]');
+			const readingSlider = container.querySelector<HTMLInputElement>(
+				'[data-wc-reading-wpm]',
+			);
+			const speakingSlider = container.querySelector<HTMLInputElement>(
+				'[data-wc-speaking-wpm]',
+			);
+			const readingValueEl = container.querySelector<HTMLElement>(
+				'[data-wc-reading-wpm-value]',
+			);
+			const speakingValueEl = container.querySelector<HTMLElement>(
+				'[data-wc-speaking-wpm-value]',
+			);
+			const statWords = container.querySelector<HTMLElement>(
+				'[data-wc-stat-words]',
+			);
+			const statChars = container.querySelector<HTMLElement>(
+				'[data-wc-stat-chars]',
+			);
+			const statCharsNoSpaces = container.querySelector<HTMLElement>(
+				'[data-wc-stat-chars-nospaces]',
+			);
+			const statLines = container.querySelector<HTMLElement>(
+				'[data-wc-stat-lines]',
+			);
+			const statReading = container.querySelector<HTMLElement>(
+				'[data-wc-stat-reading]',
+			);
+			const statSpeaking = container.querySelector<HTMLElement>(
+				'[data-wc-stat-speaking]',
+			);
+
+			if (
+				!textareaEl ||
+				!clearBtn ||
+				!readingSlider ||
+				!speakingSlider ||
+				!readingValueEl ||
+				!speakingValueEl ||
+				!statWords ||
+				!statChars ||
+				!statCharsNoSpaces ||
+				!statLines ||
+				!statReading ||
+				!statSpeaking
+			) {
+				return;
+			}
+
+			const lessThan = container.getAttribute('data-lessthan-label') ?? '';
+			const minLabel = container.getAttribute('data-min-label') ?? '';
+			const emptyLabel = container.getAttribute('data-empty-label') ?? '';
+			const wpmUnitText = container.getAttribute('data-wpm-unit') ?? '';
+
+			interface Stats {
+				words: number;
+				chars: number;
+				charsNoSpaces: number;
+				lines: number;
+			}
+
+			function computeStats(text: string): Stats {
+				const words =
+					text.trim() === ''
+						? 0
+						: text.trim().split(/\s+/).filter(Boolean).length;
+				const chars = text.length;
+				const charsNoSpaces = text.replace(/\s/g, '').length;
+				const lines = text === '' ? 0 : text.split(/\r?\n/).length;
+				return { words, chars, charsNoSpaces, lines };
+			}
+
+			function formatTime(words: number, wpm: number): string {
+				if (words === 0) return emptyLabel;
+				const minutes = words / wpm;
+				if (minutes < 1) return lessThan;
+				if (minutes < 60) {
+					return `${Math.ceil(minutes)} ${minLabel}`;
+				}
+				const h = Math.floor(minutes / 60);
+				const m = Math.ceil(minutes % 60);
+				return `${h}h ${m}m`;
+			}
+
+			function update(): void {
+				const text = textareaEl!.value;
+				const stats = computeStats(text);
+				statWords!.textContent = stats.words.toLocaleString();
+				statChars!.textContent = stats.chars.toLocaleString();
+				statCharsNoSpaces!.textContent = stats.charsNoSpaces.toLocaleString();
+				statLines!.textContent = stats.lines.toLocaleString();
+
+				const readingWpm = Number(readingSlider!.value);
+				const speakingWpm = Number(speakingSlider!.value);
+				statReading!.textContent = formatTime(stats.words, readingWpm);
+				statSpeaking!.textContent = formatTime(stats.words, speakingWpm);
+			}
+
+			function updateSliderDisplay(): void {
+				const readingVal = readingSlider!.value;
+				const speakingVal = speakingSlider!.value;
+				readingValueEl!.textContent = readingVal;
+				speakingValueEl!.textContent = speakingVal;
+				readingSlider!.setAttribute(
+					'aria-valuetext',
+					`${readingVal} ${wpmUnitText}`,
+				);
+				speakingSlider!.setAttribute(
+					'aria-valuetext',
+					`${speakingVal} ${wpmUnitText}`,
+				);
+			}
+
+			let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+
+			textareaEl.addEventListener('input', () => {
+				if (debounceTimer !== undefined) clearTimeout(debounceTimer);
+				debounceTimer = setTimeout(() => {
+					update();
+				}, 200);
+			});
+
+			readingSlider.addEventListener('input', () => {
+				updateSliderDisplay();
+				update();
+			});
+
+			speakingSlider.addEventListener('input', () => {
+				updateSliderDisplay();
+				update();
+			});
+
+			clearBtn.addEventListener('click', () => {
+				textareaEl.value = '';
+				update();
+			});
+
+			update();
+			updateSliderDisplay();
+		});
+	}
+
+	setupWordCounterTool();
+	document.addEventListener('astro:page-load', setupWordCounterTool);
+</script>

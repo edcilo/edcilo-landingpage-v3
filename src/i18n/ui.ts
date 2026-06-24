@@ -281,6 +281,28 @@ export const UI_STRINGS = {
 		'devtools.diff.noDiff': 'No hay diferencias entre los dos textos.',
 		'devtools.diff.tooLarge':
 			'Los textos son demasiado grandes para compararlos. Reduce su tamaño e inténtalo de nuevo.',
+		'devtools.wordcounter.title': 'Contador de palabras',
+		'devtools.wordcounter.subtitle':
+			'Cuenta palabras, caracteres y estima tiempos de lectura y habla',
+		'devtools.wordcounter.description':
+			'Pega o escribe tu texto y obtén al instante el conteo de palabras, caracteres (con y sin espacios), líneas, y una estimación del tiempo de lectura y de habla. Ajusta las velocidades con los sliders. Todo se procesa en tu navegador — ningún texto se envía a servidores.',
+		'devtools.wordcounter.example':
+			'Ejemplo: un texto de 1000 palabras se lee en ~5 min a 200 PPM y se habla en ~7.7 min a 130 PPM.',
+		'devtools.wordcounter.input.label': 'Texto',
+		'devtools.wordcounter.input.placeholder': 'Escribe o pega tu texto aquí...',
+		'devtools.wordcounter.clear': 'Limpiar',
+		'devtools.wordcounter.reading.label': 'Velocidad de lectura',
+		'devtools.wordcounter.speaking.label': 'Velocidad de habla',
+		'devtools.wordcounter.wpm': 'PPM',
+		'devtools.wordcounter.stat.words': 'Palabras',
+		'devtools.wordcounter.stat.chars': 'Caracteres',
+		'devtools.wordcounter.stat.charsNoSpaces': 'Caracteres (sin espacios)',
+		'devtools.wordcounter.stat.lines': 'Líneas',
+		'devtools.wordcounter.time.reading': 'Tiempo de lectura',
+		'devtools.wordcounter.time.speaking': 'Tiempo de habla',
+		'devtools.wordcounter.time.lessThanMin': 'menos de 1 min',
+		'devtools.wordcounter.time.min': 'min',
+		'devtools.wordcounter.time.empty': '—',
 		'devtools.faceanon.title': 'Anonimizador de rostros',
 		'devtools.faceanon.subtitle':
 			'Detecta y censura rostros en una imagen, todo en tu navegador',
@@ -689,6 +711,28 @@ export const UI_STRINGS = {
 		'devtools.diff.noDiff': 'There are no differences between the two texts.',
 		'devtools.diff.tooLarge':
 			'The texts are too large to compare. Reduce their size and try again.',
+		'devtools.wordcounter.title': 'Word Counter',
+		'devtools.wordcounter.subtitle':
+			'Count words, characters and estimate reading and speaking times',
+		'devtools.wordcounter.description':
+			'Paste or type your text and instantly get word count, character count (with and without spaces), line count, and estimated reading and speaking time. Adjust speeds with the sliders. Everything is processed in your browser — no text is sent to any server.',
+		'devtools.wordcounter.example':
+			'Example: a 1000-word text takes ~5 min to read at 200 WPM and ~7.7 min to speak at 130 WPM.',
+		'devtools.wordcounter.input.label': 'Text',
+		'devtools.wordcounter.input.placeholder': 'Type or paste your text here...',
+		'devtools.wordcounter.clear': 'Clear',
+		'devtools.wordcounter.reading.label': 'Reading speed',
+		'devtools.wordcounter.speaking.label': 'Speaking speed',
+		'devtools.wordcounter.wpm': 'WPM',
+		'devtools.wordcounter.stat.words': 'Words',
+		'devtools.wordcounter.stat.chars': 'Characters',
+		'devtools.wordcounter.stat.charsNoSpaces': 'Characters (no spaces)',
+		'devtools.wordcounter.stat.lines': 'Lines',
+		'devtools.wordcounter.time.reading': 'Reading time',
+		'devtools.wordcounter.time.speaking': 'Speaking time',
+		'devtools.wordcounter.time.lessThanMin': 'less than 1 min',
+		'devtools.wordcounter.time.min': 'min',
+		'devtools.wordcounter.time.empty': '—',
 		'devtools.faceanon.title': 'Face Anonymizer',
 		'devtools.faceanon.subtitle':
 			'Detect and censor faces in an image, all in your browser',

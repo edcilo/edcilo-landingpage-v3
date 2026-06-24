@@ -4,6 +4,31 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-06-24 — Nueva dev-tool: Word Counter (Contador de palabras)
+
+**ID:** TASK-2026-06-24-001
+
+**Solicitud:** Desarrollar la dev-tool "Word Counter", que estaba declarada en el catálogo de `/dev-tools/` (categoría Text Utils) pero sin implementar. Debía contar palabras, caracteres (con y sin espacios) y líneas, además de estimar tiempo de lectura y de habla con velocidad (WPM) configurable mediante sliders, cálculo en tiempo real con debounce, botón "Limpiar" y textarea inicial vacío.
+
+**Plan ejecutado:**
+
+1. **i18n (content-creator):** Se añadieron 19 claves `devtools.wordcounter.*` en ambos bloques (`es` y `en`) de `src/i18n/ui.ts`, manteniendo simetría entre locales.
+2. **Catálogo (fullstack-dev):** Se registró `href: '/dev-tools/word-counter/'` en el entry "Word Counter" de la categoría `textutils` en `src/data/toolCategories.ts`.
+3. **Componente (fullstack-dev):** Se creó `src/components/WordCounterTool.astro` con UI + lógica en vanilla JS (patrón `setupWordCounterTool()` con guard `data-wc-initialized` y `astro:page-load`), siguiendo el patrón de `DiffTool.astro`. Métricas en tiempo real con debounce de 200ms en el textarea; sliders (lectura 100–400/def. 200, habla 80–200/def. 130, step 10) con recálculo inmediato; formato de tiempo adaptativo (`—` / "menos de 1 min" / "X min" / "Xh Ym"); uso exclusivo de `textContent` (anti-XSS).
+4. **Rutas (fullstack-dev):** Se crearon las páginas espejo `src/pages/dev-tools/word-counter/index.astro` (ES) y `src/pages/en/dev-tools/word-counter/index.astro` (EN).
+5. **QA (qa-expert):** Verificación de build (`check`/`lint`/`build`) y 54 casos de prueba (funcional, i18n, a11y, responsive, dark/light). Veredicto APTO; se detectó un bug menor de a11y (botón "Limpiar" a 42px).
+6. **Fix a11y (fullstack-dev):** Se corrigió el target size del botón "Limpiar" (`py-2.5` → `py-3`) para cumplir WCAG AA (≥44×44px).
+
+**Resultado:**
+
+- **3 archivos creados:** `src/components/WordCounterTool.astro`, `src/pages/dev-tools/word-counter/index.astro`, `src/pages/en/dev-tools/word-counter/index.astro`.
+- **2 archivos modificados:** `src/data/toolCategories.ts` (href), `src/i18n/ui.ts` (38 claves: 19 ES + 19 EN).
+- **Cero dependencias nuevas.** `npm run lint` limpio; `npm run build` exitoso (páginas y sitemap generados para ambos locales).
+- **QA:** 53/54 PASS inicial → 54/54 tras el fix de a11y. Cumple WCAG AA.
+- **Nota:** Persiste un error pre-existente y ajeno a esta tarea en `src/components/ProjectCard.astro` (`fallbackFormat` en Astro Image) que afecta a `npm run check` pero no al build.
+
+---
+
 ## 2026-03-30 — Nuevo artículo de blog: Milanesas de pollo
 
 **ID:** TASK-2026-03-30-002
