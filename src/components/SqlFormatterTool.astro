@@ -57,19 +57,19 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 				id="sqlformatter-input"
 				data-sqlformatter-input
 				rows="12"
+				wrap="off"
 				spellcheck="false"
 				placeholder={inputPlaceholder}
 				class={textareaClass}></textarea>
 		</div>
 		<div>
-			<label for="sqlformatter-output" class={labelClass}>{outputLabel}</label>
-			<textarea
-				id="sqlformatter-output"
-				data-sqlformatter-output
-				rows="12"
-				readonly
-				spellcheck="false"
-				class={textareaClass}></textarea>
+			<label id="sqlformatter-output-label" class={labelClass}
+				>{outputLabel}</label
+			>
+			<pre
+				tabindex="0"
+				aria-labelledby="sqlformatter-output-label"
+				class="w-full min-h-[18rem] overflow-x-auto overflow-y-auto rounded-lg border border-border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground transition-colors duration-200 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"><code class="hljs language-sql" data-sqlformatter-output /></pre>
 		</div>
 	</div>
 
@@ -136,6 +136,10 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 
 <script>
 	import { format, type SqlLanguage } from 'sql-formatter';
+	import hljs from 'highlight.js/lib/core';
+	import sql from 'highlight.js/lib/languages/sql';
+
+	hljs.registerLanguage('sql', sql);
 
 	function setupSqlFormatterTool(): void {
 		const containers = document.querySelectorAll<HTMLElement>(
@@ -151,7 +155,7 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 			const inputEl = container.querySelector<HTMLTextAreaElement>(
 				'[data-sqlformatter-input]',
 			);
-			const outputEl = container.querySelector<HTMLTextAreaElement>(
+			const outputEl = container.querySelector<HTMLElement>(
 				'[data-sqlformatter-output]',
 			);
 			const formatBtn = container.querySelector<HTMLButtonElement>(
@@ -178,6 +182,7 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 				return;
 			}
 
+			let plainOutput = '';
 			const copyText = copyLabelEl?.textContent ?? '';
 			const copiedText = container.getAttribute('data-copied-label') ?? '';
 			let copyTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -188,34 +193,41 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 
 			formatBtn.addEventListener('click', () => {
 				hideError();
-				const sql = inputEl!.value;
+				const rawSql = inputEl!.value;
 
-				if (!sql.trim()) {
-					outputEl!.value = '';
+				if (!rawSql.trim()) {
+					plainOutput = '';
+					outputEl!.textContent = '';
 					copyBtn!.disabled = true;
 					return;
 				}
 
 				try {
-					const result = format(sql, {
+					const result = format(rawSql, {
 						language: dialectEl!.value as SqlLanguage,
 						keywordCase: 'upper',
 						tabWidth: 2,
 					});
-					outputEl!.value = result;
+					plainOutput = result;
+					// SECURITY: hljs.highlight() escapes the source text before
+					// wrapping tokens in <span>. The text comes from sql-formatter's
+					// processed output, never raw user HTML.
+					outputEl!.innerHTML = hljs.highlight(result, {
+						language: 'sql',
+					}).value;
 					copyBtn!.disabled = false;
 				} catch {
 					errorEl!.classList.remove('hidden');
-					outputEl!.value = '';
+					plainOutput = '';
+					outputEl!.textContent = '';
 					copyBtn!.disabled = true;
 				}
 			});
 
 			copyBtn.addEventListener('click', async () => {
-				const text = outputEl!.value;
-				if (!text) return;
+				if (!plainOutput) return;
 				try {
-					await navigator.clipboard.writeText(text);
+					await navigator.clipboard.writeText(plainOutput);
 					if (copyLabelEl) {
 						copyLabelEl.textContent = copiedText;
 						if (copyTimeout) clearTimeout(copyTimeout);
@@ -233,3 +245,63 @@ const labelClass = 'mb-2 block font-mono text-sm font-medium text-foreground';
 	setupSqlFormatterTool();
 	document.addEventListener('astro:page-load', setupSqlFormatterTool);
 </script>
+
+<!--
+  Highlight.js syntax highlighting styles for the SQL output panel.
+  Uses <style is:global> because the highlighted markup is injected
+  dynamically via innerHTML at runtime, so Astro's scoped styles
+  (which rely on data-astro-cid-* attributes) would not apply.
+  All rules are scoped to [data-sqlformatter-output] to prevent
+  leaking into other parts of the page.
+-->
+<style is:global>
+	/* --- Light mode (default) --- */
+	[data-sqlformatter-output] .hljs-keyword {
+		color: #7c3aed;
+	}
+	[data-sqlformatter-output] .hljs-string {
+		color: #059669;
+	}
+	[data-sqlformatter-output] .hljs-number {
+		color: #d97706;
+	}
+	[data-sqlformatter-output] .hljs-built_in,
+	[data-sqlformatter-output] .hljs-title.function_ {
+		color: #0284c7;
+	}
+	[data-sqlformatter-output] .hljs-comment {
+		color: #737373;
+		font-style: italic;
+	}
+	[data-sqlformatter-output] .hljs-operator {
+		color: #dc2626;
+	}
+	[data-sqlformatter-output] .hljs-punctuation {
+		color: var(--color-muted-foreground);
+	}
+
+	/* --- Dark mode overrides --- */
+	.dark [data-sqlformatter-output] .hljs-keyword {
+		color: #a78bfa;
+	}
+	.dark [data-sqlformatter-output] .hljs-string {
+		color: #34d399;
+	}
+	.dark [data-sqlformatter-output] .hljs-number {
+		color: #fbbf24;
+	}
+	.dark [data-sqlformatter-output] .hljs-built_in,
+	.dark [data-sqlformatter-output] .hljs-title.function_ {
+		color: #38bdf8;
+	}
+	.dark [data-sqlformatter-output] .hljs-comment {
+		color: #a3a3a3;
+		font-style: italic;
+	}
+	.dark [data-sqlformatter-output] .hljs-operator {
+		color: #f87171;
+	}
+	.dark [data-sqlformatter-output] .hljs-punctuation {
+		color: var(--color-muted-foreground);
+	}
+</style>

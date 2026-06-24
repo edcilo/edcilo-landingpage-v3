@@ -4,6 +4,31 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-06-24 — Mejora: scroll horizontal y syntax highlighting en SQL Formatter
+
+**ID:** TASK-2026-06-24-003
+
+**Solicitud:** Mejorar la dev-tool SQL Formatter con dos cambios: (1) scroll horizontal en los textareas para evitar que las líneas largas hagan wrap, y (2) coloreado de sintaxis (syntax highlighting) del SQL.
+
+**Plan ejecutado:**
+
+1. **Dependencia (fullstack-dev):** Se instaló `highlight.js@11.11.1` en `dependencies` (sub-imports `core` + `languages/sql` verificados).
+2. **Markup + Script + Estilos (fullstack-dev / designer-architect):** Se modificó `src/components/SqlFormatterTool.astro`:
+   - **Input:** se añadió `wrap="off"` al `<textarea>` para habilitar scroll horizontal sin wrap.
+   - **Output:** se reemplazó el `<textarea readonly>` por `<pre tabindex="0" aria-labelledby="sqlformatter-output-label"><code class="hljs language-sql">` con `overflow-x-auto`/`overflow-y-auto` y `min-h-[18rem]`, focusable por teclado (WCAG).
+   - **Script:** import de `highlight.js/lib/core` + `languages/sql` (registro a nivel de módulo); al formatear se inyecta `hljs.highlight(result, { language: 'sql' }).value` vía `innerHTML`, y se mantiene `plainOutput` (texto plano) para que el botón Copiar copie SQL sin etiquetas HTML.
+   - **Estilos:** `<style is:global>` scopeado a `[data-sqlformatter-output]` que mapea las clases `.hljs-*` a colores derivados del tema, con override `.dark` (se usa `is:global` porque el HTML coloreado se inyecta en runtime y un `<style>` scoped de Astro no le aplicaría).
+3. **QA (qa-expert):** Verificación de build (`check`/`lint`/`format:check`/`build`) y 40 casos de prueba (scroll H en ambos paneles, highlighting, copiar texto plano, dark/light, a11y, i18n, responsive, regresiones).
+
+**Resultado:**
+
+- **1 archivo modificado** (lógica/UI): `src/components/SqlFormatterTool.astro` (markup + script + nuevo `<style is:global>`).
+- **2 archivos modificados** (dependencia): `package.json` (+ `highlight.js`), `package-lock.json`.
+- **QA: 40/40 PASS.** Confirmado explícitamente: (a) el highlighting colorea el HTML inyectado dinámicamente; (b) "Copiar" copia texto plano sin HTML. Cumple WCAG AA (`<pre>` focusable, labels asociados). `npm run lint`/`format:check` limpios; `npm run build` exitoso (127 páginas).
+- **Nota:** persiste el error pre-existente ajeno a esta tarea en `src/components/ProjectCard.astro` (`fallbackFormat`) que afecta `npm run check` pero no el build.
+
+---
+
 ## 2026-06-24 — Nueva dev-tool: SQL Formatter
 
 **ID:** TASK-2026-06-24-002
