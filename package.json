@@ -25,6 +25,7 @@
 		"js-yaml": "^4.1.1",
 		"jsbarcode": "^3.12.3",
 		"qrcode": "^1.5.4",
+		"sharp": "^0.33.5",
 		"sql-formatter": "^15.8.2"
 	},
 	"devDependencies": {
