@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { TranslationKey } from '../i18n';
 
+import coverBookmarks from '../assets/portfolio/07_bookmarks.webp';
 import coverLogographic from '../assets/portfolio/05_logographic.webp';
 import coverTimer from '../assets/portfolio/06_timer.webp';
 import coverMd2pdf from '../assets/portfolio/04_md2pdf.webp';
@@ -19,6 +20,14 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+	{
+		title: 'Bookmark Manager',
+		slug: 'bookmark-manager',
+		descriptionKey: 'project.bookmarkManager.description',
+		url: 'https://bookmarks.edcilo.com',
+		cover: coverBookmarks,
+		tech: ['TypeScript', 'React', 'Next.js', 'Tailwind', 'Supabase', 'Stripe'],
+	},
 	{
 		title: 'planTimer',
 		slug: 'plan-timer',

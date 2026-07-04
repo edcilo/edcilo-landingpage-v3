@@ -4,6 +4,30 @@ Registro de cambios del proyecto edcilo.com v3.
 
 ---
 
+## 2026-07-03 — Agregar proyecto Bookmark Manager al portfolio
+
+**ID:** TASK-2026-07-03-001
+
+**Solicitud:** Agregar el proyecto "Bookmark Manager" (https://bookmarks.edcilo.com) a la sección de portfolio de la landing page como nueva tarjeta de proyecto.
+
+**Plan ejecutado:**
+
+1. Se accedió a la URL del proyecto para obtener información real: nombre, descripción de funcionalidades (organizar, etiquetar, compartir enlaces, grupos jerárquicos, etiquetas con colores, exportar a CSV).
+2. Se agregaron las traducciones de la descripción en español e inglés en `src/i18n/ui.ts` (`project.bookmarkManager.description`).
+3. Se creó un placeholder SVG (`src/assets/portfolio/07_bookmarks.svg`) con diseño de bookmark (fondo oscuro, icono azul, texto "Bookmark Manager").
+4. Se agregó el proyecto como primer elemento del array `PROJECTS` en `src/data/projects.ts` con tecnologías: TypeScript, React, Next.js, Tailwind, Supabase, Stripe.
+5. QA validó: build (127 páginas, 0 errores), lint (0 errores), format (pass), i18n simétrico (1 clave × 2 idiomas), consistencia de `descriptionKey`, revisión de código (7/7 criterios).
+
+**Resultado:**
+
+- **1 archivo creado:** `src/assets/portfolio/07_bookmarks.svg`
+- **2 archivos modificados:** `src/data/projects.ts`, `src/i18n/ui.ts`
+- **Build:** 127 páginas generadas exitosamente, sin errores
+- **QA:** Build, lint, format, i18n y revisión de código — todos PASS
+- **Nota:** El cover es un placeholder SVG. Se recomienda reemplazarlo con un screenshot `.webp` real del proyecto para mantener consistencia visual con los demás proyectos del portfolio.
+
+---
+
 ## 2026-06-24 — Mejora: scroll horizontal y syntax highlighting en SQL Formatter
 
 **ID:** TASK-2026-06-24-003
