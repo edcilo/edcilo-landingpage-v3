@@ -16,25 +16,31 @@ The site is fully static (SSG), bilingual (Spanish/English), supports dark mode,
 
 ### Core
 
-| Technology       | Version        | Purpose                                              |
-| ---------------- | -------------- | ---------------------------------------------------- |
-| **Astro**        | 5.17.x         | Web framework -- Static Site Generation (SSG)        |
-| **TypeScript**   | 5.9.x          | Language -- strict typing (`astro/tsconfigs/strict`) |
-| **Tailwind CSS** | 4.1.x          | Styles -- utility-first CSS framework                |
-| **Node.js**      | (see `.nvmrc`) | Runtime                                              |
+| Technology       | Version                           | Purpose                                                  |
+| ---------------- | --------------------------------- | -------------------------------------------------------- |
+| **Astro**        | 7.3.x                             | Web framework -- Static Site Generation (SSG)            |
+| **TypeScript**   | 5.9.x                             | Language -- strict typing (`astro/tsconfigs/strict`)     |
+| **Tailwind CSS** | 4.3.x                             | Styles -- utility-first CSS framework                    |
+| **Node.js**      | 24 LTS (`.nvmrc`, `engines.node`) | Runtime (local and Vercel builds)                        |
+| **pnpm**         | 11.x (`packageManager` field)     | Package manager -- `pnpm-lock.yaml` is the only lockfile |
 
 ### Integrations and Plugins
 
-| Library                      | Purpose                                       |
-| ---------------------------- | --------------------------------------------- |
-| `@astrojs/sitemap`           | Automatic XML sitemap generation              |
-| `@tailwindcss/vite`          | Vite plugin for Tailwind v4 (NOT PostCSS)     |
-| `@fontsource-variable/inter` | Sans-serif font (Inter Variable, self-hosted) |
-| `@fontsource/ibm-plex-mono`  | Monospace font (IBM Plex Mono, self-hosted)   |
-| `@vercel/analytics`          | Vercel Web Analytics (page views, events)     |
-| `js-yaml`                    | YAML <-> JSON conversion (used by dev-tools)  |
-| `jsbarcode`                  | Barcode generation (used by QR/barcode tool)  |
-| `qrcode`                     | QR code generation (used by QR/barcode tool)  |
+| Library                      | Purpose                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `@astrojs/sitemap`           | Automatic XML sitemap generation                                         |
+| `@tailwindcss/vite`          | Vite plugin for Tailwind v4 (NOT PostCSS)                                |
+| `@fontsource-variable/inter` | Sans-serif font (Inter Variable, self-hosted)                            |
+| `@fontsource/ibm-plex-mono`  | Monospace font (IBM Plex Mono, self-hosted)                              |
+| `@vercel/analytics`          | Vercel Web Analytics (page views, events)                                |
+| `sharp`                      | Image processing for `astro:assets` at build time                        |
+| `js-yaml`                    | YAML <-> JSON conversion (JSON/YAML tool)                                |
+| `jsbarcode`                  | Barcode generation (QR/barcode tool)                                     |
+| `qrcode`                     | QR code generation (QR/barcode tool)                                     |
+| `sql-formatter`              | SQL formatting, multi-dialect (SQL formatter tool)                       |
+| `highlight.js`               | SQL syntax highlighting (SQL formatter tool; core + `sql` language only) |
+| `gpt-tokenizer`              | Token counting, `o200k_base` / `cl100k_base` (token counter tool)        |
+| `@mediapipe/tasks-vision`    | In-browser face detection (face anonymizer tool)                         |
 
 ### Dev Tools
 
@@ -45,18 +51,29 @@ The site is fully static (SSG), bilingual (Spanish/English), supports dark mode,
 | `prettier` + `prettier-plugin-astro`                   | Code formatting                                   |
 | `@astrojs/check`                                       | Astro-specific type checking                      |
 
+### Version Constraints (do not "fix" without reading this)
+
+- **`prettier-plugin-astro` stays on 0.14.x.** 1.x formats `.astro` files with JSX whitespace semantics (e.g. `·⏎{expr}` -> `·{expr}`), which drops visible spaces because this project uses `compressHTML: true`. Only upgrade together with a move to `compressHTML: 'jsx'` and a full review of rendered text.
+- **`typescript` stays on 5.x** until `@astrojs/check` supports TS 7 (its peer range is `^5 || ^6`).
+- **ESLint 10** is required by `eslint-plugin-astro` 3; its recommended config includes `no-useless-assignment` (declare `let x: T;` instead of a dead initial value).
+- **`@mediapipe/tasks-vision`:** `FaceAnonymizerTool.astro` loads the WASM files from a jsDelivr URL pinned to the installed version (`.../tasks-vision@0.10.35/wasm`). Update that URL whenever the package version changes.
+
 ## Commands
 
 ```bash
-npm run dev          # Dev server at localhost:4321
-npm run build        # Production build to ./dist/
-npm run preview      # Preview production build
-npm run check        # Astro type checking
-npm run lint         # ESLint
-npm run lint:fix     # ESLint with auto-fix
-npm run format       # Prettier -- format all files
-npm run format:check # Prettier -- check formatting
+nvm use               # Switch to the Node version in .nvmrc (24 LTS)
+pnpm install          # Install dependencies (pnpm version pinned via packageManager / Corepack)
+pnpm run dev          # Dev server at localhost:4321
+pnpm run build        # Production build to ./dist/
+pnpm run preview      # Preview production build
+pnpm run check        # Astro type checking
+pnpm run lint         # ESLint
+pnpm run lint:fix     # ESLint with auto-fix
+pnpm run format       # Prettier -- format all files
+pnpm run format:check # Prettier -- check formatting
 ```
+
+There is no test suite. Validate changes with `check`, `lint`, `format:check` and `build`. Do not use `npm install` (it would create a `package-lock.json`); build scripts allowed for native deps (`esbuild`, `sharp`) are declared in `pnpm-workspace.yaml` under `allowBuilds`.
 
 ## Project Structure
 
@@ -82,12 +99,17 @@ edc_landingpage_v3/
 │   │   # Blog:           LatestPosts, BlogPostCard, BlogTagFilter,
 │   │   #                 BlogSearchInput, BlogPagination, RSVPReader
 │   │   # Dev-tools:      ToolCategoryCard + one *Tool.astro per tool
-│   │   #                 (Base64Tool, JsonYamlTool, JwtDecoderTool,
-│   │   #                  QrBarcodeTool, UrlEncoderTool)
+│   │   #                 (Base64Tool, UrlEncoderTool, JwtDecoderTool,
+│   │   #                  QrBarcodeTool, JsonYamlTool, EpochDateTool,
+│   │   #                  HexRgbTool, SqlFormatterTool, GoogleDorksTool,
+│   │   #                  UuidGeneratorTool, PasswordGeneratorTool,
+│   │   #                  LoremIpsumTool, DiffTool, WordCounterTool,
+│   │   #                  FaceAnonymizerTool, TokenCounterTool)
 │   ├── content/                # Content collections (Astro Content Layer)
 │   │   └── blog/               # Markdown posts (.md)
 │   ├── content.config.ts       # Zod schema for the `blog` collection
 │   ├── data/                   # Typed static data
+│   │   ├── passwordWords.ts    # Word list for passphrase mode (password tool)
 │   │   ├── projects.ts         # Portfolio projects (with i18n descriptionKey)
 │   │   ├── skills.ts           # Skills and technologies by category
 │   │   ├── techIcons.ts        # Technology name to SVG path mapping
@@ -108,18 +130,24 @@ edc_landingpage_v3/
 │   │   ├── blog/               # /blog/ index + /blog/{slug}/ (Spanish)
 │   │   ├── projects/           # /projects/ portfolio listing (Spanish)
 │   │   ├── dev-tools/          # /dev-tools/ hub + one route per tool:
-│   │   │                       #   base64/, json-yaml/, jwt/, qr-barcode/, url-encoder/
+│   │   │                       #   base64/, url-encoder/, jwt/, qr-barcode/,
+│   │   │                       #   json-yaml/, epoch-date/, hex-rgb/, sql-formatter/,
+│   │   │                       #   google-dorks/, uuid/, password/, lorem-ipsum/,
+│   │   │                       #   diff/, word-counter/, face-anonymizer/, token-counter/
 │   │   └── en/                 # English mirror of all of the above (prefixed /en/)
 │   ├── styles/
 │   │   └── global.css          # Global styles: @theme tokens, dark mode, animations, reduced-motion
 │   └── utils/
 │       └── readingTime.ts      # Reading time calculation (~200 words/min)
-├── astro.config.mjs            # Astro config: site, i18n, sitemap, Tailwind Vite plugin
+├── astro.config.mjs            # Astro config: site, compressHTML, i18n, sitemap, Tailwind Vite plugin
 ├── tsconfig.json               # TypeScript strict config (extends astro/tsconfigs/strict)
 ├── eslint.config.js            # ESLint flat config: TS + Astro + Prettier
 ├── .prettierrc                 # Prettier configuration
 ├── .prettierignore             # Files ignored by Prettier
-├── .nvmrc                      # Node.js version
+├── .nvmrc                      # Node.js version (24 LTS)
+├── package.json                # Scripts, deps, packageManager (pnpm) and engines.node
+├── pnpm-lock.yaml              # Lockfile (the only one; ignored by Prettier)
+├── pnpm-workspace.yaml         # pnpm settings: allowBuilds for esbuild and sharp
 ├── vercel.json                 # Cache headers for Vercel (assets immutable, images 24h)
 ├── CHANGELOG.md                # Project changelog
 └── TODO.md                     # Prioritized list of pending improvements
@@ -130,6 +158,10 @@ edc_landingpage_v3/
 ### Static Site Generation (SSG)
 
 The site is generated entirely at build time. There is no server or runtime API. All pages are static HTML with minimal JavaScript for client-side interactivity (theme toggle, drawer, filters, animations).
+
+### HTML Whitespace (`compressHTML`)
+
+`astro.config.mjs` sets `compressHTML: true` on purpose. Astro 7's default (`'jsx'`) strips whitespace between inline elements and merged visible text (e.g. `AM · 3` -> `AM·3`, nav links). Keep it unless you migrate templates to explicit `{' '}` spacing and verify the rendered text.
 
 ### Component Architecture
 
@@ -149,7 +181,7 @@ The site is generated entirely at build time. There is no server or runtime API.
 ### Content Management (Blog)
 
 - **Astro Content Layer:** Posts are Markdown files in `src/content/blog/`.
-- **Schema (Zod):** Defined in `src/content.config.ts` with fields: `title`, `description`, `date`, `updatedDate?`, `tags[]`, `draft`.
+- **Schema (Zod 4):** Defined in `src/content.config.ts` (import `z` from `astro/zod`, not `astro:content`) with fields: `title`, `description`, `date`, `updatedDate?`, `tags[]`, `draft`.
 - **Draft filtering:** Posts with `draft: true` are excluded in `getStaticPaths()`.
 - **Dynamic routes:** `[...slug].astro` generates one route per post.
 - **Search index:** `src/pages/api/search-index.json.ts` emits a static JSON (`/api/search-index.json`) consumed by `BlogSearchInput` for client-side search. When adding fields to the blog schema that the search needs, also extend the index payload.
@@ -159,7 +191,8 @@ The site is generated entirely at build time. There is no server or runtime API.
 - **Location:** `src/pages/dev-tools/` (hub + one folder per tool) mirrored in `src/pages/en/dev-tools/`.
 - **Metadata:** `src/data/toolCategories.ts` drives the hub cards (`ToolCategoryCard`).
 - **UI:** Each tool page delegates to its own `*Tool.astro` in `src/components/`.
-- **Client-side only:** The logic (base64, JSON/YAML, JWT, QR/barcode, URL encoding) runs in vanilla `<script>` blocks inside each `*Tool.astro`. Heavy dependencies (`js-yaml`, `jsbarcode`, `qrcode`) are imported from those scripts and bundled by Astro/Vite; do not import them from the `---` frontmatter unless the code must run at build time.
+- **Hub categories:** encoders, converters, formatters, generators, text utils and AI. Tools without an `href` in `toolCategories.ts` are planned but not built yet; they render as non-link pills.
+- **Client-side only:** All tool logic runs in vanilla `<script>` blocks inside each `*Tool.astro`. Heavy dependencies (`js-yaml`, `jsbarcode`, `qrcode`, `sql-formatter`, `highlight.js`, `gpt-tokenizer`, `@mediapipe/tasks-vision`) are imported from those scripts (`gpt-tokenizer` encodings are loaded with dynamic `import()`) and bundled by Astro/Vite; do not import them from the `---` frontmatter unless the code must run at build time.
 
 ### Styling Strategy
 
@@ -181,7 +214,7 @@ The site is generated entirely at build time. There is no server or runtime API.
 
 ### Performance
 
-- Images optimized with Astro's `<Image>` component (AVIF/WebP format, multiple widths).
+- Images optimized with `astro:assets` + `sharp` at build time. `ProjectCard` uses `<Picture formats={['avif']} fallbackFormat="webp">` with multiple widths (`fallbackFormat` only exists on `<Picture>`, not `<Image>`).
 - Font subsetting (latin + latin-ext).
 - Cache headers configured in `vercel.json` (assets immutable 1 year, images 24h + stale-while-revalidate).
 - Anti-FOUC inline script for theme.
