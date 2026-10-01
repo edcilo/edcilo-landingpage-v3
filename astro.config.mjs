@@ -5,6 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
 	site: 'https://edcilo.com',
+	// Astro 7 defaults to 'jsx', which strips whitespace between inline elements.
+	compressHTML: true,
 	i18n: {
 		defaultLocale: 'es',
 		locales: ['es', 'en'],
